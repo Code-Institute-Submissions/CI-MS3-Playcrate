@@ -1,5 +1,7 @@
-{% extends 'base.html' %}
-
-{% block title %}Home{% endblock %}
-
-{% block content %}<p>This is the Home page</p>{% endblock %}
+{% extends 'base.html' %} 
+{% block title %}Home{% endblock %} 
+{% block content %}
+    {% for game in games %} 
+        <h2>{{game.title}}</h2>
+    {% endfor %} 
+ {% endblock %}
