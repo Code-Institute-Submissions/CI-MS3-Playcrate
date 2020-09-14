@@ -9,6 +9,7 @@ import datetime
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY')
 
+
 class GameData:
     def __init__(self, title, release_date, developer, publisher, genre, game_description, trailer, wikipedia, front_cover, back_cover):
         self.title = title
@@ -21,6 +22,7 @@ class GameData:
         self.wikipedia = wikipedia
         self.front_cover = front_cover
         self.back_cover = back_cover
+
 
 class GameDataForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
@@ -50,11 +52,53 @@ def add_game():
     return render_template('add-game.html', form=form)
 
 
+@app.route("/add-game-data/", methods=('GET', 'POST'))
+def add_game_data():
+    form = GameDataForm()
+    if form.validate_on_submit():
+        
+        title = form.title.data
+        release_date = datetime.datetime.combine(
+            form.release_date.data, datetime.time.min)
+        developer = form.developer.data
+        publisher = form.publisher.data
+        genre = form.genre.data
+        game_description = form.game_description.data
+        trailer = form.trailer.data
+        wikipedia = form.wikipedia.data
+        front_cover = form.front_cover.data
+        back_cover = form.back_cover.data
+
+        game_data = {'title':title,
+                    'release_date':release_date,
+                    'developer':developer,
+                    'publisher':publisher,
+                    'genre':genre,
+                    'game_description':game_description,
+                    'trailer':trailer,
+                    'wikipedia':wikipedia,
+                    'front_cover':front_cover,
+                    'back_cover':back_cover}
+
+        db.games.insert_one(game_data)
+        return redirect("/")
+
+
 @app.route("/update-game-data/", methods=('GET', 'POST'))
 def update_game_data():
     form = GameDataForm()
     if form.validate_on_submit():
+        # db.games.find_one_and_update({'title': form.title.data},
+        #                               {"$set": {
+        #                                   'title': form.title.data,
+        #                                   'release_date': datetime.datetime.combine(
+        #                                       form.release_date.data, datetime.time.min),
+        #                                   'game_description': form.game_description.data,
+        #                                   'front_cover': form.front_cover.data,
+        #                                   'back_cover': form.back_cover.data,
+        #                               }})
         return redirect("/")
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

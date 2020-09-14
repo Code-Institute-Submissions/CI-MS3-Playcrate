@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Add Game{% endblock %}
 {% block content %}
-<form method="POST" action="/update-game-data">
+<form method="POST" action="/add-game-data/">
     <div class="col-8 offset-2">
         <div class="row">
             {{ form.csrf_token }}
