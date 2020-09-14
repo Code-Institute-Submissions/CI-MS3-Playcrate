@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import StringField , SelectMultipleField
+from wtforms import StringField , SelectMultipleField, TextAreaField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, URL
 import os
@@ -15,7 +15,7 @@ class GameDataForm(FlaskForm):
     developer = StringField('Developer', validators=[DataRequired()])
     publisher = StringField('Publisher', validators=[DataRequired()])
     genre = SelectMultipleField(u'Genre', choices=[('action', 'Action'), ('adventure', 'Adventure'), ('rpg', 'Role Playing Game')])
-    game_description = StringField(
+    game_description = TextAreaField(
         'Game Description', validators=[DataRequired()])
     trailer = StringField('Trailer', validators=[URL()])
     wikipedia = StringField('Wikipedia', validators=[URL()])
