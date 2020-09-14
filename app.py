@@ -7,6 +7,7 @@ import os
 import db
 import datetime
 app = Flask(__name__)
+app.secret_key = os.environ.get('SECRET_KEY')
 
 class GameDataForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
@@ -24,6 +25,11 @@ class GameDataForm(FlaskForm):
 @app.route("/")
 def home():
     return render_template('home.html', games=db.games.find())
+
+@app.route("/add-game/")
+def add_game():
+    form = GameDataForm()
+    return render_template('add-game.html', form=form)
 
 
 if __name__ == '__main__':
