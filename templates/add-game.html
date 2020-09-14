@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block title %}Add Game{% endblock %}
 {% block content %}
-<form method="POST" action="/update-game">
+<form method="POST" action="/update-game-data">
     <div class="col-8 offset-2">
         <div class="row">
             {{ form.csrf_token }}
             {{ form.title.label(class="label label-default") }} {{ form.title(class="form-control") }}
             {{ form.release_date.label(class="label label-default") }} {{ form.release_date(class="form-control") }}
-            {{ form.developer.label(class="label label-default") }} {{ form.developer(class="form-control") }}
-            {{ form.publisher.label(class="label label-default") }} {{ form.publisher(class="form-control") }}
+            {{ form.developer.label(class="label label-default") }} {{ form.developer(class="form-control select2Js") }}
+            {{ form.publisher.label(class="label label-default") }} {{ form.publisher(class="form-control select2Js") }}
             {{ form.genre.label(class="label label-default") }} {{ form.genre(class="form-control select2Js") }}
             {{ form.game_description.label(class="label label-default") }}
             {{ form.game_description(class="form-control") }}
@@ -24,7 +24,6 @@
         </div>
     </div>
 </form>
-
 {% endblock %}
 
 {% block javascript %}
