@@ -9,11 +9,13 @@
             {{ form.release_date.label(class="label label-default") }} {{ form.release_date(class="form-control") }}
             {{ form.developer.label(class="label label-default") }} {{ form.developer(class="form-control") }}
             {{ form.publisher.label(class="label label-default") }} {{ form.publisher(class="form-control") }}
-            {{ form.genre.label(class="label label-default") }} {{ form.genre(class="selectpicker") }}
-            {{ form.game_description.label(class="label label-default") }} {{ form.game_description(class="form-control") }}
+            {{ form.genre.label(class="label label-default") }} {{ form.genre(class="form-control select2Js") }}
+            {{ form.game_description.label(class="label label-default") }}
+            {{ form.game_description(class="form-control") }}
             {{ form.trailer.label(class="label label-default") }}
             {{ form.trailer(placeholder = "url for front video trailer",class="form-control") }}
-            {{ form.wikipedia.label(class="label label-default") }} {{ form.wikipedia(placeholder = "url for wikipedia page",class="form-control") }}
+            {{ form.wikipedia.label(class="label label-default") }}
+            {{ form.wikipedia(placeholder = "url for wikipedia page",class="form-control") }}
             {{ form.front_cover.label(class="label label-default") }}
             {{ form.front_cover(placeholder = "url for front cover image",class="form-control") }}
             {{ form.back_cover.label(class="label label-default") }}
@@ -22,4 +24,15 @@
         </div>
     </div>
 </form>
+
+{% endblock %}
+
+{% block javascript %}
+<script>
+    $(document).ready(function () {
+        $(".select2Js").select2({
+            tags: true
+        });
+    })
+</script>
 {% endblock %}

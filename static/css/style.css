@@ -1,0 +1,3 @@
+.bootstrap-select:not(.input-group-btn){
+    display: contents;
+}
