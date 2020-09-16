@@ -152,7 +152,9 @@ def view_game(game_name):
     for game in db.games.find():
         if game["title"] == game_name:
             game_to_view = game
-
+    # Convert Youtube url to an embed
+    trailer_url = game_to_view['trailer']
+    game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/")
     return render_template('view-game.html', game=game_to_view)
 
 
@@ -196,22 +198,8 @@ def update_form_choices(form):
         for genre in db.genres.find():
             form.genre.choices.append((genre['name'], genre['name']))
 
-@app.route("/update-game-data/", methods=('GET', 'POST'))
-def update_game_data():
-    form = GameDataForm()
-    if form.validate_on_submit():
-        # db.games.find_one_and_update({'title': form.title.data},
-        #                               {"$set": {
-        #                                   'title': form.title.data,
-        #                                   'release_date': datetime.datetime.combine(
-        #                                       form.release_date.data, datetime.time.min),
-        #                                   'game_description': form.game_description.data,
-        #                                   'front_cover': form.front_cover.data,
-        #                                   'back_cover': form.back_cover.data,
-        #                               }})
-        return redirect("/")
 
-
+# https://stackoverflow.com/questions/3462143/get-difference-between-two-lists
 def difference_between_string_lists(list_01, list_02):
     return list(set(list_01) - set(list_02))
 
