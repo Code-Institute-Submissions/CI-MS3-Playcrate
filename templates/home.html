@@ -25,7 +25,7 @@
         callback();
         return setInterval(callback, seconds * 1000);
     }
-    updateUiWithCurrentlySelectedGame = function(){
+    updateUiWithCurrentlySelectedGame = function () {
         document.getElementById("game_title").innerText = document.getElementsByClassName(
             "swiper-slide-active")[0].getAttribute("data-title");
         document.getElementById("game_release_date").innerText = document.getElementsByClassName(
@@ -33,6 +33,28 @@
         document.getElementById("view-game").setAttribute("href", "games/" + document.getElementsByClassName(
             "swiper-slide-active")[0].getAttribute("data-title"));
     }
-    startInterval(0.5, updateUiWithCurrentlySelectedGame)
+    startInterval(0.5, updateUiWithCurrentlySelectedGame);
+
+    $('body').click(function (e) {
+        console.log(e.target.classList);
+    });
+
+    $(document).on('click tap', '.swiper-container', function () {
+
+        if ($(".swiper-slide-active").hasClass("flipped")) {
+            $(".swiper-slide-active").css("transform", "rotateY(0deg)")
+        }
+        $(".swiper-slide-active").removeClass("flipped");
+        $(".swiper-slide-prev").removeClass("flipped");
+        $(".swiper-slide-next").removeClass("flipped");
+    });
+    $(document).on('click tap', '.swiper-slide-active', function () {
+        console.log("Clicked on active slide")
+        $(".swiper-slide-active").css("transform", "rotateY(180deg)")
+
+        setTimeout(() => {
+            $(".swiper-slide-active").toggleClass('flipped');
+        }, 500);
+    });
 </script>
 {% endblock %}
