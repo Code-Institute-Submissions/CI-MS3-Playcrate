@@ -1,13 +1,38 @@
-{% extends 'base.html' %} 
-{% block title %}Home{% endblock %} 
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
 {% block content %}
 <div class="swiper-container">
     <div class="swiper-wrapper">
         {% for game in games %}
-        <div class="swiper-slide" style="background-image:url({{game.front_cover}})" id="{{game._id}}" data-title="{{game.title}}" data-release-date="{{game.release_date}}">
+        <div class="swiper-slide" style="background-image:url({{game.front_cover}})" id="{{game._id}}"
+            data-title="{{game.title}}" data-release-date="{{game.release_date.strftime('%d-%B-%Y')}}">
             <div class="back-cover" style="background-image:url({{game.back_cover}})"></div>
         </div>
         {% endfor %}
     </div>
 </div>
- {% endblock %}
+<div class="row">
+    <div class="col-4 offset-4">
+        <h2 id="game_title" class="text-center"></h2>
+        <h2 id="game_release_date" class="text-center"></h2>
+        <a class="btn btn-primary text-center col-8 offset-2" id="view-game" href="">View Game</a>
+    </div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script>
+    function startInterval(seconds, callback) {
+        callback();
+        return setInterval(callback, seconds * 1000);
+    }
+    updateUiWithCurrentlySelectedGame = function(){
+        document.getElementById("game_title").innerText = document.getElementsByClassName(
+            "swiper-slide-active")[0].getAttribute("data-title");
+        document.getElementById("game_release_date").innerText = document.getElementsByClassName(
+            "swiper-slide-active")[0].getAttribute("data-release-date");
+        document.getElementById("view-game").setAttribute("href", "games/" + document.getElementsByClassName(
+            "swiper-slide-active")[0].getAttribute("data-title"));
+    }
+    startInterval(0.5, updateUiWithCurrentlySelectedGame)
+</script>
+{% endblock %}

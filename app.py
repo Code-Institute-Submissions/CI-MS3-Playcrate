@@ -49,13 +49,7 @@ def add_game():
     form = GameDataForm()
     if request.method == 'GET':
         # Update form with developer,publisher and genre choices from DB
-        for developer in db.developers.find():
-            form.developer.choices.append(
-                (developer['name'], developer['name']))
-        for publisher in db.publishers.find():
-            form.publisher.choices.append((publisher['name'], publisher['name']))
-        for genre in db.genres.find():
-            form.genre.choices.append((genre['name'], genre['name']))
+        update_form_choices(form)
     return render_template('add-game.html', form=form)
 
 
@@ -140,10 +134,51 @@ def add_game_data():
     return redirect("/")
 
 
-def difference_between_string_lists(list_01, list_02):
-    return list(set(list_01) - set(list_02))
+@app.route('/games/<game_name>')
+def view_game(game_name):
+    game_to_view = {}
+    for game in db.games.find():
+        if game["title"] == game_name:
+            game_to_view = game
+
+    return render_template('view-game.html', game=game_to_view)
 
 
+@app.route('/edit-game/<game_title>')
+def edit_game(game_title):
+    form_data = {}
+    for game in db.games.find():
+        if game["title"] == game_title:
+            form_data = game
+
+    game_data = GameData(
+        title=form_data['title'],
+        release_date=form_data['release_date'],
+        developer=form_data['developer'],
+        publisher=form_data['publisher'],
+        genre=form_data['genre'],
+        game_description=form_data['game_description'],
+        trailer=form_data['trailer'],
+        wikipedia=form_data['wikipedia'],
+        front_cover=form_data['front_cover'],
+        back_cover=form_data['back_cover'],
+    )
+
+    form = GameDataForm(obj=game_data)
+    update_form_choices(form)
+    return render_template("add-game.html", form=form)
+
+
+def update_form_choices(form):
+        for developer in db.developers.find():
+            form.developer.choices.append(
+                (developer['name'], developer['name']))
+        for publisher in db.publishers.find():
+            form.publisher.choices.append(
+                (publisher['name'], publisher['name']))
+        for genre in db.genres.find():
+            form.genre.choices.append((genre['name'], genre['name']))
+    
 @app.route("/update-game-data/", methods=('GET', 'POST'))
 def update_game_data():
     form = GameDataForm()
@@ -158,6 +193,10 @@ def update_game_data():
         #                                   'back_cover': form.back_cover.data,
         #                               }})
         return redirect("/")
+
+
+def difference_between_string_lists(list_01, list_02):
+    return list(set(list_01) - set(list_02))
 
 
 if __name__ == '__main__':
