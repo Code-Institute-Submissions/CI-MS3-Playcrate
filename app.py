@@ -13,7 +13,7 @@ app.secret_key = os.environ.get('SECRET_KEY')
 
 
 class GameData:
-    def __init__(self, doc_id, title, release_date, developer, publisher, genre, game_description, trailer, wikipedia, front_cover, back_cover,data_exists_in_db):
+    def __init__(self, doc_id, title, release_date, developer, publisher, genre, game_description, trailer, wikipedia, front_cover, back_cover, data_exists_in_db):
         self.doc_id = doc_id
         self.title = title
         self.release_date = release_date
@@ -50,16 +50,34 @@ def home():
     return render_template('home.html', games=db.games.find())
 
 
-@ app.route("/add-game/")
+@ app.route("/add-game/", methods=('GET', 'POST'))
 def add_game():
     form = GameDataForm()
     if request.method == 'GET':
         # Update form with developer,publisher and genre choices from DB
         update_form_choices(form)
-    return render_template('add-game.html', form=form)
+        return render_template('add-game.html', form=form)
+    else:
+        update_form_choices(form)
+        if form.data_exists_in_db.data == True:
+            print("Editing Existing Data")
+            add_game_data(form)
+            return redirect("/")
+        else:
+            title_exists_in_db = False
+            for game in db.games.find():
+                if form.title.data == game['title']:
+                    print("Game Already Exists In DB")
+                    title_exists_in_db = True
 
-@ app.route("/add-game-data/", methods=('GET', 'POST'))
-def add_game_data():
+            if(title_exists_in_db == False):
+                add_game_data(form)
+                return redirect("/")
+            else:
+                return render_template('add-game.html', form=form , title_already_exists=title_exists_in_db)
+
+
+def add_game_data(form):
     form = GameDataForm()
 
     if request.method == 'POST':
@@ -108,6 +126,7 @@ def add_game_data():
             genre_doc = {'name': new_genre}
             db.genres.insert_one(genre_doc)
         form.genre.choices.append(new_genres)
+
         if form.validate:
             doc_id = form.doc_id.data
             title = form.title.data
@@ -135,15 +154,12 @@ def add_game_data():
             # Check if the submitted form is data edited from an existing game in the DB if it is then update the
             # data for that game if not then add the new game to the DB
             if form.data_exists_in_db.data == True:
-                    print("Updating Existing Data")
-                    query = {"_id" : ObjectId(doc_id) }
-                    db.games.replace_one(query, game_data)
+                print("Updating Existing Data")
+                query = {"_id": ObjectId(doc_id)}
+                db.games.replace_one(query, game_data)
             else:
                 print("Adding New Data")
                 db.games.insert_one(game_data)
-            
-            return redirect("/")
-    return redirect("/")
 
 
 @ app.route('/games/<game_name>')
@@ -170,13 +186,13 @@ def edit_game(game_title):
         release_date=game_data_in_db['release_date'],
         developer=game_data_in_db['developer'],
         publisher=game_data_in_db['publisher'],
-        genre = game_data_in_db['genre'],
+        genre=game_data_in_db['genre'],
         game_description=game_data_in_db['game_description'],
         trailer=game_data_in_db['trailer'],
         wikipedia=game_data_in_db['wikipedia'],
         front_cover=game_data_in_db['front_cover'],
         back_cover=game_data_in_db['back_cover'],
-        data_exists_in_db = True
+        data_exists_in_db=True
     )
     form = GameDataForm(obj=game_data)
     update_form_choices(form)
@@ -188,15 +204,16 @@ def delete_game(game_id):
     db.games.remove({'_id': ObjectId(game_id)})
     return redirect('/')
 
+
 def update_form_choices(form):
-        for developer in db.developers.find():
-            form.developer.choices.append(
-                (developer['name'], developer['name']))
-        for publisher in db.publishers.find():
-            form.publisher.choices.append(
-                (publisher['name'], publisher['name']))
-        for genre in db.genres.find():
-            form.genre.choices.append((genre['name'], genre['name']))
+    for developer in db.developers.find():
+        form.developer.choices.append(
+            (developer['name'], developer['name']))
+    for publisher in db.publishers.find():
+        form.publisher.choices.append(
+            (publisher['name'], publisher['name']))
+    for genre in db.genres.find():
+        form.genre.choices.append((genre['name'], genre['name']))
 
 
 # https://stackoverflow.com/questions/3462143/get-difference-between-two-lists

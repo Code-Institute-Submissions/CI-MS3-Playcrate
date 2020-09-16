@@ -2,23 +2,25 @@
 {% block title %}{{game.title}}{% endblock %}
 {% block content %}
 <div class="swiper-slide" style="background-image:url({{game.front_cover}})"></div>
-<h1>{{game.genre[1]}}</h1>
+{% for genre in game.genre %}
+    <h1>{{genre}}</h1>
+{% endfor %}
 <iframe width="420" height="315"
 src={{game.trailer}}>
 </iframe>
 <a class="btn btn-primary text-center col-8 offset-2" id="edit-game"
     href="{{url_for('edit_game', game_title=game.title)}}">Edit Game</a>
 <button type="button" class="btn btn-primary text-center col-8 offset-2" data-toggle="modal"
-    data-target="#exampleModal">
+    data-target="#delete-modal">
     Delete Game
 </button>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete Game From The Database</h5>
+                <h5 class="modal-title" id="delete-modal-label">Delete Game From The Database</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

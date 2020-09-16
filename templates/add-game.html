@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}Add Game{% endblock %}
 {% block content %}
-<form method="POST" action="/add-game-data/">
+<form method="POST" action="/add-game/">
     <div class="col-8 offset-2">
         <div class="row">
             {{ form.csrf_token }}
             {{ form.doc_id(class="hidden") }}
-             {{ form.data_exists_in_db(class="hidden") }}
-            {{ form.title.label(class="label label-default") }} {{ form.title(class="form-control") }}
+            {{ form.data_exists_in_db(class="hidden") }}
+             
+            {% if title_already_exists %}
+                <h3 class="red">A Title With This Name Already Exists In The Database</h3>
+                {{ form.title.label(class="label label-default") }} {{ form.title(class="form-control red") }}
+            {% else %}
+                {{ form.title.label(class="label red label-default") }} {{ form.title(class="form-control") }}
+            {% endif %}
+            
             {{ form.release_date.label(class="label label-default") }} {{ form.release_date(class="form-control") }}
             {{ form.developer.label(class="label label-default") }} {{ form.developer(class="form-control select2Js") }}
             {{ form.publisher.label(class="label label-default") }} {{ form.publisher(class="form-control select2Js") }}
