@@ -5,6 +5,8 @@
     <div class="col-8 offset-2">
         <div class="row">
             {{ form.csrf_token }}
+            {{ form.doc_id(class="hidden") }}
+             {{ form.data_exists_in_db(class="hidden") }}
             {{ form.title.label(class="label label-default") }} {{ form.title(class="form-control") }}
             {{ form.release_date.label(class="label label-default") }} {{ form.release_date(class="form-control") }}
             {{ form.developer.label(class="label label-default") }} {{ form.developer(class="form-control select2Js") }}

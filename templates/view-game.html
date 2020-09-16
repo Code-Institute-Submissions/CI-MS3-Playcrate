@@ -4,4 +4,5 @@
 <div class="swiper-slide" style="background-image:url({{game.front_cover}})"></div>
 <h1>{{game.genre[1]}}</h1>
 <a class="btn btn-primary text-center col-8 offset-2" id="edit-game" href="{{url_for('edit_game', game_title=game.title)}}">Edit Game</a>
+<a class="btn btn-primary text-center col-8 offset-2" id="delete-game" href="{{url_for('delete_game', game_id=game._id)}}">Delete Game</a>
 {% endblock %}
