@@ -4,10 +4,12 @@
 <div class="swiper-container">
     <div class="swiper-wrapper">
         {% for game in games %}
-        <div class="swiper-slide" style="background-image:url({{game.front_cover}})" id="{{game._id}}"
-            data-title="{{game.title}}" data-release-date="{{game.release_date.strftime('%d-%B-%Y')}}">
+        <div class="swiper-slide" id="{{game._id}}" data-title="{{game.title}}"
+            data-release-date="{{game.release_date.strftime('%d-%B-%Y')}}" data-isFlipped=false>
+            <div class="front-cover" style="background-image:url({{game.front_cover}})"></div>
             <div class="back-cover" style="background-image:url({{game.back_cover}})"></div>
         </div>
+
         {% endfor %}
     </div>
 </div>
@@ -39,22 +41,45 @@
         console.log(e.target.classList);
     });
 
-    $(document).on('click tap', '.swiper-container', function () {
+    // $(document).on('click tap', '.swiper-container', function () {
+    //     if ($(".swiper-slide-active").hasClass("flipped")) {
+    //         $(".swiper-slide-active").removeClass("flipped");
+    //         $(".swiper-slide-prev").removeClass("flipped");
+    //         $(".swiper-slide-next").removeClass("flipped");
+    //     }
 
-        if ($(".swiper-slide-active").hasClass("flipped")) {
-            $(".swiper-slide-active").css("transform", "rotateY(0deg)")
-        }
-        $(".swiper-slide-active").removeClass("flipped");
-        $(".swiper-slide-prev").removeClass("flipped");
-        $(".swiper-slide-next").removeClass("flipped");
-    });
-    $(document).on('click tap', '.swiper-slide-active', function () {
-        console.log("Clicked on active slide")
-        $(".swiper-slide-active").css("transform", "rotateY(180deg)")
+    // });
+    // $(document).on('click tap', '.back-cover', function () {
+    //     console.log("Clicked on back cover")
+    //     $(".swiper-slide-active").css("transform", "rotateY(0deg)")
+    //     $(this).css("pointer-events", "none")
+    //     $(".front-cover").css("pointer-events", "all")
+    //     // $(".swiper-slide-active").css("transform", "rotateY(180deg)")
+    //     // $(".swiper-slide-active").css("transition", "all 500ms ease 0s")
+    //     // setTimeout(() => {
+    //     //     $(".swiper-slide-active").toggleClass('flipped');
+    //     // }, 500);
+    //     // $(".swiper-slide-active").toggleClass('flipped')
+    // });
 
-        setTimeout(() => {
-            $(".swiper-slide-active").toggleClass('flipped');
-        }, 500);
-    });
+    // $(document).on('click tap', '.front-cover', function () {
+    //     console.log("Clicked on front cover")
+    //     $(".swiper-slide-active").css("transform", "rotateY(180deg)")
+    //     $(this).css("pointer-events", "none")
+    //     $(".back-cover").css("pointer-events", "all")
+    //     // $(".swiper-slide-active").css("transform", "rotateY(180deg)")
+    //     // $(".swiper-slide-active").css("transition", "all 500ms ease 0s")
+    //     // setTimeout(() => {
+    //     //     $(".swiper-slide-active").toggleClass('flipped');
+    //     // }, 500);
+    //     // $(".swiper-slide-active").toggleClass('flipped')
+    // });
+
+
+
+    // var mySwiper = new Swiper('.swiper-container', {}); 
+    // mySwiper.on('slideChange', function () {
+    //             console.log('slide changed');
+    //         });
 </script>
 {% endblock %}
