@@ -170,7 +170,8 @@ def view_game(game_name):
             game_to_view = game
     # Convert Youtube url to an embed
     trailer_url = game_to_view['trailer']
-    game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/")
+    game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/") # &modestbranding=1&autohide=1&showinfo=0&controls=0
+    game_to_view['trailer'] += "?rel=0"
     return render_template('view-game.html', game=game_to_view)
 
 

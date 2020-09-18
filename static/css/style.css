@@ -1,3 +1,33 @@
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Play:wght@400;700&display=swap');
+
+
+.game-title{
+  font-family: 'Play', sans-serif;
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.release-date{
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+}
+
+.category-title{
+  font-family: 'Play', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.category-info{
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+}
+
+.game-description{
+  white-space: pre-wrap;
+}
+
 .bootstrap-select:not(.input-group-btn){
     display: contents;
 }
@@ -53,7 +83,7 @@ body {
     height: 300px;
     border-radius: 15px;
     border-style: solid;
-    border-color: rgba(255, 0, 0, 0.3);
+    border-color: rgb(181, 182, 187);
     border-width: 10px;
     background-repeat: no-repeat;
     /* backface-visibility: hidden; */
@@ -83,4 +113,10 @@ body {
 
   .swiper-slide-active{
     pointer-events: all;
+  }
+
+  .youtube-embed{
+    border: solid .5rem rgb(181, 182, 187);
+    margin-top: 5rem;
+    margin-bottom: 5rem;
   }

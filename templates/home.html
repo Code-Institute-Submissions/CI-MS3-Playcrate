@@ -5,81 +5,18 @@
     <div class="swiper-wrapper">
         {% for game in games %}
         <div class="swiper-slide" id="{{game._id}}" data-title="{{game.title}}"
-            data-release-date="{{game.release_date.strftime('%d-%B-%Y')}}" data-isFlipped=false>
+            data-release-date="{{game.release_date.strftime('%d %B %Y')}}" data-isFlipped=false>
             <div class="front-cover" style="background-image:url({{game.front_cover}})"></div>
             <div class="back-cover" style="background-image:url({{game.back_cover}})"></div>
         </div>
-
         {% endfor %}
     </div>
 </div>
 <div class="row">
-    <div class="col-4 offset-4">
-        <h2 id="game_title" class="text-center"></h2>
-        <h2 id="game_release_date" class="text-center"></h2>
+    <div class="col">
+        <h2 id="game_title" class="text-center game-title"></h2>
+        <h2 id="game_release_date" class="text-center release-date"></h2>
         <a class="btn btn-primary text-center col-8 offset-2" id="view-game" href="">View Game</a>
     </div>
 </div>
-{% endblock %}
-{% block javascript %}
-<script>
-    function startInterval(seconds, callback) {
-        callback();
-        return setInterval(callback, seconds * 1000);
-    }
-    updateUiWithCurrentlySelectedGame = function () {
-        document.getElementById("game_title").innerText = document.getElementsByClassName(
-            "swiper-slide-active")[0].getAttribute("data-title");
-        document.getElementById("game_release_date").innerText = document.getElementsByClassName(
-            "swiper-slide-active")[0].getAttribute("data-release-date");
-        document.getElementById("view-game").setAttribute("href", "games/" + document.getElementsByClassName(
-            "swiper-slide-active")[0].getAttribute("data-title"));
-    }
-    startInterval(0.5, updateUiWithCurrentlySelectedGame);
-
-    $('body').click(function (e) {
-        console.log(e.target.classList);
-    });
-
-    // $(document).on('click tap', '.swiper-container', function () {
-    //     if ($(".swiper-slide-active").hasClass("flipped")) {
-    //         $(".swiper-slide-active").removeClass("flipped");
-    //         $(".swiper-slide-prev").removeClass("flipped");
-    //         $(".swiper-slide-next").removeClass("flipped");
-    //     }
-
-    // });
-    // $(document).on('click tap', '.back-cover', function () {
-    //     console.log("Clicked on back cover")
-    //     $(".swiper-slide-active").css("transform", "rotateY(0deg)")
-    //     $(this).css("pointer-events", "none")
-    //     $(".front-cover").css("pointer-events", "all")
-    //     // $(".swiper-slide-active").css("transform", "rotateY(180deg)")
-    //     // $(".swiper-slide-active").css("transition", "all 500ms ease 0s")
-    //     // setTimeout(() => {
-    //     //     $(".swiper-slide-active").toggleClass('flipped');
-    //     // }, 500);
-    //     // $(".swiper-slide-active").toggleClass('flipped')
-    // });
-
-    // $(document).on('click tap', '.front-cover', function () {
-    //     console.log("Clicked on front cover")
-    //     $(".swiper-slide-active").css("transform", "rotateY(180deg)")
-    //     $(this).css("pointer-events", "none")
-    //     $(".back-cover").css("pointer-events", "all")
-    //     // $(".swiper-slide-active").css("transform", "rotateY(180deg)")
-    //     // $(".swiper-slide-active").css("transition", "all 500ms ease 0s")
-    //     // setTimeout(() => {
-    //     //     $(".swiper-slide-active").toggleClass('flipped');
-    //     // }, 500);
-    //     // $(".swiper-slide-active").toggleClass('flipped')
-    // });
-
-
-
-    // var mySwiper = new Swiper('.swiper-container', {}); 
-    // mySwiper.on('slideChange', function () {
-    //             console.log('slide changed');
-    //         });
-</script>
 {% endblock %}
