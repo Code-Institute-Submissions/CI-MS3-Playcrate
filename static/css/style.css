@@ -86,7 +86,8 @@ body {
     border-color: rgb(181, 182, 187);
     border-width: 10px;
     background-repeat: no-repeat;
-    /* backface-visibility: hidden; */
+    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(35%, transparent) , to(rgba(250, 250, 250, 0.1)));
+    backface-visibility: hidden;
   }
 
   .back-cover{
@@ -107,9 +108,9 @@ body {
     pointer-events: none;
   } */
 
-  /* .swiper-container{
-    pointer-events: none;
-  } */
+  .swiper-container{
+    padding-bottom: 150px;
+  }
 
   .swiper-slide-active{
     pointer-events: all;

@@ -18,15 +18,15 @@ var swiper = new Swiper(".swiper-container", {
 updateUiWithCurrentlySelectedGame = function () {
   if ($("#game-title").length) {
     document.getElementById(
-      "game_title"
+      "game-title"
     ).innerText = document
       .getElementsByClassName("swiper-slide-active")[0]
       .getAttribute("data-title");
   }
 
-  if ($("#game_release_date").length) {
+  if ($("#game-release_date").length) {
     document.getElementById(
-      "game_release_date"
+      "game-release_date"
     ).innerText = document
       .getElementsByClassName("swiper-slide-active")[0]
       .getAttribute("data-release-date");

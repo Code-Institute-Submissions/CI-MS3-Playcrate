@@ -1,16 +1,68 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, flash
 from bson import ObjectId
 from collections import namedtuple
+from flask_mongoengine import MongoEngine
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectMultipleField, TextAreaField, BooleanField, IntegerField
+from wtforms import StringField, SelectMultipleField, TextAreaField, BooleanField, IntegerField, PasswordField, SubmitField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, URL
+from flask_user import login_required, UserManager, UserMixin
 import os
 import db
 import datetime
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY')
+# Flask-User settings
+# Shown in and email templates and page footers
+app.config['USER_APP_NAME'] = "Playcrate"
+app.config['USER_ENABLE_EMAIL'] = False      # Disable email authentication
+app.config['USER_ENABLE_USERNAME'] = True    # Enable username authentication
+app.config['USER_REQUIRE_RETYPE_PASSWORD'] = False    # Simplify register form
 
+
+app.config['MONGODB_SETTINGS'] = {
+    'db': 'playcrate',
+    'host': os.environ.get('MONGODB_URI')
+}
+
+# Setup Flask-MongoEngine
+db = MongoEngine(app)
+
+
+class Users(db.Document, UserMixin):
+    active = db.BooleanField(default=True)
+    # User authentication information
+    username = db.StringField(default='')
+    password = db.StringField()
+    # User information
+    first_name = db.StringField(default='')
+    last_name = db.StringField(default='')
+    # Relationships
+    roles = db.ListField(db.StringField(), default=[])
+
+# Setup Flask-User and specify the User data-model
+user_manager = UserManager(app, db, Users)
+
+class Games(db.Document):
+    title = db.StringField(default='')
+    release_date = db.DateField()
+    developer = db.ListField(db.StringField(), default=[])
+    publisher = db.ListField(db.StringField(), default=[])
+    genre = db.ListField(db.StringField(), default=[])
+    game_description = db.StringField(default='')
+    trailer = db.StringField(default='')
+    wikipedia = db.StringField(default='')
+    front_cover = db.StringField(default='')
+    back_cover = db.StringField(default='')
+
+class Developers(db.Document):
+    name = db.StringField(default='')
+
+class Publishers(db.Document):
+    name = db.StringField(default='')
+
+class Genres(db.Document):
+    name = db.StringField(default='')
 
 class GameData:
     def __init__(self, doc_id, title, release_date, developer, publisher, genre, game_description, trailer, wikipedia, front_cover, back_cover, data_exists_in_db):
@@ -47,7 +99,7 @@ class GameDataForm(FlaskForm):
 
 @ app.route("/")
 def home():
-    return render_template('home.html', games=db.games.find())
+    return render_template('home.html', games=Games.objects)
 
 
 @ app.route("/add-game/", methods=('GET', 'POST'))
@@ -65,7 +117,7 @@ def add_game():
             return redirect("/")
         else:
             title_exists_in_db = False
-            for game in db.games.find():
+            for game in Games.objects:
                 if form.title.data == game['title']:
                     print("Game Already Exists In DB")
                     title_exists_in_db = True
@@ -74,7 +126,7 @@ def add_game():
                 add_game_data(form)
                 return redirect("/")
             else:
-                return render_template('add-game.html', form=form , title_already_exists=title_exists_in_db)
+                return render_template('add-game.html', form=form, title_already_exists=title_exists_in_db)
 
 
 def add_game_data(form):
@@ -89,7 +141,7 @@ def add_game_data(form):
         submitted_developers = form.developer.data
         # Find all the developer names in the DB and add to a list so the can be compared to the form submitted developers
         developers_in_db = []
-        for developer in db.developers.find():
+        for developer in Developers.objects:
             developers_in_db.append(developer['name'])
         # Find the differences between the developers in the DB and the
         # submitted developers, the differences are returned, these are the new
@@ -106,7 +158,7 @@ def add_game_data(form):
         # Update Publishers
         submitted_publishers = form.publisher.data
         publishers_in_db = []
-        for publisher in db.publishers.find():
+        for publisher in Publishers.objects:
             publishers_in_db.append(publisher['name'])
         new_publishers = difference_between_string_lists(
             submitted_publishers, publishers_in_db)
@@ -118,7 +170,7 @@ def add_game_data(form):
         # Update Genres
         submitted_genres = form.genre.data
         genres_in_db = []
-        for genre in db.genres.find():
+        for genre in Genres.objects:
             genres_in_db.append(genre['name'])
         new_genres = difference_between_string_lists(
             submitted_genres, genres_in_db)
@@ -165,12 +217,13 @@ def add_game_data(form):
 @ app.route('/games/<game_name>')
 def view_game(game_name):
     game_to_view = {}
-    for game in db.games.find():
+    for game in Games.objects:
         if game["title"] == game_name:
             game_to_view = game
     # Convert Youtube url to an embed
     trailer_url = game_to_view['trailer']
-    game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/") # &modestbranding=1&autohide=1&showinfo=0&controls=0
+    # &modestbranding=1&autohide=1&showinfo=0&controls=0
+    game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/")
     game_to_view['trailer'] += "?rel=0"
     return render_template('view-game.html', game=game_to_view)
 
@@ -178,7 +231,7 @@ def view_game(game_name):
 @ app.route('/edit-game/<game_title>')
 def edit_game(game_title):
     game_data_in_db = {}
-    for game in db.games.find():
+    for game in Games.objects:
         if game["title"] == game_title:
             game_data_in_db = game
     game_data = GameData(
@@ -207,13 +260,13 @@ def delete_game(game_id):
 
 
 def update_form_choices(form):
-    for developer in db.developers.find():
+    for developer in Developers.objects:
         form.developer.choices.append(
             (developer['name'], developer['name']))
-    for publisher in db.publishers.find():
+    for publisher in Publishers.objects:
         form.publisher.choices.append(
             (publisher['name'], publisher['name']))
-    for genre in db.genres.find():
+    for genre in Genres.objects:
         form.genre.choices.append((genre['name'], genre['name']))
 
 

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Add Game{% endblock %}
+{% block content %}
+<form method="POST" action="/add-game/">
+    <div class="col-8 offset-2">
+        <div class="row">
+            {{ form.csrf_token }}
+            {{ form.name}}
+            {{ form.password}}
+            {{ form.login}}
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    $(document).ready(function () {
+        $(".select2Js").select2({
+            tags: true
+        });
+    })
+</script>
+{% endblock %}
