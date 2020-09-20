@@ -40,8 +40,10 @@ class Users(db.Document, UserMixin):
     # Relationships
     roles = db.ListField(db.StringField(), default=[])
 
+
 # Setup Flask-User and specify the User data-model
 user_manager = UserManager(app, db, Users)
+
 
 class Games(db.Document):
     title = db.StringField(default='')
@@ -54,30 +56,19 @@ class Games(db.Document):
     wikipedia = db.StringField(default='')
     front_cover = db.StringField(default='')
     back_cover = db.StringField(default='')
+    is_saved_in_db = db.BooleanField(default=False)
+
 
 class Developers(db.Document):
     name = db.StringField(default='')
 
+
 class Publishers(db.Document):
     name = db.StringField(default='')
 
+
 class Genres(db.Document):
     name = db.StringField(default='')
-
-class GameData:
-    def __init__(self, doc_id, title, release_date, developer, publisher, genre, game_description, trailer, wikipedia, front_cover, back_cover, data_exists_in_db):
-        self.doc_id = doc_id
-        self.title = title
-        self.release_date = release_date
-        self.developer = developer
-        self.publisher = publisher
-        self.genre = genre
-        self.game_description = game_description
-        self.trailer = trailer
-        self.wikipedia = wikipedia
-        self.front_cover = front_cover
-        self.back_cover = back_cover
-        self.data_exists_in_db = data_exists_in_db
 
 
 class GameDataForm(FlaskForm):
@@ -94,7 +85,7 @@ class GameDataForm(FlaskForm):
     wikipedia = StringField('Wikipedia', validators=[URL()])
     front_cover = StringField('Front Cover', validators=[URL()])
     back_cover = StringField('Back Cover', validators=[URL()])
-    data_exists_in_db = BooleanField('Existing Data', default=False)
+    is_saved_in_db = BooleanField('Existing Data', default=False)
 
 
 @ app.route("/")
@@ -111,22 +102,23 @@ def add_game():
         return render_template('add-game.html', form=form)
     else:
         update_form_choices(form)
-        if form.data_exists_in_db.data == True:
+        print(form.is_saved_in_db.data)
+        if form.is_saved_in_db.data == True:
             print("Editing Existing Data")
             add_game_data(form)
             return redirect("/")
         else:
-            title_exists_in_db = False
+            form.is_saved_in_db.data = False
             for game in Games.objects:
                 if form.title.data == game['title']:
                     print("Game Already Exists In DB")
                     title_exists_in_db = True
 
-            if(title_exists_in_db == False):
+            if(form.is_saved_in_db.data == False):
                 add_game_data(form)
                 return redirect("/")
             else:
-                return render_template('add-game.html', form=form, title_already_exists=title_exists_in_db)
+                return render_template('add-game.html', form=form, is_saved_in_db=form.is_saved_in_db.data)
 
 
 def add_game_data(form):
@@ -150,8 +142,8 @@ def add_game_data(form):
             submitted_developers, developers_in_db)
         # Create a document for the new developers and insert it into the DB.
         for new_developer in new_developers:
-            developer_doc = {'name': new_developer}
-            db.developers.insert_one(developer_doc)
+            developer_doc = Developers(name=new_developer)
+            developer_doc.save()
         # Append the form choices with the new user created developers for form validation.
         form.developer.choices.append(new_developers)
 
@@ -163,8 +155,8 @@ def add_game_data(form):
         new_publishers = difference_between_string_lists(
             submitted_publishers, publishers_in_db)
         for new_publisher in new_publishers:
-            publisher_doc = {'name': new_publisher}
-            db.publishers.insert_one(publisher_doc)
+            publisher_doc = Publishers(name=new_publisher)
+            publisher_doc.save()
         form.publisher.choices.append(new_publishers)
 
         # Update Genres
@@ -175,43 +167,46 @@ def add_game_data(form):
         new_genres = difference_between_string_lists(
             submitted_genres, genres_in_db)
         for new_genre in new_genres:
-            genre_doc = {'name': new_genre}
-            db.genres.insert_one(genre_doc)
+            genre_doc = Genres(name=new_genre)
+            genre_doc.save()
         form.genre.choices.append(new_genres)
 
         if form.validate:
-            doc_id = form.doc_id.data
-            title = form.title.data
-            release_date = datetime.datetime.combine(
-                form.release_date.data, datetime.time.min)
-            developer = form.developer.data
-            publisher = form.publisher.data
-            genre = form.genre.data
-            game_description = form.game_description.data
-            trailer = form.trailer.data
-            wikipedia = form.wikipedia.data
-            front_cover = form.front_cover.data
-            back_cover = form.back_cover.data
+            game_doc = Games(
+                title=form.title.data,
+                release_date=form.release_date.data,
+                developer=form.developer.data,
+                publisher=form.publisher.data,
+                genre=form.genre.data,
+                game_description=form.game_description.data,
+                trailer=form.trailer.data,
+                wikipedia=form.wikipedia.data,
+                front_cover=form.front_cover.data,
+                back_cover=form.back_cover.data,
+                is_saved_in_db=True
+            )
 
-            game_data = {'title': title,
-                         'release_date': release_date,
-                         'developer': developer,
-                         'publisher': publisher,
-                         'genre': genre,
-                         'game_description': game_description,
-                         'trailer': trailer,
-                         'wikipedia': wikipedia,
-                         'front_cover': front_cover,
-                         'back_cover': back_cover, }
             # Check if the submitted form is data edited from an existing game in the DB if it is then update the
             # data for that game if not then add the new game to the DB
-            if form.data_exists_in_db.data == True:
+            if form.is_saved_in_db.data == True:
                 print("Updating Existing Data")
-                query = {"_id": ObjectId(doc_id)}
-                db.games.replace_one(query, game_data)
+                _id = ''
+                
+                
+                # Games.objects(id=_id).update(title=form.title.data,
+                #                  release_date=form.release_date.data,
+                #                  developer=form.developer.data,
+                #                  publisher=form.publisher.data,
+                #                  genre=form.genre.data,
+                #                  game_description=form.game_description.data,
+                #                  trailer=form.trailer.data,
+                #                  wikipedia=form.wikipedia.data,
+                #                  front_cover=form.front_cover.data,
+                #                  back_cover=form.back_cover.data,
+                #                  is_saved_in_db=True)
             else:
                 print("Adding New Data")
-                db.games.insert_one(game_data)
+                game_doc.save()
 
 
 @ app.route('/games/<game_name>')
@@ -234,28 +229,28 @@ def edit_game(game_title):
     for game in Games.objects:
         if game["title"] == game_title:
             game_data_in_db = game
-    game_data = GameData(
-        doc_id=game_data_in_db['_id'],
-        title=game_data_in_db['title'],
-        release_date=game_data_in_db['release_date'],
-        developer=game_data_in_db['developer'],
-        publisher=game_data_in_db['publisher'],
-        genre=game_data_in_db['genre'],
-        game_description=game_data_in_db['game_description'],
-        trailer=game_data_in_db['trailer'],
-        wikipedia=game_data_in_db['wikipedia'],
-        front_cover=game_data_in_db['front_cover'],
-        back_cover=game_data_in_db['back_cover'],
-        data_exists_in_db=True
-    )
-    form = GameDataForm(obj=game_data)
-    update_form_choices(form)
+    # game_data = GameData(
+    #     doc_id=game_data_in_db['_id'],
+    #     title=game_data_in_db['title'],
+    #     release_date=game_data_in_db['release_date'],
+    #     developer=game_data_in_db['developer'],
+    #     publisher=game_data_in_db['publisher'],
+    #     genre=game_data_in_db['genre'],
+    #     game_description=game_data_in_db['game_description'],
+    #     trailer=game_data_in_db['trailer'],
+    #     wikipedia=game_data_in_db['wikipedia'],
+    #     front_cover=game_data_in_db['front_cover'],
+    #     back_cover=game_data_in_db['back_cover'],
+    #     data_exists_in_db=True
+    # )
+    print(game_data_in_db.id)
+    form = GameDataForm(obj=game_data_in_db)  # obj=game_data
     return render_template("add-game.html", form=form)
 
 
-@app.route('/delete/<game_id>')
-def delete_game(game_id):
-    db.games.remove({'_id': ObjectId(game_id)})
+@app.route('/delete/<game_title>')
+def delete_game(game_title):
+    Games.objects(title=game_title).delete()
     return redirect('/')
 
 

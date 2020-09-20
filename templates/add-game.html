@@ -5,10 +5,10 @@
     <div class="col-8 offset-2">
         <div class="row">
             {{ form.csrf_token }}
-            {{ form.doc_id(class="hidden") }}
-            {{ form.data_exists_in_db(class="hidden") }}
+            {{ form.doc_id(class="") }}
+            {{ form.is_saved_in_db(class="") }}
              
-            {% if title_already_exists %}
+            {% if is_saved_in_db %}
                 <h3 class="red">A Title With This Name Already Exists In The Database</h3>
                 {{ form.title.label(class="label label-default") }} {{ form.title(class="form-control red") }}
             {% else %}
