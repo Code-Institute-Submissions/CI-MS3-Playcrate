@@ -72,7 +72,7 @@ class Genres(db.Document):
 
 
 class GameDataForm(FlaskForm):
-    doc_id = StringField()
+    id = StringField()
     title = StringField('Title', validators=[DataRequired()])
     release_date = DateField('Release Date', validators=[DataRequired()])
     developer = SelectMultipleField(
@@ -94,6 +94,7 @@ def home():
 
 
 @ app.route("/add-game/", methods=('GET', 'POST'))
+# @login_required
 def add_game():
     form = GameDataForm()
     if request.method == 'GET':
@@ -188,22 +189,18 @@ def add_game_data(form):
 
             # Check if the submitted form is data edited from an existing game in the DB if it is then update the
             # data for that game if not then add the new game to the DB
-            if form.is_saved_in_db.data == True:
-                print("Updating Existing Data")
-                _id = ''
-                
-                
-                # Games.objects(id=_id).update(title=form.title.data,
-                #                  release_date=form.release_date.data,
-                #                  developer=form.developer.data,
-                #                  publisher=form.publisher.data,
-                #                  genre=form.genre.data,
-                #                  game_description=form.game_description.data,
-                #                  trailer=form.trailer.data,
-                #                  wikipedia=form.wikipedia.data,
-                #                  front_cover=form.front_cover.data,
-                #                  back_cover=form.back_cover.data,
-                #                  is_saved_in_db=True)
+            if form.is_saved_in_db.data == True:                
+                Games.objects(id=form.id.data).update(title=form.title.data,
+                                 release_date=form.release_date.data,
+                                 developer=form.developer.data,
+                                 publisher=form.publisher.data,
+                                 genre=form.genre.data,
+                                 game_description=form.game_description.data,
+                                 trailer=form.trailer.data,
+                                 wikipedia=form.wikipedia.data,
+                                 front_cover=form.front_cover.data,
+                                 back_cover=form.back_cover.data,
+                                 is_saved_in_db=True)
             else:
                 print("Adding New Data")
                 game_doc.save()
@@ -229,22 +226,9 @@ def edit_game(game_title):
     for game in Games.objects:
         if game["title"] == game_title:
             game_data_in_db = game
-    # game_data = GameData(
-    #     doc_id=game_data_in_db['_id'],
-    #     title=game_data_in_db['title'],
-    #     release_date=game_data_in_db['release_date'],
-    #     developer=game_data_in_db['developer'],
-    #     publisher=game_data_in_db['publisher'],
-    #     genre=game_data_in_db['genre'],
-    #     game_description=game_data_in_db['game_description'],
-    #     trailer=game_data_in_db['trailer'],
-    #     wikipedia=game_data_in_db['wikipedia'],
-    #     front_cover=game_data_in_db['front_cover'],
-    #     back_cover=game_data_in_db['back_cover'],
-    #     data_exists_in_db=True
-    # )
     print(game_data_in_db.id)
     form = GameDataForm(obj=game_data_in_db)  # obj=game_data
+    update_form_choices(form)
     return render_template("add-game.html", form=form)
 
 

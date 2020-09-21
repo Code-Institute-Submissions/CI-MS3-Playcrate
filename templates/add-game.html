@@ -5,8 +5,8 @@
     <div class="col-8 offset-2">
         <div class="row">
             {{ form.csrf_token }}
-            {{ form.doc_id(class="") }}
-            {{ form.is_saved_in_db(class="") }}
+            {{ form.id(class="hidden") }}
+            {{ form.is_saved_in_db(class="hidden") }}
              
             {% if is_saved_in_db %}
                 <h3 class="red">A Title With This Name Already Exists In The Database</h3>
