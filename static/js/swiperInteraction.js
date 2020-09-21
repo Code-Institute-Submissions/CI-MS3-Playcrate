@@ -43,6 +43,10 @@ updateUiWithCurrentlySelectedGame = function () {
             .getAttribute("data-title")
       );
   }
+
+  if ($("#add-game-to-collection").length){
+    $("#add-game-to-collection").attr("href","add-game-to-collection//"+$('.swiper-slide-active').attr("id")) //+ $('.swiper-slide-active"')[0].attr("id")
+  }
 };
 
 updateUiWithCurrentlySelectedGame();

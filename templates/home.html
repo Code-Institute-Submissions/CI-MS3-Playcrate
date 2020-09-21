@@ -4,7 +4,7 @@
 <div class="swiper-container">
     <div class="swiper-wrapper">
         {% for game in games %}
-        <div class="swiper-slide" id="{{game._id}}" data-title="{{game.title}}"
+        <div class="swiper-slide" id="{{game.id}}" data-title="{{game.title}}"
             data-release-date="{{game.release_date.strftime('%d %B %Y')}}" data-isFlipped=false>
             <div class="front-cover" style="background-image:url({{game.front_cover}})"></div>
             <div class="back-cover" style="background-image:url({{game.back_cover}})"></div>
@@ -17,6 +17,7 @@
         <h2 id="game-title" class="text-center game-title"></h2>
         <h2 id="game-release_date" class="text-center release-date"></h2>
         <a class="btn btn-primary text-center col-8 offset-2" id="view-game" href="">View Game</a>
+        <a class="btn btn-primary text-center col-8 offset-2" id="add-game-to-collection" href="">Add To My Collection</a>
     </div>
 </div>
 {% endblock %}

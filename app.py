@@ -6,7 +6,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SelectMultipleField, TextAreaField, BooleanField, IntegerField, PasswordField, SubmitField
 from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, URL
-from flask_user import login_required, UserManager, UserMixin
+from flask_user import login_required, UserManager, UserMixin, current_user
 import os
 import db
 import datetime
@@ -31,14 +31,10 @@ db = MongoEngine(app)
 
 class Users(db.Document, UserMixin):
     active = db.BooleanField(default=True)
-    # User authentication information
     username = db.StringField(default='')
     password = db.StringField()
-    # User information
-    first_name = db.StringField(default='')
-    last_name = db.StringField(default='')
-    # Relationships
     roles = db.ListField(db.StringField(), default=[])
+    collection = db.ListField(db.StringField(), default=[])
 
 
 # Setup Flask-User and specify the User data-model
@@ -94,13 +90,13 @@ def home():
 
 
 @ app.route("/add-game/", methods=('GET', 'POST'))
-# @login_required
+@login_required
 def add_game():
     form = GameDataForm()
     if request.method == 'GET':
         # Update form with developer,publisher and genre choices from DB
         update_form_choices(form)
-        return render_template('add-game.html', form=form)
+        return render_template('add-game.html', form=form, current_user=current_user)
     else:
         update_form_choices(form)
         print(form.is_saved_in_db.data)
@@ -206,7 +202,7 @@ def add_game_data(form):
                 game_doc.save()
 
 
-@ app.route('/games/<game_name>')
+@ app.route('/games/<game_name>/')
 def view_game(game_name):
     game_to_view = {}
     for game in Games.objects:
@@ -220,7 +216,8 @@ def view_game(game_name):
     return render_template('view-game.html', game=game_to_view)
 
 
-@ app.route('/edit-game/<game_title>')
+@ app.route('/edit-game/<game_title>/')
+@login_required
 def edit_game(game_title):
     game_data_in_db = {}
     for game in Games.objects:
@@ -232,10 +229,26 @@ def edit_game(game_title):
     return render_template("add-game.html", form=form)
 
 
-@app.route('/delete/<game_title>')
+@app.route('/delete/<game_title>/')
 def delete_game(game_title):
     Games.objects(title=game_title).delete()
     return redirect('/')
+
+@app.route('/my-account/')
+@login_required
+def my_account():
+    user_collection_game_ids = current_user.collection
+    user_collection_games = {}
+    for id in user_collection_game_ids:
+        user_collection_games[id] = Games.objects(id=id)
+        print(user_collection_games[id][0]['title'])
+    
+    return render_template('my-account.html', user_collection_games=user_collection_games, user_collection_game_ids=user_collection_game_ids)
+
+@app.route('/add-game-to-collection/<game_id>')
+def add_game_to_collection(game_id):
+        Users.objects(id=current_user.id).update(push__collection=game_id)
+        return redirect('/')
 
 
 def update_form_choices(form):

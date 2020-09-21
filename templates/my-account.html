@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}My Account{% endblock %}
+
+{% block content %}
+{% for id in user_collection_game_ids %}
+    <h2>{{user_collection_games[id][0]['title']}}</h2>
+{% endfor %}
+
+<a class="btn btn-primary" href="{{url_for('user.logout')}}">Logout</a>
+{% endblock %}
