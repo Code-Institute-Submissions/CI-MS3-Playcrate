@@ -28,13 +28,14 @@ app.config['MONGODB_SETTINGS'] = {
 # Setup Flask-MongoEngine
 db = MongoEngine(app)
 
-
+# User Document
 class Users(db.Document, UserMixin):
     active = db.BooleanField(default=True)
     username = db.StringField(default='')
     password = db.StringField()
     roles = db.ListField(db.StringField(), default=[])
     collection = db.ListField(db.StringField(), default=[])
+    playcrate = db.ListField(db.StringField(), default=[])
 
 
 # Setup Flask-User and specify the User data-model
@@ -248,6 +249,11 @@ def my_account():
 @app.route('/add-game-to-collection/<game_id>')
 def add_game_to_collection(game_id):
         Users.objects(id=current_user.id).update(push__collection=game_id)
+        return redirect('/')
+
+@app.route('/remove-game-from-collection/<game_id>')
+def remove_game_from_collection(game_id):
+        Users.objects(id=current_user.id).update(pull__collection=game_id)
         return redirect('/')
 
 

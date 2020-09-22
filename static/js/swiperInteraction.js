@@ -37,7 +37,7 @@ updateUiWithCurrentlySelectedGame = function () {
       .getElementById("view-game")
       .setAttribute(
         "href",
-        "games/" +
+        "/games/" +
           document
             .getElementsByClassName("swiper-slide-active")[0]
             .getAttribute("data-title")
@@ -45,8 +45,13 @@ updateUiWithCurrentlySelectedGame = function () {
   }
 
   if ($("#add-game-to-collection").length){
-    $("#add-game-to-collection").attr("href","add-game-to-collection//"+$('.swiper-slide-active').attr("id")) //+ $('.swiper-slide-active"')[0].attr("id")
+    $("#add-game-to-collection").attr("href","/add-game-to-collection/"+$('.swiper-slide-active').attr("id")) 
   }
+  if ($("#remove-game-from-collection").length){
+    $("#remove-game-from-collection").attr("href","/remove-game-from-collection/"+$('.swiper-slide-active').attr("id")) 
+  if ($("#add-game-to-playcrate").length){
+    $("#add-game-to-playcrate").attr("href","/add-game-to-playcrate/"+$('.swiper-slide-active').attr("id"))
+
 };
 
 updateUiWithCurrentlySelectedGame();
