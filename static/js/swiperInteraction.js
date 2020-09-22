@@ -62,6 +62,12 @@ updateUiWithCurrentlySelectedGame = function () {
       "/add-game-to-playcrate/" + $(".swiper-slide-active").attr("id")
     );
   }
+  if ($("#remove-game-from-playcrate").length) {
+    $("#remove-game-from-playcrate").attr(
+      "href",
+      "/remove-game-from-playcrate/" + $(".swiper-slide-active").attr("id")
+    );
+  }
 };
 
 updateUiWithCurrentlySelectedGame();
