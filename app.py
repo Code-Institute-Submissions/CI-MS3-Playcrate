@@ -115,18 +115,18 @@ def add_game():
         return render_template('add-game.html', form=form, current_user=current_user)
     else:
         update_form_choices(form)
-        print(form.is_saved_in_db.data)
         if form.is_saved_in_db.data == True:
             print("Editing Existing Data")
             add_game_data(form)
             return redirect("/")
-        else:
-            form.is_saved_in_db.data = False
+        else: # new entry
+            # Check if the new game title is the same as an already existing title in the DB
             for game in Games.objects:
                 if form.title.data == game['title']:
-                    print("Game Already Exists In DB")
-                    title_exists_in_db = True
-
+                    print("Game Title Already Exists In DB")
+                    # Title already exists don't add a duplicate
+                    return redirect("/")
+            
             if(form.is_saved_in_db.data == False):
                 add_game_data(form)
                 return redirect("/")
