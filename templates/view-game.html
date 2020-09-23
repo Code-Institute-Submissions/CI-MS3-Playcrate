@@ -47,19 +47,23 @@
         <!--  -->
         <div class="embed-responsive embed-responsive-16by9 col-10 offset-1 youtube-embed">
             <iframe class="embed-responsive-item" src={{game.trailer}}></iframe>
-          </div>
+        </div>
         <p class="col text-left game-description">{{game.game_description}}</p>
         <h2><a href={{game.wikipedia}}>{{game.title}} (Wikipedia)</a></h2>
+        <h2>Added By {{game.added_to_the_db_by}}</h2>
     </div>
 </div>
 
 <a class="btn btn-primary text-center col-8 offset-2" id="edit-game"
     href="{{url_for('edit_game', game_title=game.title)}}">Edit Game</a>
+{% if game.added_to_the_db_by == current_user.username %}
 <button type="button" class="btn btn-primary text-center col-8 offset-2" data-toggle="modal"
     data-target="#delete-modal">
     Delete Game
 </button>
-<!-- Modal -->
+{% endif %}
+
+<!-- Delete Modal -->
 <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label"
     aria-hidden="true">
     <div class="modal-dialog" role="document">

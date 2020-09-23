@@ -3,9 +3,6 @@
 {% block title %}My Account{% endblock %}
 
 {% block content %}
-{% for id in user_collection_game_ids %}
-    <h2>{{user_collection_games[id][0]['title']}}</h2>
-{% endfor %}
 <div class="swiper-container">
     <div class="swiper-wrapper">
         {% for id in user_collection_game_ids %}

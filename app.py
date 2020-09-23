@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, request, flash
 from bson import ObjectId
 from collections import namedtuple
 from flask_mongoengine import MongoEngine
+from mongoengine.queryset.visitor import Q
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectMultipleField, TextAreaField, BooleanField, IntegerField, PasswordField, SubmitField
 from wtforms.fields.html5 import DateField
@@ -29,6 +30,8 @@ app.config['MONGODB_SETTINGS'] = {
 db = MongoEngine(app)
 
 # User Document
+
+
 class Users(db.Document, UserMixin):
     active = db.BooleanField(default=True)
     username = db.StringField(default='')
@@ -54,6 +57,13 @@ class Games(db.Document):
     front_cover = db.StringField(default='')
     back_cover = db.StringField(default='')
     is_saved_in_db = db.BooleanField(default=False)
+    added_to_the_db_by = db.StringField(default='')
+
+    meta = {'indexes': [
+        {'fields': ['$title', "$developer", '$publisher' , '$genre'],
+         'default_language': 'english',
+        }
+    ]}
 
 
 class Developers(db.Document):
@@ -85,9 +95,14 @@ class GameDataForm(FlaskForm):
     is_saved_in_db = BooleanField('Existing Data', default=False)
 
 
+class SearchDatabaseForm(FlaskForm):
+    search_box = StringField('Search', validators=[DataRequired()])
+
+
 @ app.route("/")
 def home():
-    return render_template('home.html', games=Games.objects)
+    form = SearchDatabaseForm()
+    return render_template('home.html', games=Games.objects, form=form)
 
 
 @ app.route("/add-game/", methods=('GET', 'POST'))
@@ -181,23 +196,24 @@ def add_game_data(form):
                 wikipedia=form.wikipedia.data,
                 front_cover=form.front_cover.data,
                 back_cover=form.back_cover.data,
-                is_saved_in_db=True
+                is_saved_in_db=True,
+                added_to_the_db_by=current_user.username
             )
 
             # Check if the submitted form is data edited from an existing game in the DB if it is then update the
             # data for that game if not then add the new game to the DB
-            if form.is_saved_in_db.data == True:                
+            if form.is_saved_in_db.data == True:
                 Games.objects(id=form.id.data).update(title=form.title.data,
-                                 release_date=form.release_date.data,
-                                 developer=form.developer.data,
-                                 publisher=form.publisher.data,
-                                 genre=form.genre.data,
-                                 game_description=form.game_description.data,
-                                 trailer=form.trailer.data,
-                                 wikipedia=form.wikipedia.data,
-                                 front_cover=form.front_cover.data,
-                                 back_cover=form.back_cover.data,
-                                 is_saved_in_db=True)
+                                                      release_date=form.release_date.data,
+                                                      developer=form.developer.data,
+                                                      publisher=form.publisher.data,
+                                                      genre=form.genre.data,
+                                                      game_description=form.game_description.data,
+                                                      trailer=form.trailer.data,
+                                                      wikipedia=form.wikipedia.data,
+                                                      front_cover=form.front_cover.data,
+                                                      back_cover=form.back_cover.data,
+                                                      is_saved_in_db=True)
             else:
                 print("Adding New Data")
                 game_doc.save()
@@ -214,7 +230,7 @@ def view_game(game_name):
     # &modestbranding=1&autohide=1&showinfo=0&controls=0
     game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/")
     game_to_view['trailer'] += "?rel=0"
-    return render_template('view-game.html', game=game_to_view)
+    return render_template('view-game.html', game=game_to_view, current_user=current_user)
 
 
 @ app.route('/edit-game/<game_title>/')
@@ -235,6 +251,7 @@ def delete_game(game_title):
     Games.objects(title=game_title).delete()
     return redirect('/')
 
+
 @app.route('/my-account/')
 @login_required
 def my_account():
@@ -243,28 +260,44 @@ def my_account():
     for id in user_collection_game_ids:
         user_collection_games[id] = Games.objects(id=id)
         print(user_collection_games[id][0]['title'])
-    
+
     return render_template('my-account.html', user_collection_games=user_collection_games, user_collection_game_ids=user_collection_game_ids)
+
 
 @app.route('/add-game-to-collection/<game_id>')
 def add_game_to_collection(game_id):
-        Users.objects(id=current_user.id).update(push__collection=game_id)
-        return redirect('/')
+    Users.objects(id=current_user.id).update(push__collection=game_id)
+    return redirect('/')
+
 
 @app.route('/remove-game-from-collection/<game_id>')
 def remove_game_from_collection(game_id):
-        Users.objects(id=current_user.id).update(pull__collection=game_id)
-        return redirect('/')
+    Users.objects(id=current_user.id).update(pull__collection=game_id)
+    return redirect('/')
+
 
 @app.route('/add-game-to-playcrate/<game_id>')
 def add_game_to_playcrate(game_id):
-        Users.objects(id=current_user.id).update(push__playcrate=game_id)
-        return redirect('/')
+    Users.objects(id=current_user.id).update(push__playcrate=game_id)
+    return redirect('/')
+
 
 @app.route('/remove-game-from-playcrate/<game_id>')
 def remove_game_from_playcrate(game_id):
-        Users.objects(id=current_user.id).update(pull__playcrate=game_id)
-        return redirect('/')
+    Users.objects(id=current_user.id).update(pull__playcrate=game_id)
+    return redirect('/')
+
+
+@app.route('/search-db/', methods=['POST'])
+def search_db():
+    form = SearchDatabaseForm()
+    docs = Games.objects.search_text(form.search_box.data).all()
+    # print(form.search_box.data)
+    # docs = Games.objects(title=form.search_box.data)
+    for d in docs:
+        print("the results are "+d.title)
+    return redirect('/')
+
 
 def update_form_choices(form):
     for developer in Developers.objects:
