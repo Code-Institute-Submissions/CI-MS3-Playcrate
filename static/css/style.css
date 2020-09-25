@@ -1,123 +1,141 @@
 /* FONTS */
-@import url('https://fonts.googleapis.com/css2?family=Oswald&family=Play:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Oswald&family=Play:wght@400;700&display=swap");
 
-
-.game-title{
-  font-family: 'Play', sans-serif;
+.game-title {
+  font-family: "Play", sans-serif;
   font-weight: 700;
   font-size: 2rem;
 }
 
-.release-date{
-  font-family: 'Oswald', sans-serif;
+.release-date {
+  font-family: "Oswald", sans-serif;
   font-size: 1rem;
 }
 
-.category-title{
-  font-family: 'Play', sans-serif;
+.category-title {
+  font-family: "Play", sans-serif;
   font-weight: 700;
   font-size: 1rem;
 }
 
-.category-info{
-  font-family: 'Oswald', sans-serif;
+.category-info {
+  font-family: "Oswald", sans-serif;
   font-size: 1rem;
 }
 
-.game-description{
+.game-description {
   white-space: pre-wrap;
 }
 
-.bootstrap-select:not(.input-group-btn){
-    display: contents;
+.bootstrap-select:not(.input-group-btn) {
+  display: contents;
 }
 
 body {
-    background: #fff;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .swiper-container {
-    width: 100%;
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
-  
-  .swiper-slide {
-    background-position: center;
-    background-size: cover;
-    width: 300px;
-    height: 300px;
-    /* backface-visibility: hidden; */
-  }
+  background: #fff;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
 
-  .flipped{
-    transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(180deg) scale(1);
-  }
-  
-  .block {
-    display: block;
-  }
+.swiper-container {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
 
-  /* .swiper-slide-active{
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+  /* backface-visibility: hidden; */
+}
+
+.flipped {
+  transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(180deg) scale(1);
+}
+
+.block {
+  display: block;
+}
+
+/* .swiper-slide-active{
     transform: rotateY(0deg) !important;
   }
   .swiper-slide-active.flipped{
      transform: rotateY(180deg) !important; 
   } */
-  
-  .front-cover , .back-cover {
-    pointer-events: none;
-    position: absolute;
-    background-position: center;
-    background-size: cover;
-    width: 300px;
-    height: 300px;
-    background-position: center;
-    background-size: cover;
-    width: 300px;
-    height: 300px;
-    border-radius: 15px;
-    border-style: solid;
-    border-color: rgb(181, 182, 187);
-    border-width: 10px;
-    background-repeat: no-repeat;
-    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(35%, transparent) , to(rgba(250, 250, 250, 0.1)));
-    backface-visibility: hidden;
-  }
 
-  .back-cover{
-    z-index: 0;
-    transform: rotateY(180deg);
-    pointer-events: none;
-  }
+.front-cover,
+.back-cover {
+  pointer-events: none;
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  border-style: solid;
+  border-color: rgb(181, 182, 187);
+  border-width: 10px;
+  background-repeat: no-repeat;
+  -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(35%, transparent), to(rgba(250, 250, 250, 0.1)));
+  backface-visibility: hidden;
+}
 
-  .hidden{
-    display: none;
-  }
+.back-cover {
+  z-index: 0;
+  transform: rotateY(180deg);
+  pointer-events: none;
+}
 
-  .red{
-    color: red;
-  }
+.hidden {
+  display: none;
+}
 
-  /* .swiper-wrapper{
+.red {
+  color: red;
+}
+
+/* .swiper-wrapper{
     pointer-events: none;
   } */
 
-  .swiper-container{
-    padding-bottom: 150px;
-  }
+.swiper-container {
+  padding-bottom: 150px;
+}
 
-  .swiper-slide-active{
-    pointer-events: all;
-  }
+.swiper-slide-active {
+  pointer-events: all;
+}
 
-  .youtube-embed{
-    border: solid .5rem rgb(181, 182, 187);
-    margin-top: 5rem;
-    margin-bottom: 5rem;
-  }
+.youtube-embed {
+  border: solid 0.5rem rgb(181, 182, 187);
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+.bgimage {
+  height: 100vh;
+  background: url("/static/images/hero.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.bgimage h5 {
+  color: white;
+  text-shadow: 2px 2px #333;
+}
+
+.bgimage p {
+  color: white;
+  text-shadow: 2px 2px #333;
+}

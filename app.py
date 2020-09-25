@@ -39,10 +39,12 @@ class Users(db.Document, UserMixin):
     roles = db.ListField(db.StringField(), default=[])
     collection = db.ListField(db.StringField(), default=[])
     playcrate = db.ListField(db.StringField(), default=[])
+    trophies = db.ListField(db.StringField(), default=[])
 
 
 # Setup Flask-User and specify the User data-model
 user_manager = UserManager(app, db, Users)
+
 
 
 class Games(db.Document):
@@ -97,6 +99,7 @@ class GameDataForm(FlaskForm):
 
 class SearchDatabaseForm(FlaskForm):
     search_box = StringField('Search', validators=[DataRequired()])
+
 
 
 @ app.route("/")
@@ -259,19 +262,37 @@ def delete_game(game_title):
 @app.route('/my-account/')
 @login_required
 def my_account():
-    user_collection_game_ids = current_user.collection
-    user_collection_games = {}
-    for id in user_collection_game_ids:
+    return render_template('my-account.html')
+
+@app.route('/view-collection/')
+def view_collection():
+    search_form = SearchDatabaseForm()
+    user_collection_all_games = get_user_collection(current_user.collection)
+    print(user_collection_all_games)
+    return render_template('browse.html', games=user_collection_all_games, form=search_form, browsing="collection")
+    # return redirect('/')
+@app.route('/view-playcrate/')
+def view_playcrate():
+    search_form = SearchDatabaseForm()
+    user_collection_playcrate = get_user_collection(current_user.playcrate)
+    return render_template('browse.html', games=user_collection_playcrate,  form=search_form, browsing="playcrate")
+
+@app.route('/view-trophies/')
+def view_trophies():
+    search_form = SearchDatabaseForm()
+    user_collection_trophies = get_user_collection(current_user.trophies)
+    return render_template('browse.html', games=user_collection_trophies, form=search_form, browsing="tophies")
+
+def get_user_collection(game_ids):
+    user_collection_all_games = []
+    for id in game_ids:
         if(Games.objects(id=id)):
-            user_collection_games[id] = Games.objects(id=id)
-            print(user_collection_games[id][0]['title'])
+            user_game = Games.objects(id=id).first()
+            user_collection_all_games.append(user_game)
         else:
-            print("A game with that id doesn't exist in the database")
             remove_game_from_collection(id)
             del user_collection_game_ids[id]
-
-    return render_template('my-account.html', user_collection_games=user_collection_games, user_collection_game_ids=user_collection_game_ids)
-
+    return user_collection_all_games
 
 @app.route('/add-game-to-collection/<game_id>')
 def add_game_to_collection(game_id):

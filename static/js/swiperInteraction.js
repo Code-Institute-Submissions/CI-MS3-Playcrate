@@ -16,57 +16,51 @@ var swiper = new Swiper(".swiper-container", {
 });
 
 updateUiWithCurrentlySelectedGame = function () {
-  if ($("#game-title").length) {
-    document.getElementById(
-      "game-title"
-    ).innerText = document
-      .getElementsByClassName("swiper-slide-active")[0]
-      .getAttribute("data-title");
-  }
-
-  if ($("#game-release_date").length) {
-    document.getElementById(
-      "game-release_date"
-    ).innerText = document
-      .getElementsByClassName("swiper-slide-active")[0]
-      .getAttribute("data-release-date");
-  }
-
-  if ($("#view-game").length) {
-    document
-      .getElementById("view-game")
-      .setAttribute(
-        "href",
-        "/games/" +
-          document
-            .getElementsByClassName("swiper-slide-active")[0]
-            .getAttribute("data-title")
+  if ($(".swiper-slide-active").length) {
+    
+    if ($("#game-title").length) {
+      $("#game-title").text(
+        $(".swiper-slide-active").attr("data-title")
       );
-  }
+    }
 
-  if ($("#add-game-to-collection").length) {
-    $("#add-game-to-collection").attr(
-      "href",
-      "/add-game-to-collection/" + $(".swiper-slide-active").attr("id")
-    );
-  }
-  if ($("#remove-game-from-collection").length) {
-    $("#remove-game-from-collection").attr(
-      "href",
-      "/remove-game-from-collection/" + $(".swiper-slide-active").attr("id")
-    );
-  }
-  if ($("#add-game-to-playcrate").length) {
-    $("#add-game-to-playcrate").attr(
-      "href",
-      "/add-game-to-playcrate/" + $(".swiper-slide-active").attr("id")
-    );
-  }
-  if ($("#remove-game-from-playcrate").length) {
-    $("#remove-game-from-playcrate").attr(
-      "href",
-      "/remove-game-from-playcrate/" + $(".swiper-slide-active").attr("id")
-    );
+    if ($("#game-release_date").length) {
+      $("#game-release_date").text(
+        $(".swiper-slide-active").attr("data-release-date")
+      );
+    }
+
+    if ($("#view-game").length) {
+      $("#view-game").attr(
+        "href",
+        "/games/" + $(".swiper-slide-active").attr("data-title")
+      );
+    }
+
+    if ($("#add-game-to-collection").length) {
+      $("#add-game-to-collection").attr(
+        "href",
+        "/add-game-to-collection/" + $(".swiper-slide-active").attr("id")
+      );
+    }
+    if ($("#remove-game-from-collection").length) {
+      $("#remove-game-from-collection").attr(
+        "href",
+        "/remove-game-from-collection/" + $(".swiper-slide-active").attr("id")
+      );
+    }
+    if ($("#add-game-to-playcrate").length) {
+      $("#add-game-to-playcrate").attr(
+        "href",
+        "/add-game-to-playcrate/" + $(".swiper-slide-active").attr("id")
+      );
+    }
+    if ($("#remove-game-from-playcrate").length) {
+      $("#remove-game-from-playcrate").attr(
+        "href",
+        "/remove-game-from-playcrate/" + $(".swiper-slide-active").attr("id")
+      );
+    }
   }
 };
 

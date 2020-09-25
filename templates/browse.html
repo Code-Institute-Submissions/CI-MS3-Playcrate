@@ -10,13 +10,17 @@
 
 <div class="swiper-container">
     <div class="swiper-wrapper">
-        {% for game in games %}
-        <div class="swiper-slide" id="{{game.id}}" data-title="{{game.title}}"
-            data-release-date="{{game.release_date.strftime('%d %B %Y')}}" data-isFlipped=false>
-            <div class="front-cover" style="background-image:url({{game.front_cover}})"></div>
-            <div class="back-cover" style="background-image:url({{game.back_cover}})"></div>
-        </div>
-        {% endfor %}
+        {% if games|length > 0 %}
+            {% for game in games %}
+            <div class="swiper-slide" id="{{game.id}}" data-title="{{game.title}}"
+                data-release-date="{{game.release_date.strftime('%d %B %Y')}}" data-isFlipped=false>
+                <div class="front-cover" style="background-image:url({{game.front_cover}})"></div>
+                <div class="back-cover" style="background-image:url({{game.back_cover}})"></div>
+            </div>
+            {% endfor %} 
+        {% else %}
+            <h1>You Have No Games Here</h1>
+        {% endif %}
     </div>
 </div>
 <div class="row">

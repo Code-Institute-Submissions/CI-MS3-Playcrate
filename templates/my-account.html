@@ -3,7 +3,7 @@
 {% block title %}My Account{% endblock %}
 
 {% block content %}
-<div class="swiper-container">
+<!-- <div class="swiper-container">
     <div class="swiper-wrapper">
         {% for id in user_collection_game_ids %}
         <div class="swiper-slide" id="{{user_collection_games[id][0]['id']}}" data-title="{{user_collection_games[id][0]['title']}}"
@@ -15,16 +15,30 @@
         </div>
         {% endfor %}
     </div>
-</div>
-<div class="row">
+</div> -->
+<!-- <div class="row">
     <div class="col">
         <h2 id="game-title" class="text-center game-title"></h2>
         <h2 id="game-release_date" class="text-center release-date"></h2>
         <a class="btn btn-primary text-center col-8 offset-2" id="view-game" href="">View Game</a>
-        <a class="btn btn-primary text-center col-8 offset-2" id="remove-game-from-collection" href="">Remove From Collection</a>
+        <a class="btn btn-primary text-center col-8 offset-2" id="remove-game-from-collection" href="">Remove From
+            Collection</a>
         <a class="btn btn-primary text-center col-8 offset-2" id="add-game-to-playcrate" href="">Add To Playcrate</a>
-        <a class="btn btn-primary text-center col-8 offset-2" id="remove-game-from-playcrate" href="">Remove From Playcrate</a>
+        <a class="btn btn-primary text-center col-8 offset-2" id="remove-game-from-playcrate" href="">Remove From
+            Playcrate</a>
         <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('user.logout')}}">Logout</a>
+    </div>
+</div> -->
+<div class="row">
+    <div class="col">
+        <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('view_collection')}}">Collection</a>
+        <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('view_playcrate')}}">Playcrate</a>
+        <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('view_trophies')}}">Trophies</a>
     </div>
 </div>
 {% endblock %}
+
+
+<!-- for games in Collection
+    game in games -->
+
