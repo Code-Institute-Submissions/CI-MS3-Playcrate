@@ -104,6 +104,10 @@ def home():
     form = SearchDatabaseForm()
     return render_template('home.html', games=Games.objects, form=form)
 
+@app.route("/browse/")
+def browse():
+    form = SearchDatabaseForm()
+    return render_template('browse.html', games=Games.objects, form=form)
 
 @ app.route("/add-game/", methods=('GET', 'POST'))
 @login_required
@@ -296,12 +300,8 @@ def remove_game_from_playcrate(game_id):
 @app.route('/search-db/', methods=['POST'])
 def search_db():
     form = SearchDatabaseForm()
-    docs = Games.objects.search_text(form.search_box.data).all()
-    # print(form.search_box.data)
-    # docs = Games.objects(title=form.search_box.data)
-    for d in docs:
-        print("the results are "+d.title)
-    return redirect('/')
+    search_results = Games.objects.search_text(form.search_box.data).all()
+    return render_template('browse.html', games=search_results, form=form)
 
 
 def update_form_choices(form):
