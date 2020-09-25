@@ -258,8 +258,13 @@ def my_account():
     user_collection_game_ids = current_user.collection
     user_collection_games = {}
     for id in user_collection_game_ids:
-        user_collection_games[id] = Games.objects(id=id)
-        print(user_collection_games[id][0]['title'])
+        if(Games.objects(id=id)):
+            user_collection_games[id] = Games.objects(id=id)
+            print(user_collection_games[id][0]['title'])
+        else:
+            print("A game with that id doesn't exist in the database")
+            remove_game_from_collection(id)
+            del user_collection_game_ids[id]
 
     return render_template('my-account.html', user_collection_games=user_collection_games, user_collection_game_ids=user_collection_game_ids)
 
