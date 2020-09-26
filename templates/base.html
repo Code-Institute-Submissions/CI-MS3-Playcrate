@@ -70,8 +70,14 @@
             <a class="nav-link" href="{{url_for('add_game')}}">Add Game</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('my_account')}}">My Crate</a>
+            <a class="nav-link" href="{{url_for('my_account')}}">My Crates</a>
           </li>
+          {% if current_user.is_active %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('user.logout')}}">Logout</a>
+          </li>
+          {% endif %}
+
           <li class="nav-item">
             
           </li>

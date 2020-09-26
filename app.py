@@ -46,7 +46,6 @@ class Users(db.Document, UserMixin):
 user_manager = UserManager(app, db, Users)
 
 
-
 class Games(db.Document):
     title = db.StringField(default='')
     release_date = db.DateField()
@@ -55,6 +54,7 @@ class Games(db.Document):
     genre = db.ListField(db.StringField(), default=[])
     game_description = db.StringField(default='')
     trailer = db.StringField(default='')
+    soundtrack = db.StringField(default='')
     wikipedia = db.StringField(default='')
     front_cover = db.StringField(default='')
     back_cover = db.StringField(default='')
@@ -62,9 +62,9 @@ class Games(db.Document):
     added_to_the_db_by = db.StringField(default='')
 
     meta = {'indexes': [
-        {'fields': ['$title', "$developer", '$publisher' , '$genre'],
+        {'fields': ['$title', "$developer", '$publisher', '$genre'],
          'default_language': 'english',
-        }
+         }
     ]}
 
 
@@ -91,6 +91,7 @@ class GameDataForm(FlaskForm):
     game_description = TextAreaField(
         'Game Description', validators=[DataRequired()])
     trailer = StringField('Trailer', validators=[URL()])
+    soundtrack = StringField('Soundtrack', validators=[URL()])
     wikipedia = StringField('Wikipedia', validators=[URL()])
     front_cover = StringField('Front Cover', validators=[URL()])
     back_cover = StringField('Back Cover', validators=[URL()])
@@ -101,16 +102,17 @@ class SearchDatabaseForm(FlaskForm):
     search_box = StringField('Search', validators=[DataRequired()])
 
 
-
 @ app.route("/")
 def home():
     form = SearchDatabaseForm()
     return render_template('home.html', games=Games.objects, form=form)
 
+
 @app.route("/browse/")
 def browse():
     form = SearchDatabaseForm()
     return render_template('browse.html', games=Games.objects, form=form)
+
 
 @ app.route("/add-game/", methods=('GET', 'POST'))
 @login_required
@@ -126,14 +128,14 @@ def add_game():
             print("Editing Existing Data")
             add_game_data(form)
             return redirect("/")
-        else: # new entry
+        else:  # new entry
             # Check if the new game title is the same as an already existing title in the DB
             for game in Games.objects:
                 if form.title.data == game['title']:
                     print("Game Title Already Exists In DB")
                     # Title already exists don't add a duplicate
                     return redirect("/")
-            
+
             if(form.is_saved_in_db.data == False):
                 add_game_data(form)
                 return redirect("/")
@@ -200,6 +202,7 @@ def add_game_data(form):
                 genre=form.genre.data,
                 game_description=form.game_description.data,
                 trailer=form.trailer.data,
+                soundtrack=form.soundtrack.data,
                 wikipedia=form.wikipedia.data,
                 front_cover=form.front_cover.data,
                 back_cover=form.back_cover.data,
@@ -217,6 +220,7 @@ def add_game_data(form):
                                                       genre=form.genre.data,
                                                       game_description=form.game_description.data,
                                                       trailer=form.trailer.data,
+                                                      soundtrack=form.soundtrack.data,
                                                       wikipedia=form.wikipedia.data,
                                                       front_cover=form.front_cover.data,
                                                       back_cover=form.back_cover.data,
@@ -237,6 +241,10 @@ def view_game(game_name):
     # &modestbranding=1&autohide=1&showinfo=0&controls=0
     game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/")
     game_to_view['trailer'] += "?rel=0"
+    # Convert Spotify Link
+    soundtrack_url = game_to_view['soundtrack']
+    game_to_view['soundtrack'] = soundtrack_url.replace(
+        "/album/", "/embed/album/")
     return render_template('view-game.html', game=game_to_view, current_user=current_user)
 
 
@@ -264,6 +272,7 @@ def delete_game(game_title):
 def my_account():
     return render_template('my-account.html')
 
+
 @app.route('/view-collection/')
 def view_collection():
     search_form = SearchDatabaseForm()
@@ -271,17 +280,21 @@ def view_collection():
     print(user_collection_all_games)
     return render_template('browse.html', games=user_collection_all_games, form=search_form, browsing="collection")
     # return redirect('/')
+
+
 @app.route('/view-playcrate/')
 def view_playcrate():
     search_form = SearchDatabaseForm()
     user_collection_playcrate = get_user_collection(current_user.playcrate)
     return render_template('browse.html', games=user_collection_playcrate,  form=search_form, browsing="playcrate")
 
+
 @app.route('/view-trophies/')
 def view_trophies():
     search_form = SearchDatabaseForm()
     user_collection_trophies = get_user_collection(current_user.trophies)
     return render_template('browse.html', games=user_collection_trophies, form=search_form, browsing="tophies")
+
 
 def get_user_collection(game_ids):
     user_collection_all_games = []
@@ -293,6 +306,7 @@ def get_user_collection(game_ids):
             remove_game_from_collection(id)
             del user_collection_game_ids[id]
     return user_collection_all_games
+
 
 @app.route('/add-game-to-collection/<game_id>')
 def add_game_to_collection(game_id):
