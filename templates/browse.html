@@ -1,13 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Browse{% endblock %}
 {% block content %}
-<!-- Search Bar -->
-<form class="" method="POST" action="/search-db/">
-    <!-- <input class="form-control" type="text" id="search" name="search" placeholder="Search" aria-label="Search">} -->
-    {{form.search_box}}
-    <button class="btn btn-primary" type="submit">Search</button>
-</form>
-
 <div class="swiper-container">
     <div class="swiper-wrapper">
         {% if games|length > 0 %}

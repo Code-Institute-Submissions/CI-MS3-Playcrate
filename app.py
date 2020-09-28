@@ -105,13 +105,13 @@ class SearchDatabaseForm(FlaskForm):
 @ app.route("/")
 def home():
     form = SearchDatabaseForm()
-    return render_template('home.html', games=Games.objects, form=form)
+    return render_template('home.html', games=Games.objects, search_form=form)
 
 
 @app.route("/browse/")
 def browse():
-    form = SearchDatabaseForm()
-    return render_template('browse.html', games=Games.objects, form=form)
+    search_form = SearchDatabaseForm()
+    return render_template('browse.html', games=Games.objects, search_form=search_form)
 
 
 @ app.route("/add-game/", methods=('GET', 'POST'))
@@ -232,6 +232,7 @@ def add_game_data(form):
 
 @ app.route('/games/<game_name>/')
 def view_game(game_name):
+    search_form = SearchDatabaseForm()
     game_to_view = {}
     for game in Games.objects:
         if game["title"] == game_name:
@@ -245,7 +246,7 @@ def view_game(game_name):
     soundtrack_url = game_to_view['soundtrack']
     game_to_view['soundtrack'] = soundtrack_url.replace(
         "/album/", "/embed/album/")
-    return render_template('view-game.html', game=game_to_view, current_user=current_user)
+    return render_template('view-game.html', search_form=search_form, game=game_to_view, current_user=current_user)
 
 
 @ app.route('/edit-game/<game_title>/')
@@ -275,10 +276,9 @@ def my_account():
 
 @app.route('/view-collection/')
 def view_collection():
-    search_form = SearchDatabaseForm()
     user_collection_all_games = get_user_collection(current_user.collection)
     print(user_collection_all_games)
-    return render_template('browse.html', games=user_collection_all_games, form=search_form, browsing="collection")
+    return render_template('browse.html', games=user_collection_all_games, browsing="collection")
     # return redirect('/')
 
 
@@ -286,14 +286,13 @@ def view_collection():
 def view_playcrate():
     search_form = SearchDatabaseForm()
     user_collection_playcrate = get_user_collection(current_user.playcrate)
-    return render_template('browse.html', games=user_collection_playcrate,  form=search_form, browsing="playcrate")
+    return render_template('browse.html', games=user_collection_playcrate,  search=search_form, browsing="playcrate")
 
 
 @app.route('/view-trophies/')
 def view_trophies():
-    search_form = SearchDatabaseForm()
     user_collection_trophies = get_user_collection(current_user.trophies)
-    return render_template('browse.html', games=user_collection_trophies, form=search_form, browsing="tophies")
+    return render_template('browse.html', games=user_collection_trophies, browsing="tophies")
 
 
 def get_user_collection(game_ids):
