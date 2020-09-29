@@ -45,6 +45,19 @@
   outline-style: none;
 }
 
+.form-background{
+  background-color: rgb(132, 132, 132);
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(187, 187, 187);
+  -webkit-box-shadow: 0 0.2rem rgb(187,187,187);
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  margin-top: 2rem;
+  color: rgb(187, 187, 187);
+}
+
 .select2-container--default .select2-selection--multiple {
   border-radius: 25px;
   border-style: solid;
@@ -247,10 +260,15 @@ body {
 }
 
 .round-button{
-  color: white;
+  color: rgb(187, 187, 187);
   border-radius: 30px;
+  border-width: 1px;
+  border-color: rgb(187, 187, 187);
+  border-style: solid;
   background-color: rgb(132, 132, 132);
-  -webkit-box-shadow: 0 0.2rem white;
+  -webkit-box-shadow: 0 0.2rem rgb(187, 187, 187);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .round-button .text{
@@ -259,8 +277,10 @@ body {
 }
 
 .navbar-toggler{
-  color: rgb(132, 132, 132);
-  background-color: rgb(181, 182, 187);
+  color: rgb(187,187,187);
+  border: solid 1px rgb(187,187,187);
+  background-color: rgb(132, 132, 132);
+  -webkit-box-shadow: 0 0.2rem rgb(187,187,187);
 }
 
 .navbar-toggler:focus

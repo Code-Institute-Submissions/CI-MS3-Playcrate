@@ -3,16 +3,15 @@
 {% block content %}
 <div class="container-fluid p-0 flex-fill bgimage">
     {% from "flask_user/_macros.html" import render_field, render_submit_field %}
-    <h1>{%trans%}Register{%endtrans%}</h1>
-
-    <form action="" method="POST" novalidate formnovalidate class="form col-10 offset-1" role="form">
+    <form action="" method="POST" novalidate formnovalidate class="form form-background center col-10 col-lg-4" role="form">
         {{ form.hidden_tag() }}
-
+        <h2 class="text-center"> Sign Up</h2>
+        <h5 class="text-center"> and start your collection</h5>
         {# Username or Email #}
         {% set field = form.username if user_manager.USER_ENABLE_USERNAME else form.email %}
         <div class="form-group {% if field.errors %}has-error{% endif %}">
             {# Label on left, "Already registered? Sign in." on right #}
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-xs-6">
                     <label for="{{ field.id }}" class="control-label">{{ field.label.text }}</label>
                 </div>
@@ -22,8 +21,8 @@
                         {%trans%}Already registered? Sign in.{%endtrans%}</a>
                     {% endif %}
                 </div>
-            </div>
-            {{ field(class_='form-control', tabindex=210) }}
+            </div> -->
+            {{ field(class_='form-control form-input', tabindex=110 , placeholder="Username...") }}
             {% if field.errors %}
             {% for e in field.errors %}
             <p class="help-block">{{ e }}</p>
@@ -35,13 +34,39 @@
         {{ render_field(form.email, tabindex=220) }}
         {% endif %}
 
-        {{ render_field(form.password, tabindex=230) }}
+        <!-- {{ render_field(form.password, tabindex=230, class_='form-control form-input') }} -->
 
+        {# Password field #}
+        {% set field = form.password %}
+        <div class="form-group {% if field.errors %}has-error{% endif %}">
+            {{ field(class_='form-control form-input', tabindex=120 , placeholder="Password...") }}
+            {% if field.errors %}
+            {% for e in field.errors %}
+            <p class="help-block">{{ e }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
         {% if user_manager.USER_REQUIRE_RETYPE_PASSWORD %}
         {{ render_field(form.retype_password, tabindex=240) }}
         {% endif %}
 
-        {{ render_submit_field(form.submit, tabindex=280) }}
+        {# Submit button #}
+        <div class="row no-gutters">
+            <div class="col text-center">
+                <button class="btn round-button" id="" type="submit">
+                    <span class="text">Sign Up</span>
+                    <span class="round"><i class="fa fa-chevron-right"></i></span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                {% if user_manager.USER_ENABLE_REGISTER and not user_manager.USER_REQUIRE_INVITATION %}
+                <a class="play-medium-gray" href="{{ url_for('user.login') }}" tabindex='190'>
+                    {%trans%}Already registered? Sign in.{%endtrans%}</a>
+                {% endif %}
+            </div>
+        </div>
     </form>
 </div>
 {% endblock %}
