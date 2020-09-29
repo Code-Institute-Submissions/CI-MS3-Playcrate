@@ -1,18 +1,27 @@
 {% extends 'base.html' %}
+{% set active_page = "home" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<!-- Search Bar -->
-<section class="bgimage img-fluid">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">>
-                <h5 class="text-center">Welcome to Playcrate</h5>
-                <p class="text-center">This is a template for a simple marketing or informational website. It includes a large callout
-                    called the hero unit and three supporting pieces of content. Use it as a starting point to create
-                    something more unique.</p>
+<div class="container-fluid p-0 flex-fill bgimage img-fluid">
+    <div class="row no-gutters center">
+        <div class="col col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
+            <h2 class="text-center">Welcome to Playcrate</h2>
+            <p class="text-center">Playcrate is a Playstation 1 games database and collection manager. Sign Up to add
+                games to your collection,
+                create a playlist of games to play as well as add games you've completed to you trophy case. If you a
+                game you own in not already in the database
+                you can contribute to the database by adding it.
+            </p>
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <a class="btn btn-primary text-center" id="" href="">Browse</a>
+                    <a class="btn btn-primary text-center" id="" href="">Sign In</a>
+                </div>
             </div>
+
         </div>
     </div>
-</section>
+</div>
+
 
 {% endblock %}

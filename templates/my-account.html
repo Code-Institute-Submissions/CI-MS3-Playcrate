@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% set active_page = "my-account" %}
 {% block title %}My Account{% endblock %}
 
 {% block content %}
@@ -29,11 +29,15 @@
         <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('user.logout')}}">Logout</a>
     </div>
 </div> -->
-<div class="row">
-    <div class="col">
-        <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('view_collection')}}">Collection</a>
-        <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('view_playcrate')}}">Playcrate</a>
-        <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('view_trophies')}}">Trophies</a>
+<div class="container-fluid p-0 flex-fill bg">
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary text-center col-8 offset-2" id=""
+                href="{{url_for('view_collection')}}">Collection</a>
+            <a class="btn btn-primary text-center col-8 offset-2" id=""
+                href="{{url_for('view_playcrate')}}">Playcrate</a>
+            <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('view_trophies')}}">Trophies</a>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -41,4 +45,3 @@
 
 <!-- for games in Collection
     game in games -->
-

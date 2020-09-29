@@ -99,7 +99,7 @@ class GameDataForm(FlaskForm):
 
 
 class SearchDatabaseForm(FlaskForm):
-    search_box = StringField('Search', validators=[DataRequired()])
+    search_box = StringField('Search', validators=[DataRequired()], default="Search for Games...")
 
 
 @ app.route("/")

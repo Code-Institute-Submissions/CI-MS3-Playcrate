@@ -1,28 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}Browse{% endblock %}
+{% set active_page = "browse" %}
 {% block content %}
-<div class="swiper-container">
-    <div class="swiper-wrapper">
-        {% if games|length > 0 %}
+<div class="container-fluid p-0 flex-fill bg">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {% if games|length > 0 %}
             {% for game in games %}
             <div class="swiper-slide" id="{{game.id}}" data-title="{{game.title}}"
                 data-release-date="{{game.release_date.strftime('%d %B %Y')}}" data-isFlipped=false>
                 <div class="front-cover" style="background-image:url({{game.front_cover}})"></div>
                 <div class="back-cover" style="background-image:url({{game.back_cover}})"></div>
             </div>
-            {% endfor %} 
-        {% else %}
+            {% endfor %}
+            {% else %}
             <h1>You Have No Games Here</h1>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col">
-        <h2 id="game-title" class="text-center game-title"></h2>
-        <h2 id="game-release_date" class="text-center release-date"></h2>
-        <a class="btn btn-primary text-center col-8 offset-2" id="view-game" href="">View Game</a>
-        <a class="btn btn-primary text-center col-8 offset-2" id="add-game-to-collection" href="">Add To My
-            Collection</a>
+    <div class="row">
+        <div class="col">
+            <h2 id="game-title" class="text-center game-title"></h2>
+            <h2 id="game-release_date" class="text-center release-date"></h2>
+            <a class="btn btn-primary text-center col-8 offset-2" id="view-game" href="">View Game</a>
+            <a class="btn btn-primary text-center col-8 offset-2" id="add-game-to-collection" href="">Add To My
+                Collection</a>
+        </div>
     </div>
 </div>
 {% endblock %}

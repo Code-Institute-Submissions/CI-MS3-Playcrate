@@ -1,39 +1,44 @@
 {% extends 'base.html' %}
+{% set active_page = "add-game" %}
 {% block title %}Add Game{% endblock %}
 {% block content %}
-<form method="POST" action="/add-game/">
-    <div class="col-8 offset-2">
-        <div class="row">
-            {{ form.csrf_token }}
-            {{ form.id(class="hidden") }}
-            {{ form.is_saved_in_db(class="hidden") }}
-             {{current_user.username}}
-            {% if is_saved_in_db %}
+<div class="container-fluid p-0 flex-fill bgimage">
+    <form method="POST" action="/add-game/">
+        <div class="col-8 offset-2">
+            <div class="row">
+                {{ form.csrf_token }}
+                {{ form.id(class="hidden") }}
+                {{ form.is_saved_in_db(class="hidden") }}
+                {{current_user.username}}
+                {% if is_saved_in_db %}
                 <h3 class="red">A Title With This Name Already Exists In The Database</h3>
-                {{ form.title.label(class="label label-default") }} {{ form.title(class="form-control red") }}
-            {% else %}
-                {{ form.title.label(class="label red label-default") }} {{ form.title(class="form-control") }}
-            {% endif %}
-            
-            {{ form.release_date.label(class="label label-default") }} {{ form.release_date(class="form-control") }}
-            {{ form.developer.label(class="label label-default") }} {{ form.developer(class="form-control select2Js") }}
-            {{ form.publisher.label(class="label label-default") }} {{ form.publisher(class="form-control select2Js") }}
-            {{ form.genre.label(class="label label-default") }} {{ form.genre(class="form-control select2Js") }}
-            {{ form.game_description.label(class="label label-default") }}
-            {{ form.game_description(class="form-control") }}
-            {{ form.trailer.label(class="label label-default") }}
-            {{ form.trailer(placeholder = "url for front video trailer",class="form-control") }}
-            {{ form.soundtrack(placeholder = "url for front Spotify soundtrack",class="form-control") }}
-            {{ form.wikipedia.label(class="label label-default") }}
-            {{ form.wikipedia(placeholder = "url for wikipedia page",class="form-control") }}
-            {{ form.front_cover.label(class="label label-default") }}
-            {{ form.front_cover(placeholder = "url for front cover image",class="form-control") }}
-            {{ form.back_cover.label(class="label label-default") }}
-            {{ form.back_cover(placeholder = "url for back cover image",class="form-control") }}
-            <input type="submit" class="btn btn-primary" value="Submit">
+                {{ form.title.label(class="label label-default") }} {{ form.title(class="form-control form-input") }}
+                {% else %}
+                {{ form.title.label(class="label label-default") }} {{ form.title(class="form-control form-input") }}
+                {% endif %}
+
+                {{ form.release_date.label(class="label label-default") }} {{ form.release_date(class="form-control form-input") }}
+                {{ form.developer.label(class="label label-default") }}
+                {{ form.developer(class="form-control select2Js form-input") }}
+                {{ form.publisher.label(class="label label-default") }}
+                {{ form.publisher(class="form-control select2Js form-input") }}
+                {{ form.genre.label(class="label label-default") }} {{ form.genre(class="form-control form-input select2Js") }}
+                {{ form.game_description.label(class="label label-default") }}
+                {{ form.game_description(class="form-control form-input") }}
+                {{ form.trailer.label(class="label label-default") }}
+                {{ form.trailer(placeholder = "url for front video trailer",class="form-control form-input") }}
+                {{ form.soundtrack(placeholder = "url for front Spotify soundtrack",class="form-control form-input") }}
+                {{ form.wikipedia.label(class="label label-default") }}
+                {{ form.wikipedia(placeholder = "url for wikipedia page",class="form-control form-input") }}
+                {{ form.front_cover.label(class="label label-default") }}
+                {{ form.front_cover(placeholder = "url for front cover image",class="form-control form-input") }}
+                {{ form.back_cover.label(class="label label-default") }}
+                {{ form.back_cover(placeholder = "url for back cover image",class="form-control form-input") }}
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 {% endblock %}
 
 {% block javascript %}
