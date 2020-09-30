@@ -308,24 +308,28 @@ def get_user_collection(game_ids):
 
 
 @app.route('/add-game-to-collection/<game_id>')
+@login_required
 def add_game_to_collection(game_id):
     Users.objects(id=current_user.id).update(push__collection=game_id)
     return redirect('/')
 
 
 @app.route('/remove-game-from-collection/<game_id>')
+@login_required
 def remove_game_from_collection(game_id):
     Users.objects(id=current_user.id).update(pull__collection=game_id)
     return redirect('/')
 
 
 @app.route('/add-game-to-playcrate/<game_id>')
+@login_required
 def add_game_to_playcrate(game_id):
     Users.objects(id=current_user.id).update(push__playcrate=game_id)
     return redirect('/')
 
 
 @app.route('/remove-game-from-playcrate/<game_id>')
+@login_required
 def remove_game_from_playcrate(game_id):
     Users.objects(id=current_user.id).update(pull__playcrate=game_id)
     return redirect('/')

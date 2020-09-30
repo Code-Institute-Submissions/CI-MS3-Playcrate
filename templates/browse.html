@@ -9,23 +9,53 @@
             {% for game in games %}
             <div class="swiper-slide" id="{{game.id}}" data-title="{{game.title}}"
                 data-release-date="{{game.release_date.strftime('%d %B %Y')}}" data-isFlipped=false>
-                <div class="front-cover" style="background-image:url({{game.front_cover}})"></div>
-                <div class="back-cover" style="background-image:url({{game.back_cover}})"></div>
+                <div class="front-cover" style="background-image:url({{game.front_cover}})">
+                    <i class="fas fa-hand-pointer"></i>
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <div class="back-cover">
+                    <div class="row no-gutters h-50">
+                        <a class="col-6 cover-button" , href="/games/{{game.title}}">
+                            <div class="center">
+                                <div class="text-center">View<br><i class="fas fa-eye text-center"></i></div>
+                            </div>
+                        </a>
+                        <a class="col-6 cover-button" href="/edit-game/{{game.title}}">
+                            <div class="center">
+                                <div class="text-center">Edit<br><i class="fas fa-edit text-center"></i></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row no-gutters h-50">
+                        <a class="col-6 cover-button" href="/add-game-to-collection/{{game.id}}">
+                            <div class="center">
+                                <div class="text-center">Add to collection<br><i class="fas fa-box-open text-center"></i></div>
+                            </div>
+                        </a>
+                        <div class="col-6 cover-button">
+                            <div class="center">
+                                <div class="text-center">Back<br><i class="fas fa-sync-alt text-center"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            {% endfor %}
-            {% else %}
-            <h1>You Have No Games Here</h1>
-            {% endif %}
+        </div>
+        <div class="row no-gutters">
+            <div class="col">
+                <h2 id="game-title" class="text-center game-title"></h2>
+                <h2 id="game-release_date" class="text-center release-date"></h2>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <h2 id="game-title" class="text-center game-title"></h2>
-            <h2 id="game-release_date" class="text-center release-date"></h2>
-            <a class="btn btn-primary text-center col-8 offset-2" id="view-game" href="">View Game</a>
-            <a class="btn btn-primary text-center col-8 offset-2" id="add-game-to-collection" href="">Add To My
-                Collection</a>
-        </div>
-    </div>
+</div>
+{% endfor %}
+{% else %}
+<h1>You Have No Games Here</h1>
+{% endif %}
+</div>
+
+</div>
+
 </div>
 {% endblock %}

@@ -17,11 +17,8 @@ var swiper = new Swiper(".swiper-container", {
 
 updateUiWithCurrentlySelectedGame = function () {
   if ($(".swiper-slide-active").length) {
-    
     if ($("#game-title").length) {
-      $("#game-title").text(
-        $(".swiper-slide-active").attr("data-title")
-      );
+      $("#game-title").text($(".swiper-slide-active").attr("data-title"));
     }
 
     if ($("#game-release_date").length) {
@@ -34,6 +31,13 @@ updateUiWithCurrentlySelectedGame = function () {
       $("#view-game").attr(
         "href",
         "/games/" + $(".swiper-slide-active").attr("data-title")
+      );
+    }
+
+    if ($("#edit-game").length) {
+      $("#edit-game").attr(
+        "href",
+        "/edit-game/" + $(".swiper-slide-active").attr("data-title")
       );
     }
 
@@ -69,22 +73,24 @@ swiper.on("slideChange", function () {
   setTimeout(updateUiWithCurrentlySelectedGame, 100);
 });
 
-// $(document).click(function (event) {
-//   console.log($(event.target));
-// });
+$(document).click(function (event) {
+  console.log($(event.target));
+});
 
 let isFlipped = false;
 $(document).on("click tap", ".swiper-slide-active", function () {
   console.log("Clicked on active-slide");
   $(this).css("transition", "all 500ms ease 0s");
 
-  if (isFlipped) {
-    $(this).css({ transform: "rotateY(0deg)" });
-    swiper.allowTouchMove = true;
-    isFlipped = false;
-  } else {
+  if (!isFlipped) {
     $(this).css({ transform: "rotateY(180deg)" });
     swiper.allowTouchMove = false;
     isFlipped = true;
   }
+});
+
+$(document).on("click tap", ".cover-button", function () {
+  console.log("Clicked on cover button");
+  $(".swiper-slide-active").css({ transform: "rotateY(0deg)" });
+  setTimeout(() => {  isFlipped = false; swiper.allowTouchMove = true; }, 500);
 });

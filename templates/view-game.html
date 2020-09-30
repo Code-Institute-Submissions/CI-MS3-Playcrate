@@ -4,10 +4,39 @@
 {% block content %}
 <div class="swiper-container">
     <div class="swiper-wrapper">
-        <div class="swiper-slide" id="{{game._id}}" data-title="{{game.title}}"
-            data-release-date="{{game.release_date.strftime('%d-%B-%Y')}}" data-isFlipped=false>
-            <div class="back-cover" style="background-image:url({{game.back_cover}})"></div>
-            <div class="front-cover" style="background-image:url({{game.front_cover}})"></div>
+        <div class="swiper-slide" id="{{game.id}}" data-title="{{game.title}}"
+            data-release-date="{{game.release_date.strftime('%d %B %Y')}}" data-isFlipped=false>
+            <div class="front-cover" style="background-image:url({{game.front_cover}})">
+                <i class="fas fa-hand-pointer"></i>
+                <i class="fas fa-sync-alt"></i>
+            </div>
+            <div class="back-cover">
+                <div class="row no-gutters h-50">
+                    <div class="col-6 cover-button">
+                        <div class="center">
+                            <div class="text-center">Back<br><i class="fas fa-sync-alt text-center"></i></div>
+                        </div>
+                    </div>
+                    <a class="col-6 cover-button" href="/edit-game/{{game.title}}">
+                        <div class="center">
+                            <div class="text-center">Edit<br><i class="fas fa-edit text-center"></i></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="row no-gutters h-50">
+                    <a class="col-6 cover-button" href="/add-game-to-collection/{{game.id}}">
+                        <div class="center">
+                            <div class="text-center">Add to collection<br><i class="fas fa-box-open text-center"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="col-6 cover-button">
+                        <div class="center">
+                            <div class="text-center">Back<br><i class="fas fa-sync-alt text-center"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -49,8 +78,8 @@
         <div class="embed-responsive embed-responsive-16by9 col-10 offset-1 youtube-embed">
             <iframe class="embed-responsive-item" src={{game.trailer}}></iframe>
         </div>
-        <iframe src="{{game.soundtrack}}" width="300" height="380"
-            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <iframe src="{{game.soundtrack}}" width="300" height="380" frameborder="0" allowtransparency="true"
+            allow="encrypted-media"></iframe>
         <p class="col text-left game-description">{{game.game_description}}</p>
         <h2><a href={{game.wikipedia}}>{{game.title}} (Wikipedia)</a></h2>
         <h2>Added By {{game.added_to_the_db_by}}</h2>
