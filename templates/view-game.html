@@ -7,16 +7,24 @@
         <div class="swiper-slide" id="{{game.id}}" data-title="{{game.title}}"
             data-release-date="{{game.release_date.strftime('%d %B %Y')}}" data-isFlipped=false>
             <div class="front-cover" style="background-image:url({{game.front_cover}})">
-                <i class="fas fa-hand-pointer"></i>
-                <i class="fas fa-sync-alt"></i>
+                <div class="fas fa-sync-alt rotate-icon"></div>
             </div>
             <div class="back-cover">
                 <div class="row no-gutters h-50">
+                    {% if game.added_to_the_db_by == current_user.username %}
+                    <button class="col-6 cover-button" type="button" data-toggle="modal" data-target="#delete-modal">
+                        <div class="center">
+                            <div class="text-center">Delete<br><i class="fas fa-sync-alt text-center"></i></div>
+                        </div>
+                    </button>
+                    {% else %}
                     <div class="col-6 cover-button">
                         <div class="center">
                             <div class="text-center">Back<br><i class="fas fa-sync-alt text-center"></i></div>
                         </div>
                     </div>
+                    {% endif %}
+
                     <a class="col-6 cover-button" href="/edit-game/{{game.title}}">
                         <div class="center">
                             <div class="text-center">Edit<br><i class="fas fa-edit text-center"></i></div>
@@ -40,11 +48,11 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row no-gutters">
     <div class="col">
         <div class="game-title text-center">{{game.title}}</div>
         <h2 class="text-center release-date">{{game.release_date.strftime('%d-%B-%Y')}}</h2>
-        <div class="row">
+        <div class="row no-gutters">
             <div class="col-5 offset-1 category-title">
                 Developed By
             </div>
@@ -54,7 +62,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="row">
+        <div class="row no-gutters">
             <div class="col-5 offset-1 category-title">
                 Published By
             </div>
@@ -64,7 +72,7 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="row">
+        <div class="row no-gutters">
             <div class="col-5 offset-1 category-title">
                 Genre
             </div>
@@ -86,13 +94,8 @@
     </div>
 </div>
 
-<a class="btn btn-primary text-center col-8 offset-2" id="edit-game"
-    href="{{url_for('edit_game', game_title=game.title)}}">Edit Game</a>
 {% if game.added_to_the_db_by == current_user.username %}
-<button type="button" class="btn btn-primary text-center col-8 offset-2" data-toggle="modal"
-    data-target="#delete-modal">
-    Delete Game
-</button>
+
 {% endif %}
 
 <!-- Delete Modal -->
