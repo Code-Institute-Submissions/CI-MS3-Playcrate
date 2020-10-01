@@ -31,8 +31,8 @@
         {% set navbar_menus = [
           ('/', 'home', 'Home'),
           ('/browse', 'browse', 'Browse'),
-          ('/add-game', 'add-game', 'Add-Game'),
-          ('/my-account', 'my-account', 'My-Account'),
+          ('/add-game', 'add-game', 'Add Game'),
+          ('/my-account', 'my-account', 'My Account'),
           ] -%}
         {% set active_page = active_page|default('home') -%}
         {% for href, id, caption in navbar_menus %}
@@ -56,11 +56,15 @@
         </li>
         <li class="nav-item">
           {% if current_user.is_active %}
-          <a class="nav-link play-medium-gray" href="{{url_for('user.logout')}}">Sign Out <i
-              class="fas fa-sign-out-alt play-medium-gray"></i></a>
+          <a class="btn round-button" id="" href="{{url_for('user.logout')}}">
+            <span class="text">Sign Out </span>
+            <span class="round"><i class="fas fa-sign-out-alt"></i></span>
+        </a>
           {% else %}
-          <a class="nav-link play-medium-gray" href="{{url_for('user.login')}}">Sign In <i
-              class="fas fa-sign-in-alt play-medium-gray"></i></a>
+          <a class="btn round-button" id="" href="{{url_for('user.login')}}">
+            <span class="text">Sign In </span>
+            <span class="round"><i class="fas fa-sign-in-alt"></i></span>
+        </a>
           {% endif %}
         </li>
       </ul>

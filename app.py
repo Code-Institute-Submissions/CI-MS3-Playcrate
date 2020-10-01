@@ -57,7 +57,6 @@ class Games(db.Document):
     soundtrack = db.StringField(default='')
     wikipedia = db.StringField(default='')
     front_cover = db.StringField(default='')
-    back_cover = db.StringField(default='')
     is_saved_in_db = db.BooleanField(default=False)
     added_to_the_db_by = db.StringField(default='')
 
@@ -94,7 +93,6 @@ class GameDataForm(FlaskForm):
     soundtrack = StringField('Soundtrack', validators=[URL()])
     wikipedia = StringField('Wikipedia', validators=[URL()])
     front_cover = StringField('Front Cover', validators=[URL()])
-    back_cover = StringField('Back Cover', validators=[URL()])
     is_saved_in_db = BooleanField('Existing Data', default=False)
 
 
@@ -127,18 +125,18 @@ def add_game():
         if form.is_saved_in_db.data == True:
             print("Editing Existing Data")
             add_game_data(form)
-            return redirect("/")
+            return redirect("/games/"+form.title.data)
         else:  # new entry
             # Check if the new game title is the same as an already existing title in the DB
             for game in Games.objects:
                 if form.title.data == game['title']:
                     print("Game Title Already Exists In DB")
                     # Title already exists don't add a duplicate
-                    return redirect("/")
+                    return redirect("/games/"+form.title.data)
 
             if(form.is_saved_in_db.data == False):
                 add_game_data(form)
-                return redirect("/")
+                return redirect("/games/"+form.title.data)
             else:
                 return render_template('add-game.html', form=form, is_saved_in_db=form.is_saved_in_db.data)
 
@@ -205,7 +203,6 @@ def add_game_data(form):
                 soundtrack=form.soundtrack.data,
                 wikipedia=form.wikipedia.data,
                 front_cover=form.front_cover.data,
-                back_cover=form.back_cover.data,
                 is_saved_in_db=True,
                 added_to_the_db_by=current_user.username
             )
@@ -223,7 +220,6 @@ def add_game_data(form):
                                                       soundtrack=form.soundtrack.data,
                                                       wikipedia=form.wikipedia.data,
                                                       front_cover=form.front_cover.data,
-                                                      back_cover=form.back_cover.data,
                                                       is_saved_in_db=True)
             else:
                 print("Adding New Data")
@@ -311,7 +307,7 @@ def get_user_collection(game_ids):
 @login_required
 def add_game_to_collection(game_id):
     Users.objects(id=current_user.id).update(push__collection=game_id)
-    return redirect('/')
+    return redirect('/view-collection/')
 
 
 @app.route('/remove-game-from-collection/<game_id>')

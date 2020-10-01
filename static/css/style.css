@@ -25,6 +25,12 @@
   font-size: 2rem;
   text-transform: uppercase;
 }
+.navbar-brand:hover{
+  color: white;
+}
+.navbar-brand i:hover{
+  color: white;
+}
 
 .form-input {
   border-radius: 25px;
@@ -33,6 +39,11 @@
   border-color: rgb(187, 187, 187);
   background-color: rgb(187, 187, 187);
   color: rgb(132, 132, 132);
+  margin-top: 1.25rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-left: .5rem;
+  padding-right: .5rem;
 }
 
 .form-input:focus {
@@ -77,7 +88,7 @@
 }
 
 .navbar-search-button {
-  margin-left: -35px;
+  margin-left: -45px;
   border-style: hidden;
   background-color: transparent;
 }
@@ -267,9 +278,16 @@ body {
   border-color: rgb(187, 187, 187);
   border-style: solid;
   background-color: rgb(132, 132, 132);
-  -webkit-box-shadow: 0 0.2rem rgb(187, 187, 187);
+  -webkit-box-shadow: 0 0.2rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.round-button:hover{
+  color: white;
+  border-color: white;
 }
 
 .round-button .text{
@@ -338,4 +356,14 @@ body {
   border-style: solid;
   position: absolute;
   bottom: 0;
+}
+
+
+.nav-link{
+  font-family: "Oswald", sans-serif;
+  font-size: 1.5rem;
+}
+
+.nav-link:hover{
+  color: white;
 }

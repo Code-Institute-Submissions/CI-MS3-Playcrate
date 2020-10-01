@@ -28,7 +28,8 @@
                     <div class="row no-gutters h-50">
                         <a class="col-6 cover-button" href="/add-game-to-collection/{{game.id}}">
                             <div class="center">
-                                <div class="text-center">Add to collection<br><i class="fas fa-box-open text-center"></i></div>
+                                <div class="text-center">Add to collection<br><i
+                                        class="fas fa-box-open text-center"></i></div>
                             </div>
                         </a>
                         <div class="col-6 cover-button">
@@ -39,21 +40,20 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}
+            {% else %}
+            <h1>You Have No Games Here</h1>
+            {% endif %}
         </div>
-        <div class="row no-gutters">
-            <div class="col">
-                <h2 id="game-title" class="text-center game-title"></h2>
-                <h2 id="game-release_date" class="text-center release-date"></h2>
-            </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col">
+            <h2 id="game-title" class="text-center game-title"></h2>
+            <h2 id="game-release_date" class="text-center release-date"></h2>
         </div>
     </div>
 </div>
-{% endfor %}
-{% else %}
-<h1>You Have No Games Here</h1>
-{% endif %}
 </div>
-
 </div>
 
 </div>
