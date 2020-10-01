@@ -2,7 +2,20 @@
 {% block title %}Browse{% endblock %}
 {% set active_page = "browse" %}
 {% block content %}
+{% set global_variables={} %}
 <div class="container-fluid p-0 flex-fill bg">
+    {% if browsing is defined %}
+    {% if browsing|string() == 'main' %}
+    <h2>Main</h2>
+    {% elif browsing|string() == 'collection' %}
+    <h2>Collection</h2>
+    {% elif browsing|string() == 'playcrate' %}
+    <h2>Playcrate</h2>
+    {% elif browsing|string() == 'trophies' %}
+    <h2>Trophies</h2>
+    {% endif %}
+    {% endif %}
+
     <div class="swiper-container">
         <div class="swiper-wrapper">
             {% if games|length > 0 %}
@@ -14,6 +27,8 @@
                 </div>
                 <div class="back-cover">
                     <div class="row no-gutters h-50">
+
+                        {% if browsing|string() == "main" or browsing|string() == "search" %}
                         <a class="col-6 cover-button" , href="/games/{{game.title}}">
                             <div class="center">
                                 <div class="text-center">View<br><i class="fas fa-eye text-center"></i></div>
@@ -24,14 +39,100 @@
                                 <div class="text-center">Edit<br><i class="fas fa-edit text-center"></i></div>
                             </div>
                         </a>
+                        {% elif browsing|string() == "collection" %}
+                        <a class="col-6 cover-button" href="/remove-game-from-collection/{{game.id}}">
+                            <div class="center">
+                                <div class="text-center">Remove from collection<br><i
+                                        class="fas fa-trash-alt text-center"></i></div>
+                            </div>
+                        </a>
+                        {% set _ = global_variables.update({'game_is_in_user_playcrate':false}) %}
+                        {% for col_id in user.playcrate  %}
+                        {% if col_id|string() == game.id|string() %}
+                        {% set _ = global_variables.update({'game_is_in_user_playcrate':true}) %}
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if global_variables['game_is_in_user_playcrate'] == true %}
+                        <a class="col-6 cover-button" href="/remove-game-from-playcrate/{{game.id}}">
+                            <div class="center">
+                                <div class="text-center">Remove from Playcrate<br><i
+                                        class="fas fa-trash-alt text-center"></i></div>
+                            </div>
+                        </a>
+                        {% else %}
+                        <a class="col-6 cover-button" href="/add-game-to-playcrate/{{game.id}}">
+                            <div class="center">
+                                <div class="text-center">Add to Playcrate<br><i class="fas fa-box-open text-center"></i>
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                        {% elif browsing|string() == "playcrate" %}
+                        <a class="col-6 cover-button" href="/remove-game-from-playcrate/{{game.id}}">
+                            <div class="center">
+                                <div class="text-center">Remove from Playcrate<br><i
+                                        class="fas fa-trash-alt text-center"></i></div>
+                            </div>
+                        </a>
+                        {% elif browsing|string() == "trophies" %}
+                        <a class="col-6 cover-button" href="/remove-game-from-trophies/{{game.id}}">
+                            <div class="center">
+                                <div class="text-center">Remove from trophies<br><i
+                                        class="fas fa-trash-alt text-center"></i></div>
+                            </div>
+                        </a>
+                        {% endif %}
+
                     </div>
                     <div class="row no-gutters h-50">
+                        {% if browsing|string() == "main" or browsing|string() == "search" %}
+                        {% set _ = global_variables.update({'game_is_in_user_collection':false}) %}
+                        {% for col_id in user.collection  %}
+                        {% if col_id|string() == game.id|string() %}
+                        {% set _ = global_variables.update({'game_is_in_user_collection':true}) %}
+                        {% endif %}
+                        {% endfor %}
+                        {% if global_variables['game_is_in_user_collection'] == true %}
+                        <a class="col-6 cover-button" href="/remove-game-from-collection/{{game.id}}">
+                            <div class="center">
+                                <div class="text-center">Remove from collection<br><i
+                                        class="fas fa-trash-alt text-center"></i></div>
+                            </div>
+                        </a>
+                        {% else %}
                         <a class="col-6 cover-button" href="/add-game-to-collection/{{game.id}}">
                             <div class="center">
                                 <div class="text-center">Add to collection<br><i
                                         class="fas fa-box-open text-center"></i></div>
                             </div>
                         </a>
+                        {% endif %}
+
+                        {% elif browsing|string() == "collection"%}
+                        {% set _ = global_variables.update({'game_is_in_user_trophies':false}) %}
+                        {% for col_id in user.trophies  %}
+                        {% if col_id|string() == game.id|string() %}
+                        {% set _ = global_variables.update({'game_is_in_user_trophies':true}) %}
+                        {% endif %}
+                        {% endfor %}
+                        {% if global_variables['game_is_in_user_trophies'] == true %}
+                        <a class="col-6 cover-button" href="/remove-game-from-trophies/{{game.id}}">
+                            <div class="center">
+                                <div class="text-center">Remove from trophies<br><i
+                                        class="fas fa-trash-alt text-center"></i></div>
+                            </div>
+                        </a>
+                        {% else %}
+                        <a class="col-6 cover-button" href="/add-game-to-trophies/{{game.id}}">
+                            <div class="center">
+                                <div class="text-center">Add to trophies<br><i class="fas fa-box-open text-center"></i>
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                        {% endif %}
+
                         <div class="col-6 cover-button">
                             <div class="center">
                                 <div class="text-center">Back<br><i class="fas fa-sync-alt text-center"></i></div>

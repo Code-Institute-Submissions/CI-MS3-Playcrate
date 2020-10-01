@@ -97,7 +97,8 @@ class GameDataForm(FlaskForm):
 
 
 class SearchDatabaseForm(FlaskForm):
-    search_box = StringField('Search', validators=[DataRequired()], default="Search for Games...")
+    search_box = StringField('Search', validators=[
+                             DataRequired()], default="Search for Games...")
 
 
 @ app.route("/")
@@ -109,7 +110,11 @@ def home():
 @app.route("/browse/")
 def browse():
     search_form = SearchDatabaseForm()
-    return render_template('browse.html', games=Games.objects, search_form=search_form)
+    if current_user.is_active:
+        user = current_user
+    else:
+        user = []
+    return render_template('browse.html', games=Games.objects, search_form=search_form, user=user, browsing="main")
 
 
 @ app.route("/add-game/", methods=('GET', 'POST'))
@@ -273,9 +278,11 @@ def my_account():
 @app.route('/view-collection/')
 def view_collection():
     user_collection_all_games = get_user_collection(current_user.collection)
-    print(user_collection_all_games)
-    return render_template('browse.html', games=user_collection_all_games, browsing="collection")
-    # return redirect('/')
+    if current_user.is_active:
+        user = current_user
+    else:
+        user = []
+    return render_template('browse.html', games=user_collection_all_games, user=user, browsing="collection")
 
 
 @app.route('/view-playcrate/')
@@ -288,7 +295,7 @@ def view_playcrate():
 @app.route('/view-trophies/')
 def view_trophies():
     user_collection_trophies = get_user_collection(current_user.trophies)
-    return render_template('browse.html', games=user_collection_trophies, browsing="tophies")
+    return render_template('browse.html', games=user_collection_trophies, browsing="trophies")
 
 
 def get_user_collection(game_ids):
@@ -306,6 +313,11 @@ def get_user_collection(game_ids):
 @app.route('/add-game-to-collection/<game_id>')
 @login_required
 def add_game_to_collection(game_id):
+    # Prevent duplicate ids being added to the user collection
+    for id in current_user.collection:
+        if id == game_id:
+            return redirect('/view-collection/')
+
     Users.objects(id=current_user.id).update(push__collection=game_id)
     return redirect('/view-collection/')
 
@@ -314,28 +326,51 @@ def add_game_to_collection(game_id):
 @login_required
 def remove_game_from_collection(game_id):
     Users.objects(id=current_user.id).update(pull__collection=game_id)
-    return redirect('/')
+    Users.objects(id=current_user.id).update(pull__playcrate=game_id)
+    Users.objects(id=current_user.id).update(pull__trophies=game_id)
+    return redirect('/view-collection')
 
 
 @app.route('/add-game-to-playcrate/<game_id>')
 @login_required
 def add_game_to_playcrate(game_id):
+    for id in current_user.playcrate:
+        if id == game_id:
+            return redirect('/view-playcrate/')
     Users.objects(id=current_user.id).update(push__playcrate=game_id)
-    return redirect('/')
+    return redirect('/view-playcrate/')
 
 
 @app.route('/remove-game-from-playcrate/<game_id>')
 @login_required
 def remove_game_from_playcrate(game_id):
     Users.objects(id=current_user.id).update(pull__playcrate=game_id)
-    return redirect('/')
+    return redirect('/view-playcrate/')
+
+@app.route('/add-game-to-trophies/<game_id>')
+@login_required
+def add_game_to_trophies(game_id):
+    # Prevent duplicate ids being added to the user trophies
+    for id in current_user.trophies:
+        if id == game_id:
+            return redirect('/view-trophies/')
+
+    Users.objects(id=current_user.id).update(push__trophies=game_id)
+    return redirect('/view-trophies/')
+
+
+@app.route('/remove-game-from-trophies/<game_id>')
+@login_required
+def remove_game_from_trophies(game_id):
+    Users.objects(id=current_user.id).update(pull__trophies=game_id)
+    return redirect('/view-trophies/')
 
 
 @app.route('/search-db/', methods=['POST'])
 def search_db():
     form = SearchDatabaseForm()
     search_results = Games.objects.search_text(form.search_box.data).all()
-    return render_template('browse.html', games=search_results, form=form)
+    return render_template('browse.html', games=search_results, form=form, browsing="search")
 
 
 def update_form_choices(form):
