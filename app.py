@@ -289,13 +289,21 @@ def view_collection():
 def view_playcrate():
     search_form = SearchDatabaseForm()
     user_collection_playcrate = get_user_collection(current_user.playcrate)
-    return render_template('browse.html', games=user_collection_playcrate,  search=search_form, browsing="playcrate")
+    if current_user.is_active:
+        user = current_user
+    else:
+        user = []
+    return render_template('browse.html', games=user_collection_playcrate, user=user,  search=search_form, browsing="playcrate")
 
 
 @app.route('/view-trophies/')
 def view_trophies():
     user_collection_trophies = get_user_collection(current_user.trophies)
-    return render_template('browse.html', games=user_collection_trophies, browsing="trophies")
+    if current_user.is_active:
+        user = current_user
+    else:
+        user = []
+    return render_template('browse.html', games=user_collection_trophies, user=user, browsing="trophies")
 
 
 def get_user_collection(game_ids):
@@ -346,6 +354,7 @@ def add_game_to_playcrate(game_id):
 def remove_game_from_playcrate(game_id):
     Users.objects(id=current_user.id).update(pull__playcrate=game_id)
     return redirect('/view-playcrate/')
+
 
 @app.route('/add-game-to-trophies/<game_id>')
 @login_required

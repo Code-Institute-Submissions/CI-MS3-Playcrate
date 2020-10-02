@@ -360,6 +360,11 @@ color: white;
   border-style: solid;
   position: absolute;
   bottom: 0;
+  visibility: hidden;
+}
+
+.swiper-slide-active .rotate-icon{
+  visibility: visible;
 }
 
 

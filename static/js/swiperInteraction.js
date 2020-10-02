@@ -65,6 +65,31 @@ updateUiWithCurrentlySelectedGame = function () {
         "/remove-game-from-playcrate/" + $(".swiper-slide-active").attr("id")
       );
     }
+
+    if ($("#in-collection-icon").length) {
+      if($(".swiper-slide-active").attr("data-game-is-in-user-collection") == "True"){
+        $("#in-collection-icon").css({visibility: "visible"})
+      }
+      else{
+        $("#in-collection-icon").css({visibility: "hidden"})
+      }
+    }
+    if ($("#in-playcrate-icon").length) {
+      if($(".swiper-slide-active").attr("data-game-is-in-user-playcrate") == "True"){
+        $("#in-playcrate-icon").css({visibility: "visible"})
+      }
+      else{
+        $("#in-playcrate-icon").css({visibility: "hidden"})
+      }
+    }
+    if ($("#in-trophies-icon").length) {
+      if($(".swiper-slide-active").attr("data-game-is-in-user-trophies") == "True"){
+        $("#in-trophies-icon").css({visibility: "visible"})
+      }
+      else{
+        $("#in-trophies-icon").css({visibility: "hidden"})
+      }
+    }
   }
 };
 
