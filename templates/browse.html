@@ -24,7 +24,7 @@
         <div class="swiper-container">
            <div class="swiper-wrapper">
                 {% if games|length > 0 %}
-                    {% for game in games %}
+                    {% for game in games|sort(attribute='title') %}
                         <!-- Check if the game is in the users collection -->
                         {% set _ = global_variables.update({'game_is_in_user_collection':false}) %}
                         {% for col_id in user.collection  %}
