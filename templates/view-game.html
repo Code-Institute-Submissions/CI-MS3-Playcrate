@@ -14,31 +14,25 @@
                     {% if game.added_to_the_db_by == current_user.username %}
                     <button class="col-6 cover-button" type="button" data-toggle="modal" data-target="#delete-modal">
                         <div class="center">
-                            <div class="text-center">Delete<br><i class="fas fa-sync-alt text-center"></i></div>
+                            <div class="text-center">Delete<br><i class="fas fa-trash-alt text-center"></i></div>
                         </div>
                     </button>
-                    {% else %}
-                    <div class="col-6 cover-button">
-                        <div class="center">
-                            <div class="text-center">Back<br><i class="fas fa-sync-alt text-center"></i></div>
-                        </div>
-                    </div>
-                    {% endif %}
-
                     <a class="col-6 cover-button" href="/edit-game/{{game.title}}">
                         <div class="center">
                             <div class="text-center">Edit<br><i class="fas fa-edit text-center"></i></div>
                         </div>
                     </a>
-                </div>
-                <div class="row no-gutters h-50">
-                    <a class="col-6 cover-button" href="/add-game-to-collection/{{game.id}}">
+                    {% else %}
+                    <a class="col cover-button" href="/edit-game/{{game.title}}">
                         <div class="center">
-                            <div class="text-center">Add to collection<br><i class="fas fa-box-open text-center"></i>
-                            </div>
+                            <div class="text-center">Edit<br><i class="fas fa-edit text-center"></i></div>
                         </div>
                     </a>
-                    <div class="col-6 cover-button">
+                    {% endif %}
+
+                </div>
+                <div class="row no-gutters h-50">
+                    <div class="col cover-button">
                         <div class="center">
                             <div class="text-center">Back<br><i class="fas fa-sync-alt text-center"></i></div>
                         </div>

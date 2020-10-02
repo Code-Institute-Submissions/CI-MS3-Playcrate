@@ -379,7 +379,11 @@ def remove_game_from_trophies(game_id):
 def search_db():
     form = SearchDatabaseForm()
     search_results = Games.objects.search_text(form.search_box.data).all()
-    return render_template('browse.html', games=search_results, form=form, browsing="search")
+    if current_user.is_active:
+        user = current_user
+    else:
+        user = []
+    return render_template('browse.html', games=search_results, form=form, user=user , browsing="search")
 
 
 def update_form_choices(form):

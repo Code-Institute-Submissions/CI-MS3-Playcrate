@@ -377,3 +377,7 @@ color: white;
 .nav-link:hover{
   color: white;
 }
+
+.collection-icon{
+  visibility: hidden;
+}
