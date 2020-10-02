@@ -3,45 +3,13 @@
 {% block title %}My Account{% endblock %}
 
 {% block content %}
-<!-- <div class="swiper-container">
-    <div class="swiper-wrapper">
-        {% for id in user_collection_game_ids %}
-        <div class="swiper-slide" id="{{user_collection_games[id][0]['id']}}" data-title="{{user_collection_games[id][0]['title']}}"
-            data-release-date="{{user_collection_games[id][0]['release_date'].strftime('%d %B %Y')}}" data-isFlipped=false>
-            {% set front_cover = user_collection_games[id][0]['front_cover']%}
-            {% set back_cover = user_collection_games[id][0]['back_cover']%}
-            <div class="front-cover" style="background-image:url({{front_cover}})"></div>
-            <div class="back-cover" style="background-image:url({{back_cover}})"></div>
-        </div>
-        {% endfor %}
-    </div>
-</div> -->
-<!-- <div class="row">
-    <div class="col">
-        <h2 id="game-title" class="text-center game-title"></h2>
-        <h2 id="game-release_date" class="text-center release-date"></h2>
-        <a class="btn btn-primary text-center col-8 offset-2" id="view-game" href="">View Game</a>
-        <a class="btn btn-primary text-center col-8 offset-2" id="remove-game-from-collection" href="">Remove From
-            Collection</a>
-        <a class="btn btn-primary text-center col-8 offset-2" id="add-game-to-playcrate" href="">Add To Playcrate</a>
-        <a class="btn btn-primary text-center col-8 offset-2" id="remove-game-from-playcrate" href="">Remove From
-            Playcrate</a>
-        <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('user.logout')}}">Logout</a>
-    </div>
-</div> -->
 <div class="container-fluid p-0 flex-fill bg">
-    <div class="row">
-        <div class="col">
-            <a class="btn btn-primary text-center col-8 offset-2" id=""
+    <div class="row no-gutters">
+            <a class="btn btn-primary text-center col-6 offset-3 col-md-4 square" id=""
                 href="{{url_for('view_collection')}}">Collection</a>
-            <a class="btn btn-primary text-center col-8 offset-2" id=""
+            <a class="btn btn-primary text-center col-6 offset-3 col-md-4 square" id=""
                 href="{{url_for('view_playcrate')}}">Playcrate</a>
-            <a class="btn btn-primary text-center col-8 offset-2" id="" href="{{url_for('view_trophies')}}">Trophies</a>
-        </div>
+            <a class="btn btn-primary text-center col-6 offset-3 col-md-4 square" id="" href="{{url_for('view_trophies')}}">Trophies</a>
     </div>
 </div>
 {% endblock %}
-
-
-<!-- for games in Collection
-    game in games -->

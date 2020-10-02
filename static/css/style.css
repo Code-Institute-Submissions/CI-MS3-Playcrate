@@ -39,11 +39,6 @@
   border-color: rgb(187, 187, 187);
   background-color: rgb(187, 187, 187);
   color: rgb(132, 132, 132);
-  margin-top: 1.25rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  padding-left: .5rem;
-  padding-right: .5rem;
 }
 
 .form-input:focus {
@@ -91,6 +86,16 @@
   margin-left: -45px;
   border-style: hidden;
   background-color: transparent;
+}
+.search-bar{
+  border-radius: 25px;
+  border-style: solid;
+  border-width: 0.125rem;
+  border-color: rgb(187, 187, 187);
+  background-color: rgb(187, 187, 187);
+  color: rgb(132, 132, 132);
+  margin-top: 1.5rem;
+  margin-right: 1rem;
 }
 
 .game-title {
@@ -380,4 +385,9 @@ color: white;
 
 .collection-icon{
   visibility: hidden;
+}
+
+.label{
+  color: rgb(193 193 193);
+  font-family: "Oswald", sans-serif;
 }

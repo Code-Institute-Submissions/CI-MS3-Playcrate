@@ -9,15 +9,15 @@
         {# Set The Title Of The Browsing Window #}
         {% if browsing is defined %}
             {% if browsing|string() == 'main' %}
-                <h2>Browse All</h2>
+                <h2 class="text-center play-medium-gray ">Browse All</h2>
             {% elif browsing|string() == 'collection' %}
-                <h2>Collection</h2>
+                <h2 class="text-center play-medium-gray ">My Collection</h2>
             {% elif browsing|string() == 'playcrate' %}
-                <h2>Playcrate</h2>
+                <h2 class="text-center play-medium-gray ">My Playcrate</h2>
             {% elif browsing|string() == 'trophies' %}
-                <h2>Trophies</h2>
-            {% elif browsing|string() == 'trophies' %}
-                <h2>Serach Results</h2>
+                <h2 class="text-center play-medium-gray ">My Trophies</h2>
+            {% elif browsing|string() == 'serach' %}
+                <h2 class="text-center play-medium-gray ">Serach Results</h2>
             {% endif %}
         {% endif %}
 
