@@ -58,6 +58,7 @@ class Games(db.Document):
     front_cover = db.StringField(default='')
     is_saved_in_db = db.BooleanField(default=False)
     added_to_the_db_by = db.StringField(default='')
+    last_edited_by = db.StringField(default='')
 
     meta = {'indexes': [
         {'fields': ['$title', "$developer", '$publisher', '$genre'],
@@ -221,7 +222,7 @@ def add_game_data(form):
                                                       trailer=form.trailer.data,
                                                       wikipedia=form.wikipedia.data,
                                                       front_cover=form.front_cover.data,
-                                                      is_saved_in_db=True)
+                                                      is_saved_in_db=True, last_edited_by=current_user.username)
             else:
                 print("Adding New Data")
                 game_doc.save()
