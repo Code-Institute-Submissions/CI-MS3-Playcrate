@@ -377,6 +377,16 @@ def search_db():
         user = []
     return render_template('browse.html', games=search_results, form=form, user=user , browsing="search")
 
+@app.route('/search-db-keyword/<keyword>', methods=['GET','POST'])
+def search_db_keyword(keyword):
+    form = SearchDatabaseForm()
+    search_results = Games.objects.search_text(keyword).all()
+    if current_user.is_active:
+        user = current_user
+    else:
+        user = []
+    return render_template('browse.html', games=search_results, form=form, user=user , browsing="search")
+
 
 def update_form_choices(form):
     for developer in Developers.objects:
