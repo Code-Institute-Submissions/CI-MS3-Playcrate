@@ -54,7 +54,6 @@ class Games(db.Document):
     genre = db.ListField(db.StringField(), default=[])
     game_description = db.StringField(default='')
     trailer = db.StringField(default='')
-    soundtrack = db.StringField(default='')
     wikipedia = db.StringField(default='')
     front_cover = db.StringField(default='')
     is_saved_in_db = db.BooleanField(default=False)
@@ -90,7 +89,6 @@ class GameDataForm(FlaskForm):
     game_description = TextAreaField(
         'Game Description', validators=[DataRequired()])
     trailer = StringField('Trailer', validators=[URL()])
-    soundtrack = StringField('Soundtrack', validators=[URL()])
     wikipedia = StringField('Wikipedia', validators=[URL()])
     front_cover = StringField('Front Cover', validators=[URL()])
     is_saved_in_db = BooleanField('Existing Data', default=False)
@@ -205,7 +203,6 @@ def add_game_data(form):
                 genre=form.genre.data,
                 game_description=form.game_description.data,
                 trailer=form.trailer.data,
-                soundtrack=form.soundtrack.data,
                 wikipedia=form.wikipedia.data,
                 front_cover=form.front_cover.data,
                 is_saved_in_db=True,
@@ -222,7 +219,6 @@ def add_game_data(form):
                                                       genre=form.genre.data,
                                                       game_description=form.game_description.data,
                                                       trailer=form.trailer.data,
-                                                      soundtrack=form.soundtrack.data,
                                                       wikipedia=form.wikipedia.data,
                                                       front_cover=form.front_cover.data,
                                                       is_saved_in_db=True)
@@ -243,10 +239,6 @@ def view_game(game_name):
     # &modestbranding=1&autohide=1&showinfo=0&controls=0
     game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/")
     game_to_view['trailer'] += "?rel=0"
-    # Convert Spotify Link
-    soundtrack_url = game_to_view['soundtrack']
-    game_to_view['soundtrack'] = soundtrack_url.replace(
-        "/album/", "/embed/album/")
     return render_template('view-game.html', search_form=search_form, game=game_to_view, current_user=current_user)
 
 
