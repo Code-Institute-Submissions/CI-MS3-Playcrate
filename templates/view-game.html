@@ -43,48 +43,75 @@
     </div>
     <div class="game-title text-center">{{game.title}}</div>
     <h2 class="text-center release-date">{{game.release_date.strftime('%d-%B-%Y')}}</h2>
-</div>
-<div class="row no-gutters">
-    <div class="col">
-        <div class="row no-gutters">
-            <div class="col-5 offset-1 category-title">
-                Developed By
+    <div class="row no-gutters">
+        <div class="col">
+            <div class="row no-gutters">
+                <div class="col-5 offset-1 category-title">
+                    Developed By
+                </div>
+                <div class="col-6 text-center category-info">
+                    {% for developer in game.developer %}
+                    <a href="/tag-search/{{developer}}">{{developer}}{{ "," if not loop.last }}</a>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="col-6 text-center category-info">
-                {% for developer in game.developer %}
-                <a href="/search-db-keyword/{{developer}}">{{developer}}{{ "," if not loop.last }}</a> 
-                {% endfor %}
+            <div class="row no-gutters">
+                <div class="col-5 offset-1 category-title">
+                    Published By
+                </div>
+                <div class="col-6 text-center category-info">
+                    {% for publisher in game.publisher %}
+                    <a href="/tag-search/{{publisher}}">{{publisher}}{{ "," if not loop.last }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-5 offset-1 category-title">
+                    Genre
+                </div>
+                <div class="col-6 text-center category-info">
+                    {% for genre in game.genre %}
+                    <a href="/tag-search/{{genre}}">{{genre}}{{ "," if not loop.last }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col text-center category-title">
+                Overview
+            </div>
+            <p class="col game-description">{{game.game_description}}</p>
+            
+            <div class="embed-responsive embed-responsive-16by9 col offset col-lg-6 offset-lg-3 youtube-embed">
+                <iframe class="embed-responsive-item" src={{game.trailer}}></iframe>
+            </div>
+            
+            <div class="row no-gutters">
+                <div class="col-5 offset-1 category-title">
+                    Wikipedia
+                </div>
+                <div class="col-6 text-center category-info">
+                    <a href={{game.wikipedia}}>{{game.title}}</a>
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-5 offset-1 category-title">
+                    Added By
+                </div>
+                <div class="col-6 text-center category-info">
+                    {{game.added_to_the_db_by}}
+                </div>
+            </div>
+            <div class="row no-gutters">
+                <div class="col-5 offset-1 category-title">
+                    Last Edit By
+                </div>
+                <div class="col-6 text-center category-info">
+                    {{game.last_edited_by}}
+                </div>
             </div>
         </div>
-        <div class="row no-gutters">
-            <div class="col-5 offset-1 category-title">
-                Published By
-            </div>
-            <div class="col-6 text-center category-info">
-                {% for publisher in game.publisher %}
-                 <a href="/search-db-keyword/{{publisher}}">{{publisher}}{{ "," if not loop.last }}</a>   
-                {% endfor %}
-            </div>
-        </div>
-        <div class="row no-gutters">
-            <div class="col-5 offset-1 category-title">
-                Genre
-            </div>
-            <div class="col-6 text-center category-info">
-                {% for genre in game.genre %}
-                <a href="/search-db-keyword/{{genre}}">{{genre}}{{ "," if not loop.last }}</a>  
-                {% endfor %}
-            </div>
-        </div>
-        <!--  -->
-        <div class="embed-responsive embed-responsive-16by9 col-10 offset-1 col-lg-6 offset-lg-3 youtube-embed">
-            <iframe class="embed-responsive-item" src={{game.trailer}}></iframe>
-        </div>
-        <p class="col text-left game-description">{{game.game_description}}</p>
-        <h2><a href={{game.wikipedia}}>{{game.title}} (Wikipedia)</a></h2>
-        <h2>Added By {{game.added_to_the_db_by}}</h2>
     </div>
 </div>
+
 
 {% if game.added_to_the_db_by == current_user.username %}
 

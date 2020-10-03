@@ -44,6 +44,7 @@ class Users(db.Document, UserMixin):
 
 # Setup Flask-User and specify the User data-model
 user_manager = UserManager(app, db, Users)
+user_manager.USER_REQUIRE_RETYPE_PASSWORD = 'TRUE'
 
 
 class Games(db.Document):
@@ -97,7 +98,7 @@ class GameDataForm(FlaskForm):
 
 class SearchDatabaseForm(FlaskForm):
     search_box = StringField('Search', validators=[
-                             DataRequired()], default="Search for Games...")
+                             DataRequired()], render_kw={"placeholder": "Search for Games, Developer, Publisher or Genre.."} )
 
 
 @ app.route("/")
@@ -378,7 +379,7 @@ def search_db():
         user = []
     return render_template('browse.html', games=search_results, form=form, user=user , browsing="search")
 
-@app.route('/search-db-keyword/<keyword>', methods=['GET','POST'])
+@app.route('/tag-search/<keyword>', methods=['GET','POST'])
 def search_db_keyword(keyword):
     form = SearchDatabaseForm()
     search_results = Games.objects.search_text(keyword).all()
