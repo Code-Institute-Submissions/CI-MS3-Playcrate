@@ -57,7 +57,7 @@
                                 <div class="fas fa-sync-alt rotate-icon"></div>
                             </div>
                             
-                            <div class="back-cover">
+                            <div class="back-cover" style="background-image:url({{game.front_cover}})">
                                 <div class="row no-gutters h-50">
                                     {% if browsing|string() == "main" or browsing|string() == "search" %}
                                         <a class="col-6 cover-button" , href="/games/{{game.title}}">
@@ -96,20 +96,20 @@
                                         {% else %}
                                             <a class="col-6 cover-button" href="/add-game-to-playcrate/{{game.id}}">
                                                 <div class="center">
-                                                    <div class="text-center">Add to Playcrate<br><i class="fas fa-box-open text-center"></i>
+                                                    <div class="text-center">Add to Playcrate<br><i class="fas fa-gamepad text-center"></i>
                                                     </div>
                                                 </div>
                                             </a>
                                         {% endif %}
                                     {% elif browsing|string() == "playcrate" %}
-                                        <a class="col-6 cover-button" href="/remove-game-from-playcrate/{{game.id}}">
+                                        <a class="col cover-button" href="/remove-game-from-playcrate/{{game.id}}">
                                             <div class="center">
                                                 <div class="text-center">Remove from Playcrate<br><i
                                                         class="fas fa-trash-alt text-center"></i></div>
                                             </div>
                                         </a>
                                     {% elif browsing|string() == "trophies" %}
-                                    <a class="col-6 cover-button" href="/remove-game-from-trophies/{{game.id}}">
+                                    <a class="col cover-button" href="/remove-game-from-trophies/{{game.id}}">
                                         <div class="center">
                                             <div class="text-center">Remove from trophies<br><i
                                                     class="fas fa-trash-alt text-center"></i></div>
@@ -146,17 +146,26 @@
                                         {% else %}
                                             <a class="col-6 cover-button" href="/add-game-to-trophies/{{game.id}}">
                                                 <div class="center">
-                                                    <div class="text-center">Add to trophies<br><i class="fas fa-box-open text-center"></i>
+                                                    <div class="text-center">Add to trophies<br><i class="fas fa-trophy text-center"></i>
                                                     </div>
                                                 </div>
                                             </a>
                                         {% endif %}
                                     {% endif %}
-                                    <div class="col-6 cover-button">
-                                        <div class="center">
-                                            <div class="text-center">Back<br><i class="fas fa-sync-alt text-center"></i></div>
+                                    
+                                    {% if browsing|string() == "main" or browsing|string() == "search" or browsing|string() == "collection" %}
+                                        <div class="col-6 cover-button">
+                                            <div class="center">
+                                                <div class="text-center">Back<br><i class="fas fa-sync-alt text-center"></i></div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    {% else %}
+                                        <div class="col cover-button">
+                                            <div class="center">
+                                                <div class="text-center">Back<br><i class="fas fa-sync-alt text-center"></i></div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>  
                         </div>

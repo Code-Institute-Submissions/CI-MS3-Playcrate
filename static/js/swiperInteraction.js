@@ -110,6 +110,7 @@ $(document).on("click tap", ".swiper-slide-active", function () {
   if (!isFlipped) {
     $(this).css({ transform: "rotateY(180deg)" });
     swiper.allowTouchMove = false;
+    $(this).toggleClass('flipped');
     isFlipped = true;
   }
 });
@@ -117,5 +118,6 @@ $(document).on("click tap", ".swiper-slide-active", function () {
 $(document).on("click tap", ".cover-button", function () {
   console.log("Clicked on cover button");
   $(".swiper-slide-active").css({ transform: "rotateY(0deg)" });
+  $(".swiper-slide-active").toggleClass('flipped');
   setTimeout(() => {  isFlipped = false; swiper.allowTouchMove = true; }, 500);
 });

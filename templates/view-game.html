@@ -5,7 +5,7 @@
 <div class="swiper-container">
     <div class="swiper-wrapper">
         <div class="swiper-slide" id="{{game.id}}" data-title="{{game.title}}"
-            data-release-date="{{game.release_date.strftime('%d %B %Y')}}" data-isFlipped=false>
+            data-release-date="{{game.release_date.strftime('%d %B %Y')}}">
             <div class="front-cover" style="background-image:url({{game.front_cover}})">
                 <div class="fas fa-sync-alt rotate-icon"></div>
             </div>
@@ -41,11 +41,11 @@
             </div>
         </div>
     </div>
+    <div class="game-title text-center">{{game.title}}</div>
+    <h2 class="text-center release-date">{{game.release_date.strftime('%d-%B-%Y')}}</h2>
 </div>
 <div class="row no-gutters">
     <div class="col">
-        <div class="game-title text-center">{{game.title}}</div>
-        <h2 class="text-center release-date">{{game.release_date.strftime('%d-%B-%Y')}}</h2>
         <div class="row no-gutters">
             <div class="col-5 offset-1 category-title">
                 Developed By
@@ -77,7 +77,7 @@
             </div>
         </div>
         <!--  -->
-        <div class="embed-responsive embed-responsive-16by9 col-10 offset-1 youtube-embed">
+        <div class="embed-responsive embed-responsive-16by9 col-10 offset-1 col-lg-6 offset-lg-3 youtube-embed">
             <iframe class="embed-responsive-item" src={{game.trailer}}></iframe>
         </div>
         <p class="col text-left game-description">{{game.game_description}}</p>

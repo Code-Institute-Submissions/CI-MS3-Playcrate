@@ -182,11 +182,11 @@ body {
   border-radius: 15px;
   border-style: solid;
   border-color: black;
-  background-color: rgb(187, 187, 187);
+  /* background-color: rgba(0, 0, 0,0.8); */
   border-width: 10px;
   background-repeat: no-repeat;
   -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(35%, transparent), to(rgba(250, 250, 250, 0.1)));
-  backface-visibility: hidden;
+  /* backface-visibility: hidden; */
 }
 
 .back-cover {
@@ -216,7 +216,8 @@ body {
 }
 
 .youtube-embed {
-  border: solid 0.5rem rgb(181, 182, 187);
+  /* border: solid 0.5rem rgb(181, 182, 187); */
+  border-radius: 10px;
   margin-top: 5rem;
   margin-bottom: 5rem;
 }
@@ -346,13 +347,20 @@ color: white;
 }
 
 .cover-button{
-  background-color: rgba(255, 255, 255, 0.1);
-  border: inset 1px black;
+  background-color: rgba(0,0, 0, 0.95);
+  border: inset 1px rgb(163, 163, 163);
   pointer-events: all;
+  visibility: hidden;
+  color: white;
+}
+
+.flipped .cover-button{
+  visibility: visible;
 }
 
 .cover-button:hover{
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 1);
+  color: white;
 }
 
 .rotate-icon{
