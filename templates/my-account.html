@@ -5,11 +5,27 @@
 {% block content %}
 <div class="container-fluid p-0 flex-fill bg">
     <div class="row no-gutters">
-            <a class="btn btn-primary text-center col-6 offset-3 col-md-4 square" id=""
-                href="{{url_for('view_collection')}}">Collection</a>
-            <a class="btn btn-primary text-center col-6 offset-3 col-md-4 square" id=""
-                href="{{url_for('view_playcrate')}}">Playcrate</a>
-            <a class="btn btn-primary text-center col-6 offset-3 col-md-4 square" id="" href="{{url_for('view_trophies')}}">Trophies</a>
+        <a class="offset-3 col-md-4 offset-md-0" href="{{url_for('view_collection')}}">
+            <div class="square">
+                <div class=" btn btn-primary square-inner">
+                    <div class="center">Collection</div>
+                </div>
+            </div>
+        </a>
+        <a class="offset-3 col-md-4 offset-md-0" href="{{url_for('view_playcrate')}}">
+            <div class="square">
+                <div class=" btn btn-primary square-inner">
+                    <div class="center">Playcrate</div>
+                </div>
+            </div>
+        </a>
+        <a class="offset-3 col-md-4 offset-md-0" href="{{url_for('view_trophies')}}">
+            <div class="square">
+                <div class=" btn btn-primary square-inner">
+                    <div class="center">Trophies</div>
+                </div>
+            </div>
+        </a>
     </div>
 </div>
 {% endblock %}

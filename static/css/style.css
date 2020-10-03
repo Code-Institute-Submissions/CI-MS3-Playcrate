@@ -316,9 +316,17 @@ body {
 .square{
   position: relative;
   width: 100%;
-  padding-top: 25%;
+  padding-top: 100%;
   margin-top: .5rem;
   margin-bottom: .5rem;
+}
+
+.square-inner{
+  position:  absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .social-icon-back{
