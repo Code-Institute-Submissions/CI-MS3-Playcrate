@@ -64,12 +64,12 @@
         </li>
         <li class="nav-item">
           {% if current_user.is_active %}
-          <a class="btn round-button" id="" href="{{url_for('user.logout')}}">
+          <a class="btn round-button"  href="{{url_for('user.logout')}}">
             <span class="text">Sign Out </span>
             <span class="round"><i class="fas fa-sign-out-alt"></i></span>
         </a>
           {% else %}
-          <a class="btn round-button" id="" href="{{url_for('user.login')}}">
+          <a class="btn round-button"  href="{{url_for('user.login')}}">
             <span class="text">Sign In </span>
             <span class="round"><i class="fas fa-sign-in-alt"></i></span>
         </a>
@@ -87,38 +87,38 @@
           <div class="row no-gutters">
             <div class="col-3">
               <div class="square">
-                <div class="square-inner social-icon-back" href="https://www.facebook.com/">
+                <a class="square-inner social-icon-back" href="https://www.facebook.com/">
                   <div class="center">
                     <i class="social-icon-inner fab fa-facebook"></i>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
             <div class="col-3">
               <div class="square">
-                <div class="square-inner social-icon-back" href="https://www.twitter.com/">
+                <a class="square-inner social-icon-back" href="https://www.twitter.com/">
                   <div class="center">
                     <i class="social-icon-inner fab fa-twitter"></i>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
             <div class="col-3">
               <div class="square">
-                <div class="square-inner social-icon-back" href="https://www.youtube.com/">
+                <a class="square-inner social-icon-back" href="https://www.youtube.com/">
                   <div class="center">
                     <i class="social-icon-inner fab fa-youtube"></i>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
             <div class="col-3">
               <div class="square">
-                <div class="square-inner social-icon-back" href="https://www.instagram.com/">
+                <a class="square-inner social-icon-back" href="https://www.instagram.com/">
                   <div class="center">
                     <i class="social-icon-inner fab fa-instagram"></i>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
           </div>
