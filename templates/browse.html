@@ -59,14 +59,14 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
           <div class="row no-gutters h-50">
             {% if browsing|string() == "main" or browsing|string() == "search"
             %}
-            <a class="col-6 cover-button" href="/games/{{game.title}}">
+            <a class="col-6 cover-button" href="/games/{{game.title | urlencode}}">
               <div class="center">
                 <div class="text-center">
                   View<br /><i class="fas fa-eye text-center"></i>
                 </div>
               </div>
             </a>
-            <a class="col-6 cover-button" href="/edit-game/{{game.title}}">
+            <a class="col-6 cover-button" href="/edit-game/{{game.title | urlencode}}">
               <div class="center">
                 <div class="text-center">
                   Edit<br /><i class="fas fa-edit text-center"></i>
