@@ -17,13 +17,13 @@
                             <div class="text-center">Delete<br><i class="fas fa-trash-alt text-center"></i></div>
                         </div>
                     </button>
-                    <a class="col-6 cover-button" href="/edit-game/{{game.title}}">
+                    <a class="col-6 cover-button" href="/edit-game/{{game.title |urlencode}}">
                         <div class="center">
                             <div class="text-center">Edit<br><i class="fas fa-edit text-center"></i></div>
                         </div>
                     </a>
                     {% else %}
-                    <a class="col cover-button" href="/edit-game/{{game.title}}">
+                    <a class="col cover-button" href="/edit-game/{{game.title| urlencode}}">
                         <div class="center">
                             <div class="text-center">Edit<br><i class="fas fa-edit text-center"></i></div>
                         </div>
@@ -89,7 +89,7 @@
                     Wikipedia
                 </div>
                 <div class="col-6 text-center category-info">
-                    <a href={{game.wikipedia}}>{{game.title}}</a>
+                    <a href={{game.wikipedia}}>{{game.title | urlencode}}</a>
                 </div>
             </div>
             <div class="row no-gutters">
@@ -134,7 +134,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <a class="btn btn-danger" id="delete-game"
-                    href="{{url_for('delete_game', game_title=game.title)}}">Delete</a>
+                    href="{{url_for('delete_game', game_title=game.title|urlencode)}}">Delete</a>
             </div>
         </div>
     </div>
