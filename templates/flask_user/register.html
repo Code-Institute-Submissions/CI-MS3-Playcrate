@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container-fluid p-0 flex-fill bgimage">
     {% from "flask_user/_macros.html" import render_field, render_submit_field %}
-    <form action="" method="POST" novalidate formnovalidate class="form form-background center col-10 col-lg-4" role="form">
+    <form  method="POST" novalidate formnovalidate class="form form-background center col-10 col-lg-4">
         {{ form.hidden_tag() }}
         <h2 class="text-center"> Sign Up</h2>
         <h5 class="text-center"> and start your collection</h5>
