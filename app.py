@@ -270,6 +270,7 @@ def my_account():
 
 
 @app.route('/view-collection/')
+@login_required
 def view_collection():
     user_collection_all_games = get_user_collection(current_user.collection)
     if current_user.is_active:
@@ -280,6 +281,7 @@ def view_collection():
 
 
 @app.route('/view-playcrate/')
+@login_required
 def view_playcrate():
     search_form = SearchDatabaseForm()
     user_collection_playcrate = get_user_collection(current_user.playcrate)
@@ -291,6 +293,7 @@ def view_playcrate():
 
 
 @app.route('/view-trophies/')
+@login_required
 def view_trophies():
     user_collection_trophies = get_user_collection(current_user.trophies)
     if current_user.is_active:

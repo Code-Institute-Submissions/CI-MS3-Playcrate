@@ -16,7 +16,6 @@
   <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" type="text/css" />
   <title>{% block title %}{% endblock %}</title>
 </head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.css" crossorigin="anonymous" />
 
 <body class="d-flex flex-column">
   <nav class="navbar navbar-expand-lg bg-play-dark-gray">
@@ -32,7 +31,6 @@
           ('/', 'home', 'Home'),
           ('/browse', 'browse', 'Browse'),
           ('/add-game', 'add-game', 'Add Game'),
-          ('/my-account', 'my-account', 'My Account'),
           ] -%}
         {% set active_page = active_page|default('home') -%}
         {% for href, id, caption in navbar_menus %}
@@ -43,6 +41,16 @@
           <!-- <li class="divider"></li> -->
         </li>
         {% endfor %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            My Account
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{{ url_for('view_collection') }}">My Collection</a>
+            <a class="dropdown-item" href="{{ url_for('view_playcrate') }}">My Playcrate</a>
+            <a class="dropdown-item" href="{{ url_for('view_trophies') }}">My Trophies</a>
+          </div>
+        </li>
       </ul>
       <ul class="navbar-nav">
         <li class="nav-item">
