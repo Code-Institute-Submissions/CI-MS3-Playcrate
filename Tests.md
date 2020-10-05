@@ -1,4 +1,4 @@
-Access main [READEME](https://github.com/Kieran-Murray-Code/CI-MS2-Gridcannon/blob/master/README.md) file.
+Access main [READEME](https://github.com/Kieran-Murray-Code/CI-MS3-Playcrate/blob/master/Readme.md) file.
 
 ### Manual Testing
 -  **Coverflow(Slider)**

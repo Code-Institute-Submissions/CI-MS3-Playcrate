@@ -180,7 +180,7 @@ Below are wireframes for the site developed in [FluidUI](https://www.fluidui.com
 11.  Run the app with `python3 app.py`
 
 ## Testing
-Testing documented is a separate [TESTS]() file.
+Testing documented is a separate [TESTS](https://github.com/Kieran-Murray-Code/CI-MS3-Playcrate/blob/master/Tests.md) file.
 
 ## Disclaimer
 This webiste was built for educational purposes only.
