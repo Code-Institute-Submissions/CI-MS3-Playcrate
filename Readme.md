@@ -70,11 +70,11 @@ With the UI style decided I found the [Slider](https://swiperjs.com/) plugin to 
 
 ## Wireframes
 Below are wireframes for the site developed in [FluidUI](https://www.fluidui.com/)
--  [Home Page](https://github.com/Kieran-Murray-Code/CI-MS2-Gridcannon/blob/master/wireframes/Gridcannon_Play.png)
--  [Browse Page](https://github.com/Kieran-Murray-Code/CI-MS2-Gridcannon/blob/master/wireframes/Gridcannon_Play.png)
--  [Sign Up / Sign In Page](https://github.com/Kieran-Murray-Code/CI-MS2-Gridcannon/blob/master/wireframes/Gridcannon_Play.png)
--   [Add Game Page](https://github.com/Kieran-Murray-Code/CI-MS2-Gridcannon/blob/master/wireframes/Gridcannon_Play.png)
--  [View Game Page](https://github.com/Kieran-Murray-Code/CI-MS2-Gridcannon/blob/master/wireframes/Gridcannon_Play.png)
+-  [Home Page](https://github.com/Kieran-Murray-Code/CI-MS3-Playcrate/blob/master/wireframes/Home-Desktop.JPG)
+-  [Browse Page](https://github.com/Kieran-Murray-Code/CI-MS3-Playcrate/blob/master/wireframes/Browse-Desktop.JPG)
+-  [Sign Up / Sign In Page](https://github.com/Kieran-Murray-Code/CI-MS3-Playcrate/blob/master/wireframes/Sign-In-Sign-Up-Desktop.JPG)
+-   [Add Game Page](https://github.com/Kieran-Murray-Code/CI-MS3-Playcrate/blob/master/wireframes/Add-Game-Desktop.JPG)
+-  [View Game Page](https://github.com/Kieran-Murray-Code/CI-MS3-Playcrate/blob/master/wireframes/View-Game-Dektop.JPG)
 
 ## Schema Design
 #### Games Document
