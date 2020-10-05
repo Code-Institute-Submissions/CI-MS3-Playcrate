@@ -2,8 +2,8 @@
 {% set active_page = "add-game" %}
 {% block title %}Add Game{% endblock %}
 {% block content %}
-<div class="container-fluid p-0 flex-fill bgimage">
-    <form method="POST" action="/add-game/">
+<div class="container-fluid p-0 flex-fill">
+    <form method="POST" action="/add-game/" id="add-game-form">
         <div class="row no-gutters">
             <div class="col-10 offset-1 col-lg-8 offset-lg-2">
                 {{ form.csrf_token }}
@@ -20,9 +20,9 @@
                 {{ form.developer.label(class="label label-default") }}
                 {{ form.developer(class="js-states select2Js form-input form-control", multiple="multiple") }}
                 {{ form.publisher.label(class="label label-default") }}
-                {{ form.publisher(class="select2Js js-states form-control", multiple="multiple") }}
+                {{ form.publisher(class="select2Js js-states form-input form-control", multiple="multiple") }}
                 {{ form.genre.label(class="label label-default") }}
-                {{ form.genre(class="select2Js js-states form-control", multiple="multiple") }}
+                {{ form.genre(class="select2Js js-states form-input form-control", multiple="multiple") }}
                 {{ form.game_description.label(placeholder = "Select Genres from a list or add new ones" , class="label label-default") }}
                 {{ form.game_description(placeholder = "Enter a short description of the game" , class="form-control form-input") }}
                 {{ form.trailer.label(class="label label-default") }}

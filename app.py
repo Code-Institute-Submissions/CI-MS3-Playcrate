@@ -103,8 +103,8 @@ class SearchDatabaseForm(FlaskForm):
 
 @ app.route("/")
 def home():
-    form = SearchDatabaseForm()
-    return render_template('home.html', games=Games.objects, search_form=form)
+    search_form = SearchDatabaseForm()
+    return render_template('home.html', games=Games.objects, search_form=search_form)
 
 
 @app.route("/browse/")
@@ -121,10 +121,11 @@ def browse():
 @login_required
 def add_game():
     form = GameDataForm()
+    search_form = SearchDatabaseForm()
     if request.method == 'GET':
         # Update form with developer,publisher and genre choices from DB
         update_form_choices(form)
-        return render_template('add-game.html', form=form, current_user=current_user)
+        return render_template('add-game.html', search_form=search_form, form=form, current_user=current_user)
     else:
         update_form_choices(form)
         if form.is_saved_in_db.data == True:
@@ -279,7 +280,8 @@ def view_collection():
         user = current_user
     else:
         user = []
-    return render_template('browse.html', games=user_collection_all_games, user=user, browsing="collection")
+    search_form = SearchDatabaseForm()
+    return render_template('browse.html',search_form=search_form, games=user_collection_all_games, user=user, browsing="collection")
 
 
 @app.route('/view-playcrate/')
@@ -291,7 +293,8 @@ def view_playcrate():
         user = current_user
     else:
         user = []
-    return render_template('browse.html', games=user_collection_playcrate, user=user,  search=search_form, browsing="playcrate")
+    search_form = SearchDatabaseForm()
+    return render_template('browse.html', search_form=search_form, games=user_collection_playcrate, user=user, browsing="playcrate")
 
 
 @app.route('/view-trophies/')
@@ -302,7 +305,8 @@ def view_trophies():
         user = current_user
     else:
         user = []
-    return render_template('browse.html', games=user_collection_trophies, user=user, browsing="trophies")
+    search_form = SearchDatabaseForm()
+    return render_template('browse.html', search_form=search_form, games=user_collection_trophies, user=user, browsing="trophies")
 
 
 def get_user_collection(game_ids):
@@ -376,23 +380,23 @@ def remove_game_from_trophies(game_id):
 
 @app.route('/search-db/', methods=['POST'])
 def search_db():
-    form = SearchDatabaseForm()
+    search_form = SearchDatabaseForm()
     search_results = Games.objects.search_text(form.search_box.data).all()
     if current_user.is_active:
         user = current_user
     else:
         user = []
-    return render_template('browse.html', games=search_results, form=form, user=user , browsing="search")
+    return render_template('browse.html', games=search_results, search_form=search_form, user=user , browsing="search" , search_term=form.search_box.data)
 
 @app.route('/tag-search/<keyword>', methods=['GET','POST'])
 def search_db_keyword(keyword):
-    form = SearchDatabaseForm()
+    search_form = SearchDatabaseForm()
     search_results = Games.objects.search_text(keyword).all()
     if current_user.is_active:
         user = current_user
     else:
         user = []
-    return render_template('browse.html', games=search_results, form=form, user=user , browsing="search")
+    return render_template('browse.html', games=search_results, search_form=search_form, user=user , browsing="search", search_term=keyword)
 
 
 def update_form_choices(form):

@@ -39,6 +39,7 @@
   border-color: rgb(187, 187, 187);
   background-color: rgb(187, 187, 187);
   color: rgb(132, 132, 132);
+  border-color: rgb(132, 132, 132);
 }
 
 .form-input:focus {
@@ -71,6 +72,7 @@
   border-color: rgb(187, 187, 187);
   background-color: rgb(187, 187, 187);
   color: rgb(132, 132, 132);
+  border-color: rgb(132, 132, 132);
 }
 .select2-search__field:focus {
   border-radius: 25px;
@@ -441,6 +443,11 @@ color: white;
 }
 
 .game-info{
+  margin-bottom: 3rem;
+}
+
+#add-game-form{
+  margin-top: 3rem;
   margin-bottom: 3rem;
 }
 

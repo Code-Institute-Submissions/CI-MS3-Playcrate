@@ -6,12 +6,21 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
   <h2 class="text-center play-medium-gray">Browse All</h2>
   {% elif browsing|string() == 'collection' %}
   <h2 class="text-center play-medium-gray">My Collection</h2>
+  {% if games|length == 0 %}
+    <div class="text-center">You Have No Games In Your Collection, Browse Or Search To Find Games To Add To Your Collection</div>
+  {% endif %}
   {% elif browsing|string() == 'playcrate' %}
   <h2 class="text-center play-medium-gray">My Playcrate</h2>
+  {% if games|length == 0 %}
+  <div class="text-center">You Have No Games In Your Playcrate. Add Games To Your Playcrate From Your Collection</div>
+  {% endif %}
   {% elif browsing|string() == 'trophies' %}
   <h2 class="text-center play-medium-gray">My Trophies</h2>
-  {% elif browsing|string() == 'serach' %}
-  <h2 class="text-center play-medium-gray">Serach Results</h2>
+  {% if games|length == 0 %}
+  <div class="text-center">You Have No Games In Your Trophies. Add Games To Your Trophies From Your Collection</div>
+  {% endif %}
+  {% elif browsing|string() == 'search' %}
+  <h2 class="text-center play-medium-gray">Search Results for "{{search_term}}"</h2>
   {% endif %} {% endif %}
 
   <div class="swiper-container">
@@ -173,15 +182,18 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
         </div>
       </div>
       {% endfor %} {% else %}
-      <h1>You Have No Games Here</h1>
+
+      
       {% endif %}
     </div>
     <div class="row no-gutters">
       <div class="col">
+        {% if games|length != 0 %}
         <div class="row no-gutters">
           <div class="col-6 text-left"><i class="fas fa-chevron-left"> </i></div>
           <div class="col-6 text-right"><i class="fas fa-chevron-right"> </i></div>
         </div>
+        {% endif %}
         <h2 id="game-title" class="text-center game-title"></h2>
         <h2 id="game-release_date" class="text-center release-date"></h2>
       </div>
