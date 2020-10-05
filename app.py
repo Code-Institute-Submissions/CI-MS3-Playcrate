@@ -9,7 +9,6 @@ from wtforms.fields.html5 import DateField
 from wtforms.validators import DataRequired, URL
 from flask_user import login_required, UserManager, UserMixin, current_user
 import os
-import db
 import datetime
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY')
