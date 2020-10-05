@@ -11,16 +11,15 @@ Playcrate is community-driven Playstation 1 (PS1) games database and collection 
 	*  [Design Choices](#design-choices)
 	*  [User Stories](#user-stories)
 2.  [Features](#features)
-	*  [Features To Implement](#features-to-implement)
 3.  [Wireframes](#wireframes)
-4.  [Technologies Used](#techmologies-used)
+4.  [Schema Design](#schema-design)
+5.  [Technologies Used](#technologies-used)
 	*  [Languages](#languages)
 	*  [Libraries](#libraries)
 	*  [Tools](#tools)
-5.  [Deploymet](#deployment)
+5.  [Deployment](#deployment)
 6.  [Testing](#testing)
-7.  [Credits](#credits)
-8.  [Disclaimer](#disclaimer)
+7.  [Disclaimer](#disclaimer)
 
 
 ## UX:
