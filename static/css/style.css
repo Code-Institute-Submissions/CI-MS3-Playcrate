@@ -17,7 +17,7 @@
   color: rgb(132, 132, 132);
 }
 .navbar{
-  z-index: 1;
+  z-index: 1000;
 }
 .navbar-brand {
   font-family: "Play", sans-serif;
@@ -137,6 +137,7 @@
   white-space: pre-wrap;
   text-align: justify;
   margin-top: .5rem;
+  margin-bottom: 3rem;
 }
 
 .bootstrap-select:not(.input-group-btn) {
@@ -205,7 +206,7 @@ body {
 }
 
 .back-cover {
-  z-index: 0;
+  /* z-index: 0; */
   transform: rotateY(180deg);
   pointer-events: none;
 }
@@ -230,10 +231,10 @@ body {
   pointer-events: all;
 }
 
-/* .youtube-embed {
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-} */
+.youtube-embed {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
 
 .bgimage {
   /* height: 100vh; */
@@ -278,6 +279,8 @@ body {
   bottom: 0; */
   width: 100%;
   /* height: 60px; */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   line-height: 20px;
   background-color: #000000;
 }
@@ -435,3 +438,4 @@ color: white;
   left: 50%;
   transform: translateX(-50%);
 }
+

@@ -236,11 +236,13 @@ def view_game(game_name):
     for game in Games.objects:
         if game["title"] == game_name:
             game_to_view = game
-    # Convert Youtube url to an embed
-    trailer_url = game_to_view['trailer']
-    # &modestbranding=1&autohide=1&showinfo=0&controls=0
-    game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/")
-    game_to_view['trailer'] += "?rel=0"
+    if len(game_to_view['trailer']) > 0:
+        # Convert Youtube url to an embed
+        trailer_url = game_to_view['trailer']
+        # &modestbranding=1&autohide=1&showinfo=0&controls=0
+        game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/")
+        game_to_view['trailer'] += "?rel=0"
+    
     return render_template('view-game.html', search_form=search_form, game=game_to_view, current_user=current_user)
 
 

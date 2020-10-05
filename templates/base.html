@@ -42,13 +42,27 @@
         </li>
         {% endfor %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
             My Account
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="{{ url_for('view_collection') }}">My Collection</a>
             <a class="dropdown-item" href="{{ url_for('view_playcrate') }}">My Playcrate</a>
             <a class="dropdown-item" href="{{ url_for('view_trophies') }}">My Trophies</a>
+            {% if current_user.is_active %}
+            <a class="dropdown-item" href="{{ url_for('user.logout') }}">Sign Out</a>
+            <!-- <a class="btn round-button" href="{{url_for('user.logout')}}">
+              <span class="text">Sign Out </span>
+              <span class="round"><i class="fas fa-sign-out-alt"></i></span>
+            </a> -->
+            {% else %}
+            <a class="dropdown-item" href="{{ url_for('user.login') }}">Sign In</a>
+            <!-- <a class="btn round-button" href="{{url_for('user.login')}}">
+              <span class="text">Sign In </span>
+              <span class="round"><i class="fas fa-sign-in-alt"></i></span>
+            </a> -->
+            {% endif %}
           </div>
         </li>
       </ul>
@@ -61,19 +75,6 @@
             <button class="fas fa-search navbar-search-button play-dark-gray" type="submit"></button>
             {% endif %}
           </form>
-        </li>
-        <li class="nav-item">
-          {% if current_user.is_active %}
-          <a class="btn round-button"  href="{{url_for('user.logout')}}">
-            <span class="text">Sign Out </span>
-            <span class="round"><i class="fas fa-sign-out-alt"></i></span>
-        </a>
-          {% else %}
-          <a class="btn round-button"  href="{{url_for('user.login')}}">
-            <span class="text">Sign In </span>
-            <span class="round"><i class="fas fa-sign-in-alt"></i></span>
-        </a>
-          {% endif %}
         </li>
       </ul>
     </div>
@@ -137,7 +138,7 @@
     </div>
   </footer>
 
-  
+
   <script src="https://kit.fontawesome.com/24c71b4f5a.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
