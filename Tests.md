@@ -40,31 +40,32 @@ Access main [READEME](https://github.com/Kieran-Murray-Code/CI-MS3-Playcrate/blo
   - **Remove A Game From A User Trophies**
 	  - With a user signed in, from the back cover UI on the  My Collection page or My Trophies page select Remove from trophies, the game will be removed from the user's trophies and the page will change to view the user's trophies.
 
-- **Add A Game Form**
-	- 
-- **Edit A Game**
-		- From the the back cover UI on the Browse or View Game pages select Edit, this will bring up the add game form with all the fields pre populated with the data that already exists in the database for that game.
+  - **Add A Game Form**
+  	- With a user signed in, in the Add Game page, with all the required fields filled and valid data in all fields when submitted the game will get added to the database unless the a game with the same title already exists in the database.
+  
+  - **Edit A Game**
+  		- From the the back cover UI on the Browse or View Game pages select Edit, this will bring up the add game form with all the fields pre populated with the data that already exists in the database for that game.
 
-- **Delete A Game**
-	- From the back cover UI on the View Game page if the user is the user that added the game to the database click on the delete button, a modal will appear to confirm the delete and warn them that the action can not be undone.
-	- From the back cover UI on the View Game page if the user is not the the user that added the game to the database the then delete option will not appear.
+  - **Delete A Game**
+  	- From the back cover UI on the View Game page if the user is the user that added the game to the database click on the delete button, a modal will appear to confirm the delete and warn them that the action can not be undone.
+  	- From the back cover UI on the View Game page if the user is not the the user that added the game to the database the then delete option will not appear.
 
- - **Collection Status Icons**
-	 - With a user logged in, the relevant icons show up below a game to indicate if a game is in the users collection, playcrate or trophies.
+   - **Collection Status Icons**
+  	 - With a user logged in, the relevant icons show up below a game to indicate if a game is in the users collection, playcrate or trophies.
 
-- **Login Required**
-	- With a user logged out, trying to Access the Add Games, Edit Game or My Account pages will result in the Sign In page being displayed.
+  - **Login Required**
+  	- With a user logged out, trying to Access the Add Games, Edit Game or My Account pages will result in the Sign In page being displayed.
 
-- **Sign In From**
-	- Entering any combination of invalid username or password will result in the in error and no user will be logged in.
-	- Clicking on the New here? Register will bring up Sign Up form.
+  - **Sign In From**
+  	- Entering any combination of invalid username or password will result in the in error and no user will be logged in.
+  	- Clicking on the New here? Register will bring up Sign Up form.
 
-- **Sign Up Form**
-	- If the password and the confirm password field do not match an error will occur and the user will not be created.
-	- Entering a username of a user that already exists will result in error and the user will not be created, the user is told the username is already in use and is asked to choose a new one.
-	- Entering a username that is less than 3 characters will result in error and the user will not be created.
-	- Entering a password that is less than 6 characters, that doesn't have at least one number and a least one uppercase and one lowercase letter will result in error and the user will not be created.
-	- Clicking on the Already registered? Sign in. will bring up the Sign In form.
+  - **Sign Up Form**
+  	- If the password and the confirm password field do not match an error will occur and the user will not be created.
+  	- Entering a username of a user that already exists will result in error and the user will not be created, the user is told the username is already in use and is asked to choose a new one.
+  	- Entering a username that is less than 3 characters will result in error and the user will not be created.
+  	- Entering a password that is less than 6 characters, that doesn't have at least one number and a least one uppercase and one lowercase letter will result in error and the user will not be created.
+  	- Clicking on the Already registered? Sign in. will bring up the Sign In form.
 
 ### Testing User Stories
 - **As a fan and enthusiast of Playstation 1 games, I want to help contribute a database of knowledge on the games of this system so that others may discover and learn and become like-minded fans.**

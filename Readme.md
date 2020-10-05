@@ -2,7 +2,7 @@
 
 This is an assignment project for [https://codeinstitute.net/](https://codeinstitute.net/). The project aims to create a mobile-friendly database and collection management app for Playstation 1 games.
 
-Playcrate is community-driven Playstation 1 (PS1) games database and collection management app. Users can add games in the database to their collection to keep track of what games they own. If the game doesn’t exist in the database already users can add the game to the database for others to see and use. Users can also add games to their Playcrate which is there play queue of games they wish to play as well they can add games to their Trophy Crate to keep a record of what games they’ve completed. Games can be edited and updated by all users so as well as contributing new games to the database users can help refine other users entries.
+Playcrate is community-driven Playstation 1 (PS1) games database and collection management app. Users can add games in the database to their collection to keep track of what games they own. If the game doesn’t exist in the database already users can add the game to the database for others to see and use. Users can also add games to their Playcrate which is their play queue of games they wish to play as well they can add games to their Trophy crate to keep a record of what games they’ve completed. Games can be edited and updated by all users so as well as contributing new games to the database users can help refine other users entries.
 
 ## Table of Contents
 
@@ -55,17 +55,18 @@ With the UI style decided I found the [Slider](https://swiperjs.com/) plugin to 
 - Log in to a user account.
 - Add a game to the database.
 - Edit and existing game in the database.
-- Delete a game from the database, a user can only delete games that they have added.
+- Delete a game from the database.(A user can only delete games that they have added).
 - Search for games using text search, with results for a game title, developer name, publisher name or genre.
 - Search for games by clicking on tags.
--  Browse all games.
-- Browse a user collection.
+-  Browse all games in the database.
+- Browse a user's collection.
 - Browse a user's playcrate.
 - Browser a user's trophies.
-- Add/Remove games to/from a user collection.
-- Add/Remove games to/from a user playcrate.
-- Add/Remove games to/from a user trophy collection.
+- Add/Remove games to/from a user's collection.
+- Add/Remove games to/from a user's playcrate.
+- Add/Remove games to/from a user's trophy collection.
 - Add new Developers, Publishers and Genres to the database using dynamic option creation and parsing in the add game form.
+  - Users are presented with a dropdown multiselect of all the options already in the database, if the option isn't already in the database users can simply type in the new option and press enter. When the form is submitted any new options are added to the database and will show up in the multiselect dropdown the next time the add game form is used.
 
 ## Wireframes
 Below are wireframes for the site developed in [FluidUI](https://www.fluidui.com/)
@@ -122,17 +123,19 @@ Below are wireframes for the site developed in [FluidUI](https://www.fluidui.com
 
 ## Technologies Used
 ### Languages
--  [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
--  [CSS3](https://developer.mozilla.org/en-US/docs/Archive/CSS3)
--  [Javascript](https://www.javascript.com/)
+- [HTML5](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)
+- [CSS3](https://developer.mozilla.org/en-US/docs/Archive/CSS3)
+- [Javascript](https://www.javascript.com/)
 - [Python](https://www.python.org/)
+- [Jinja](https://jinja.palletsprojects.com/en/2.11.x/)
 
 ### Libraries
--  [jQuery](https://jquery.com/)
--  [Select2](https://select2.org/) - The project uses Select2 for dynamic option creation in multiselect dropdowns.
-[SwiperJS](https://swiperjs.com/) - The project uses Swiper for the coverflow used to browse the games.
+- [jQuery](https://jquery.com/)
+- [Select2](https://select2.org/) - The project uses Select2 for dynamic option creation in multiselect dropdowns.
+- [SwiperJS](https://swiperjs.com/) - The project uses Swiper for the coverflow used to browse the games.
+
 ### Frameworks
--  [Bootstrap 4](https://getbootstrap.com/) - The project used the **Bootstrap 4** for a responsive grid system.
+- [Bootstrap 4](https://getbootstrap.com/) - The project used the **Bootstrap 4** for a responsive grid system.
 - [Flask](https://flask.palletsprojects.com/en/1.1.x/)
 	- [Flask_WTF](https://flask-wtf.readthedocs.io/en/stable/) 
 	- [Flask_User](https://flask-user.readthedocs.io/en/latest/)
@@ -146,7 +149,6 @@ Below are wireframes for the site developed in [FluidUI](https://www.fluidui.com
 ### Tools
 -  [Visual Studio Code](https://code.visualstudio.com/) - The project used the **Visual Studio** IDE to develop the website linked with **Github** for version control.
 - [Fontawesome](https://fontawesome.com/)
--  [Favicon.io](https://favicon.io/favicon-converter/) - The project used the **Favicon.io** the favicon icons or the site.
 -  [Autoprefixer CSS](https://autoprefixer.github.io/) - The project used the **Autoprefixer CSS** to ensure CSS compatibility with all browsers.
 -  [HTML Validator](https://validator.w3.org/) - The project used the **HTML Validator** to validate and find errors in the HTML.
 -  [CSS Validator](https://jigsaw.w3.org/css-validator/) -The project used the **CSS Validator** to validate and find errors in the CSS.
