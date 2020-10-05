@@ -9,8 +9,8 @@
                 {{ form.csrf_token }}
                 {{ form.id(class="hidden") }}
                 {{ form.is_saved_in_db(class="hidden") }}
-                {% if is_saved_in_db %}
-                <h3 class="red">A Title With This Name Already Exists In The Database</h3>
+                {% if title_already_exists %}
+                <h4 class="red">A Title With This Name Already Exists In The Database, Please choose a unique name.</h4>
                 {{ form.title.label(class="label label-default") }} {{ form.title(placeholder="Enter the title of the game as it appears on the cover.",class="form-control form-input") }}
                 {% else %}
                 {{ form.title.label(class="label label-default") }} {{ form.title(placeholder="Enter the title of the game as it appears on the cover.",class="form-control form-input") }}

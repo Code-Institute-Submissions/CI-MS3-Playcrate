@@ -13,13 +13,12 @@ import db
 import datetime
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY')
+
 # Flask-User settings
-# Shown in and email templates and page footers
 app.config['USER_APP_NAME'] = "Playcrate"
 app.config['USER_ENABLE_EMAIL'] = False      # Disable email authentication
 app.config['USER_ENABLE_USERNAME'] = True    # Enable username authentication
-app.config['USER_REQUIRE_RETYPE_PASSWORD'] = False    # Simplify register form
-
+app.config['USER_REQUIRE_RETYPE_PASSWORD'] = True 
 
 app.config['MONGODB_SETTINGS'] = {
     'db': 'playcrate',
@@ -44,7 +43,6 @@ class Users(db.Document, UserMixin):
 
 # Setup Flask-User and specify the User data-model
 user_manager = UserManager(app, db, Users)
-user_manager.USER_REQUIRE_RETYPE_PASSWORD = 'TRUE'
 
 
 class Games(db.Document):
@@ -129,30 +127,26 @@ def add_game():
     else:
         update_form_choices(form)
         if form.is_saved_in_db.data == True:
-            print("Editing Existing Data")
+            # Editing an existing game, update game and redirect to view that game.
             add_game_data(form)
             return redirect("/games/"+form.title.data)
         else:  # new entry
             # Check if the new game title is the same as an already existing title in the DB
             for game in Games.objects:
                 if form.title.data == game['title']:
-                    print("Game Title Already Exists In DB")
-                    # Title already exists don't add a duplicate
-                    return redirect("/games/"+form.title.data)
-
-            if(form.is_saved_in_db.data == False):
-                add_game_data(form)
-                return redirect("/games/"+form.title.data)
-            else:
-                return render_template('add-game.html', form=form, is_saved_in_db=form.is_saved_in_db.data)
+                    # Title already exists, return to the form with a warning.
+                    return render_template('add-game.html', form=form, title_already_exists=True)
+            
+            # No titles match the new entry so add it to the db and redirect to view the game.
+            add_game_data(form)
+            return redirect("/games/"+form.title.data)
 
 
 def add_game_data(form):
     form = GameDataForm()
 
     if request.method == 'POST':
-        # Check if the game title already exists in the DB, if it already exists it can not be added to the DB,
-        # return to the form
+
 
         # Check if the developer, publisher and genre submitted are new and not already in the relevant lists in the DB.
         # If they're new then add them to the corresponding lists in the DB and update the possible choices in the form for validation.
@@ -226,7 +220,6 @@ def add_game_data(form):
                                                       front_cover=form.front_cover.data,
                                                       is_saved_in_db=True, last_edited_by=current_user.username)
             else:
-                print("Adding New Data")
                 game_doc.save()
 
 
