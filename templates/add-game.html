@@ -11,26 +11,26 @@
                 {{ form.is_saved_in_db(class="hidden") }}
                 {% if is_saved_in_db %}
                 <h3 class="red">A Title With This Name Already Exists In The Database</h3>
-                {{ form.title.label(class="label label-default") }} {{ form.title(class="form-control form-input") }}
+                {{ form.title.label(class="label label-default") }} {{ form.title(placeholder="Enter the title of the game as it appears on the cover.",class="form-control form-input") }}
                 {% else %}
-                {{ form.title.label(class="label label-default") }} {{ form.title(class="form-control form-input") }}
+                {{ form.title.label(class="label label-default") }} {{ form.title(placeholder="Enter the title of the game as it appears on the cover.",class="form-control form-input") }}
                 {% endif %}
                 {{ form.release_date.label(class="label label-default") }}
                 {{ form.release_date(class="form-control form-input") }}
                 {{ form.developer.label(class="label label-default") }}
-                {{ form.developer(class="form-control select2Js form-input") }}
+                {{ form.developer(class="js-states select2Js form-input form-control", multiple="multiple") }}
                 {{ form.publisher.label(class="label label-default") }}
-                {{ form.publisher(class="form-control select2Js form-input") }}
+                {{ form.publisher(class="select2Js js-states form-control", multiple="multiple") }}
                 {{ form.genre.label(class="label label-default") }}
-                {{ form.genre(class="form-control form-input select2Js") }}
-                {{ form.game_description.label(class="label label-default") }}
-                {{ form.game_description(class="form-control form-input") }}
+                {{ form.genre(class="select2Js js-states form-control", multiple="multiple") }}
+                {{ form.game_description.label(placeholder = "Select Genres from a list or add new ones" , class="label label-default") }}
+                {{ form.game_description(placeholder = "Enter a short description of the game" , class="form-control form-input") }}
                 {{ form.trailer.label(class="label label-default") }}
-                {{ form.trailer(placeholder = "url for front video trailer",class="form-control form-input") }}
+                {{ form.trailer(placeholder = "Youtube url for video trailer",class="form-control form-input") }}
                 {{ form.wikipedia.label(class="label label-default") }}
                 {{ form.wikipedia(placeholder = "url for wikipedia page",class="form-control form-input") }}
                 {{ form.front_cover.label(class="label label-default") }}
-                {{ form.front_cover(placeholder = "url for front cover image",class="form-control form-input") }}
+                {{ form.front_cover(placeholder = "url for front cover image, image should be square 1:1 ratio",class="form-control form-input") }}
                 <div class="row no-gutters">
                     <div class="col text-center">
                         <input type="submit" class="btn round-button" value="Submit">
@@ -47,7 +47,8 @@
 <script>
     $(document).ready(function () {
         $(".select2Js").select2({
-            tags: true
+            tags: true,
+            placeholder: "Select from the list or type to add new."
         });
     })
 </script>
