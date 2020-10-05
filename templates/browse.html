@@ -59,7 +59,6 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
       game.id|string() %} {% set _ =
       global_variables.update({'game_is_in_user_trophies':true}) %} {% endif %}
       {% endfor %}
-
       <div class="swiper-slide" id="{{game.id}}" data-title="{{game.title}}"
         data-release-date="{{game.release_date.strftime('%d %B %Y')}}"
         data-game-is-in-user-collection="{{global_variables['game_is_in_user_collection']}}"
@@ -68,7 +67,6 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
         <div class="front-cover" style="background-image:url({{game.front_cover}})">
           <div class="fas fa-hand-pointer rotate-icon"></div>
         </div>
-
         <div class="back-cover" style="background-image:url({{game.front_cover}})">
           <div class="row no-gutters h-50">
             {% if browsing|string() == "main" or browsing|string() == "search"
@@ -197,8 +195,6 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
         </div>
       </div>
       {% endfor %} {% else %}
-
-
       {% endif %}
     </div>
     <div class="row no-gutters">
