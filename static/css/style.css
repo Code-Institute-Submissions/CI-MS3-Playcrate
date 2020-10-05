@@ -83,7 +83,7 @@
 }
 
 .navbar-search-button {
-  margin-left: -45px;
+  margin-left: -30px;
   border-style: hidden;
   background-color: transparent;
 }
@@ -94,9 +94,9 @@
   border-color: rgb(187, 187, 187);
   background-color: rgb(187, 187, 187);
   color: rgb(132, 132, 132);
-  margin-top: 1.5rem;
-  margin-right: 1rem;
-  width: 350px;
+  /* margin-top: 1.5rem;
+  margin-right: 1rem; */
+  /* width: 350px; */
 }
 
 .search-bar:focus{
@@ -408,7 +408,6 @@ color: white;
 .nav-link{
   font-family: "Oswald", sans-serif;
   font-size: 1.5rem;
-  margin-left: 1rem;
 }
 
 .nav-link:hover{
@@ -437,5 +436,9 @@ color: white;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.game-info{
+  margin-bottom: 3rem;
 }
 

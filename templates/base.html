@@ -42,26 +42,18 @@
         </li>
         {% endfor %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+          <a class="nav-link play-medium-gray dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             My Account
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="{{ url_for('view_collection') }}">My Collection</a>
-            <a class="dropdown-item" href="{{ url_for('view_playcrate') }}">My Playcrate</a>
-            <a class="dropdown-item" href="{{ url_for('view_trophies') }}">My Trophies</a>
+          <div class="dropdown-menu bg-play-dark-gray" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item play-medium-gray" href="{{ url_for('view_collection') }}">My Collection</a>
+            <a class="dropdown-item play-medium-gray" href="{{ url_for('view_playcrate') }}">My Playcrate</a>
+            <a class="dropdown-item play-medium-gray" href="{{ url_for('view_trophies') }}">My Trophies</a>
             {% if current_user.is_active %}
-            <a class="dropdown-item" href="{{ url_for('user.logout') }}">Sign Out</a>
-            <!-- <a class="btn round-button" href="{{url_for('user.logout')}}">
-              <span class="text">Sign Out </span>
-              <span class="round"><i class="fas fa-sign-out-alt"></i></span>
-            </a> -->
+            <a class="dropdown-item play-medium-gray" href="{{ url_for('user.logout') }}">Sign Out</a>
             {% else %}
-            <a class="dropdown-item" href="{{ url_for('user.login') }}">Sign In</a>
-            <!-- <a class="btn round-button" href="{{url_for('user.login')}}">
-              <span class="text">Sign In </span>
-              <span class="round"><i class="fas fa-sign-in-alt"></i></span>
-            </a> -->
+            <a class="dropdown-item play-medium-gray" href="{{ url_for('user.login') }}">Sign In</a>
             {% endif %}
           </div>
         </li>

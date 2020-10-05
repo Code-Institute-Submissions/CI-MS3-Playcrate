@@ -98,7 +98,7 @@ class GameDataForm(FlaskForm):
 
 class SearchDatabaseForm(FlaskForm):
     search_box = StringField('Search', validators=[
-                             DataRequired()], render_kw={"placeholder": "Search for Games, Developer, Publisher or Genre.."} )
+                             DataRequired()], render_kw={"placeholder": "Search for Games..."} )
 
 
 @ app.route("/")
