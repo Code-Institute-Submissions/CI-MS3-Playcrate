@@ -26,8 +26,7 @@ app.config['MONGODB_SETTINGS'] = {
 # Setup Flask-MongoEngine
 db = MongoEngine(app)
 
-# Setup Flask-User and specify the User data-model
-user_manager = UserManager(app, db, Users)
+
 
 # Define Flask_Mongoengine documents.
 
@@ -99,6 +98,9 @@ class SearchDatabaseForm(FlaskForm):
     search_box = StringField('Search', validators=[
                              DataRequired()], render_kw={"placeholder": "Search for Games..."})
 
+
+# Setup Flask-User and specify the User data-model
+user_manager = UserManager(app, db, Users)
 
 @ app.route("/")
 def home():
