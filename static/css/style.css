@@ -466,6 +466,6 @@ color: white;
   color: rgb(132, 132, 132);
 }
 
-.fa-chevron-left:before, .fa-chevron-right:before{
+.slider-button{
   font-size: 2rem;
 }
