@@ -1,28 +1,43 @@
 {% extends 'base.html' %} {% block title %}Browse{% endblock %} {% set
 active_page = "browse" %} {% set global_variables={} %} {% block content %}
 <div class="container-fluid p-0 flex-fill">
-  {# Set The Title Of The Browsing Window #} {% if browsing is defined %} {% if
+  <div class="row no-gutters">
+    <div class="col col-md-8 offset-md-2">
+      {# Set The Title Of The Browsing Window #} {% if browsing is defined %} {% if
   browsing|string() == 'main' %}
-  <h2 class="text-center play-medium-gray">Browse All</h2>
-  {% elif browsing|string() == 'collection' %}
-  <h2 class="text-center play-medium-gray">My Collection</h2>
-  {% if games|length == 0 %}
-    <div class="text-center">You Have No Games In Your Collection, Browse Or Search To Find Games To Add To Your Collection</div>
-  {% endif %}
-  {% elif browsing|string() == 'playcrate' %}
-  <h2 class="text-center play-medium-gray">My Playcrate</h2>
-  {% if games|length == 0 %}
-  <div class="text-center">You Have No Games In Your Playcrate. Add Games To Your Playcrate From Your Collection</div>
-  {% endif %}
-  {% elif browsing|string() == 'trophies' %}
-  <h2 class="text-center play-medium-gray">My Trophies</h2>
-  {% if games|length == 0 %}
-  <div class="text-center">You Have No Games In Your Trophies. Add Games To Your Trophies From Your Collection</div>
-  {% endif %}
-  {% elif browsing|string() == 'search' %}
-  <h2 class="text-center play-medium-gray">Search Results for "{{search_term}}"</h2>
-  {% endif %} {% endif %}
-
+      <h2 class="text-center play-medium-gray">Browse All</h2>
+      {% elif browsing|string() == 'collection' %}
+      <h2 class="text-center play-medium-gray">My Collection</h2>
+      {% if games|length == 0 %}
+      <div class="text-center collection-info">Here is were you can store games that you
+        have in your collection.You currently have no games in your collection, browse of search for games that you own
+        and to here. If a game you own isn't
+        in the database help the database grow by adding that game information yourself.</div>
+      {% endif %}
+      {% elif browsing|string() == 'playcrate' %}
+      <h2 class="text-center play-medium-gray">My Playcrate</h2>
+      {% if games|length == 0 %}
+      <div class="text-center collection-info">Here is were you can add games from your collection that you wish to
+        play,
+        this is your personal
+        play queue. Now you can quickly and easily find something to play instead of having to browse through your whole
+        collection.
+        Currently have no games in your playcrate, browse through your collection to add games here.</div>
+      {% endif %}
+      {% elif browsing|string() == 'trophies' %}
+      <h2 class="text-center play-medium-gray">My Trophies</h2>
+      {% if games|length == 0 %}
+      <div class="text-center collection-info">Here is were you can add games from your collection that you have
+        completed, this is your personal
+        trophy case. Now you can quickly and easily see you achievements and what games you know what games you've
+        finished.
+        Currently have no games in your trophies, browse through your collection to add games here.</div>
+      {% endif %}
+      {% elif browsing|string() == 'search' %}
+      <h2 class="text-center play-medium-gray">Search Results for "{{search_term}}"</h2>
+      {% endif %} {% endif %}
+    </div>
+  </div>
   <div class="swiper-container">
     <div class="swiper-wrapper">
       {% if games|length > 0 %} {% for game in games|sort(attribute='title') %}
@@ -51,7 +66,7 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
         data-game-is-in-user-playcrate="{{global_variables['game_is_in_user_playcrate']}}"
         data-game-is-in-user-trophies="{{global_variables['game_is_in_user_trophies']}}">
         <div class="front-cover" style="background-image:url({{game.front_cover}})">
-          <div class="fas fa-sync-alt rotate-icon"></div>
+          <div class="fas fa-hand-pointer rotate-icon"></div>
         </div>
 
         <div class="back-cover" style="background-image:url({{game.front_cover}})">
@@ -183,7 +198,7 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
       </div>
       {% endfor %} {% else %}
 
-      
+
       {% endif %}
     </div>
     <div class="row no-gutters">

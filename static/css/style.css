@@ -84,6 +84,14 @@
   outline-style: none;
 }
 
+/* .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+  background-color: rgb(187, 187, 187);
+} */
+
+.select2-dropdown {
+  background-color: rgb(187, 187, 187);
+}
+
 .navbar-search-button {
   margin-left: -30px;
   border-style: hidden;
@@ -271,11 +279,13 @@ body {
 .bgimage h2 {
   color: white;
   text-shadow: 2px 2px #333;
+  font-size: 2.5rem;
 }
 
 .bgimage p {
   color: white;
   text-shadow: 2px 2px #333;
+  font-size: 1.3rem;
 }
 
 .footer {
@@ -393,7 +403,7 @@ color: white;
 
 .rotate-icon{
   color:rgba(0, 0, 0, 0.5);
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.8);
   border-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
   margin: 2px;
@@ -451,3 +461,11 @@ color: white;
   margin-bottom: 3rem;
 }
 
+.collection-info{
+  font-size: 1rem;
+  color: rgb(132, 132, 132);
+}
+
+.fa-chevron-left:before, .fa-chevron-right:before{
+  font-size: 2rem;
+}
