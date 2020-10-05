@@ -36,26 +36,16 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
       global_variables.update({'game_is_in_user_trophies':true}) %} {% endif %}
       {% endfor %}
 
-      <div
-        class="swiper-slide"
-        id="{{game.id}}"
-        data-title="{{game.title}}"
+      <div class="swiper-slide" id="{{game.id}}" data-title="{{game.title}}"
         data-release-date="{{game.release_date.strftime('%d %B %Y')}}"
         data-game-is-in-user-collection="{{global_variables['game_is_in_user_collection']}}"
         data-game-is-in-user-playcrate="{{global_variables['game_is_in_user_playcrate']}}"
-        data-game-is-in-user-trophies="{{global_variables['game_is_in_user_trophies']}}"
-      >
-        <div
-          class="front-cover"
-          style="background-image:url({{game.front_cover}})"
-        >
+        data-game-is-in-user-trophies="{{global_variables['game_is_in_user_trophies']}}">
+        <div class="front-cover" style="background-image:url({{game.front_cover}})">
           <div class="fas fa-sync-alt rotate-icon"></div>
         </div>
 
-        <div
-          class="back-cover"
-          style="background-image:url({{game.front_cover}})"
-        >
+        <div class="back-cover" style="background-image:url({{game.front_cover}})">
           <div class="row no-gutters h-50">
             {% if browsing|string() == "main" or browsing|string() == "search"
             %}
@@ -75,81 +65,51 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
             </a>
             {% elif browsing|string() == "collection" %} {% if
             global_variables['game_is_in_user_collection'] == true %}
-            <a
-              class="col-6 cover-button"
-              href="/remove-game-from-collection/{{game.id}}"
-            >
+            <a class="col-6 cover-button" href="/remove-game-from-collection/{{game.id}}">
               <div class="center">
                 <div class="text-center">
-                  Remove from collection<br /><i
-                    class="fas fa-trash-alt text-center"
-                  ></i>
+                  Remove from collection<br /><i class="fas fa-trash-alt text-center"></i>
                 </div>
               </div>
             </a>
             {% else %}
-            <a
-              class="col-6 cover-button"
-              href="/add-game-to-collection/{{game.id}}"
-            >
+            <a class="col-6 cover-button" href="/add-game-to-collection/{{game.id}}">
               <div class="center">
                 <div class="text-center">
-                  Add to collection<br /><i
-                    class="fas fa-box-open text-center"
-                  ></i>
+                  Add to collection<br /><i class="fas fa-box-open text-center"></i>
                 </div>
               </div>
             </a>
             {% endif %} {% if global_variables['game_is_in_user_playcrate'] ==
             true %}
-            <a
-              class="col-6 cover-button"
-              href="/remove-game-from-playcrate/{{game.id}}"
-            >
+            <a class="col-6 cover-button" href="/remove-game-from-playcrate/{{game.id}}">
               <div class="center">
                 <div class="text-center">
-                  Remove from Playcrate<br /><i
-                    class="fas fa-trash-alt text-center"
-                  ></i>
+                  Remove from Playcrate<br /><i class="fas fa-trash-alt text-center"></i>
                 </div>
               </div>
             </a>
             {% else %}
-            <a
-              class="col-6 cover-button"
-              href="/add-game-to-playcrate/{{game.id}}"
-            >
+            <a class="col-6 cover-button" href="/add-game-to-playcrate/{{game.id}}">
               <div class="center">
                 <div class="text-center">
-                  Add to Playcrate<br /><i
-                    class="fas fa-gamepad text-center"
-                  ></i>
+                  Add to Playcrate<br /><i class="fas fa-gamepad text-center"></i>
                 </div>
               </div>
             </a>
             {% endif %} {% elif browsing|string() == "playcrate" %}
-            <a
-              class="col cover-button"
-              href="/remove-game-from-playcrate/{{game.id}}"
-            >
+            <a class="col cover-button" href="/remove-game-from-playcrate/{{game.id}}">
               <div class="center">
                 <div class="text-center">
-                  Remove from Playcrate<br /><i
-                    class="fas fa-trash-alt text-center"
-                  ></i>
+                  Remove from Playcrate<br /><i class="fas fa-trash-alt text-center"></i>
                 </div>
               </div>
             </a>
             {% elif browsing|string() == "trophies" %}
-            <a
-              class="col cover-button"
-              href="/remove-game-from-trophies/{{game.id}}"
-            >
+            <a class="col cover-button" href="/remove-game-from-trophies/{{game.id}}">
               <div class="center">
                 <div class="text-center">
-                  Remove from trophies<br /><i
-                    class="fas fa-trash-alt text-center"
-                  ></i>
+                  Remove from trophies<br /><i class="fas fa-trash-alt text-center"></i>
                 </div>
               </div>
             </a>
@@ -158,50 +118,32 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
           <div class="row no-gutters h-50">
             {% if browsing|string() == "main" or browsing|string() == "search"
             %} {% if global_variables['game_is_in_user_collection'] == true %}
-            <a
-              class="col-6 cover-button"
-              href="/remove-game-from-collection/{{game.id}}"
-            >
+            <a class="col-6 cover-button" href="/remove-game-from-collection/{{game.id}}">
               <div class="center">
                 <div class="text-center">
-                  Remove from collection<br /><i
-                    class="fas fa-trash-alt text-center"
-                  ></i>
+                  Remove from collection<br /><i class="fas fa-trash-alt text-center"></i>
                 </div>
               </div>
             </a>
             {% else %}
-            <a
-              class="col-6 cover-button"
-              href="/add-game-to-collection/{{game.id}}"
-            >
+            <a class="col-6 cover-button" href="/add-game-to-collection/{{game.id}}">
               <div class="center">
                 <div class="text-center">
-                  Add to collection<br /><i
-                    class="fas fa-box-open text-center"
-                  ></i>
+                  Add to collection<br /><i class="fas fa-box-open text-center"></i>
                 </div>
               </div>
             </a>
             {% endif %} {% elif browsing|string() == "collection"%} {% if
             global_variables['game_is_in_user_trophies'] == true %}
-            <a
-              class="col-6 cover-button"
-              href="/remove-game-from-trophies/{{game.id}}"
-            >
+            <a class="col-6 cover-button" href="/remove-game-from-trophies/{{game.id}}">
               <div class="center">
                 <div class="text-center">
-                  Remove from trophies<br /><i
-                    class="fas fa-trash-alt text-center"
-                  ></i>
+                  Remove from trophies<br /><i class="fas fa-trash-alt text-center"></i>
                 </div>
               </div>
             </a>
             {% else %}
-            <a
-              class="col-6 cover-button"
-              href="/add-game-to-trophies/{{game.id}}"
-            >
+            <a class="col-6 cover-button" href="/add-game-to-trophies/{{game.id}}">
               <div class="center">
                 <div class="text-center">
                   Add to trophies<br /><i class="fas fa-trophy text-center"></i>
@@ -236,6 +178,10 @@ active_page = "browse" %} {% set global_variables={} %} {% block content %}
     </div>
     <div class="row no-gutters">
       <div class="col">
+        <div class="row no-gutters">
+          <div class="col-6 text-left"><i class="fas fa-chevron-left"> </i></div>
+          <div class="col-6 text-right"><i class="fas fa-chevron-right"> </i></div>
+        </div>
         <h2 id="game-title" class="text-center game-title"></h2>
         <h2 id="game-release_date" class="text-center release-date"></h2>
       </div>

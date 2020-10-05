@@ -117,7 +117,9 @@
 
 .release-date {
   font-family: "Oswald", sans-serif;
-  font-size: 1rem;
+  font-size: 1.5rem;
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .category-title {

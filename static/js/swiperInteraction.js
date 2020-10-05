@@ -121,3 +121,11 @@ $(document).on("click tap", ".cover-button", function () {
   $(".swiper-slide-active").toggleClass('flipped');
   setTimeout(() => {  isFlipped = false; swiper.allowTouchMove = true; }, 500);
 });
+
+$(document).on("click tap", ".fa-chevron-right", function () {
+  swiper.slideNext();
+})
+
+$(document).on("click tap", ".fa-chevron-left", function () {
+  swiper.slidePrev();
+})
