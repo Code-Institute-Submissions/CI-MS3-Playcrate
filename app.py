@@ -17,31 +17,19 @@ app.secret_key = os.environ.get('SECRET_KEY')
 app.config['USER_APP_NAME'] = "Playcrate"
 app.config['USER_ENABLE_EMAIL'] = False      # Disable email authentication
 app.config['USER_ENABLE_USERNAME'] = True    # Enable username authentication
-app.config['USER_REQUIRE_RETYPE_PASSWORD'] = True 
+app.config['USER_REQUIRE_RETYPE_PASSWORD'] = True
 
 app.config['MONGODB_SETTINGS'] = {
     'db': 'playcrate',
     'host': os.environ.get('MONGODB_URI')
 }
-
 # Setup Flask-MongoEngine
 db = MongoEngine(app)
 
-# User Document
-
-
-class Users(db.Document, UserMixin):
-    active = db.BooleanField(default=True)
-    username = db.StringField(default='')
-    password = db.StringField()
-    roles = db.ListField(db.StringField(), default=[])
-    collection = db.ListField(db.StringField(), default=[])
-    playcrate = db.ListField(db.StringField(), default=[])
-    trophies = db.ListField(db.StringField(), default=[])
-
-
 # Setup Flask-User and specify the User data-model
 user_manager = UserManager(app, db, Users)
+
+# Define Flask_Mongoengine documents.
 
 
 class Games(db.Document):
@@ -76,6 +64,20 @@ class Publishers(db.Document):
 class Genres(db.Document):
     name = db.StringField(default='')
 
+# Flask_User Document
+
+
+class Users(db.Document, UserMixin):
+    active = db.BooleanField(default=True)
+    username = db.StringField(default='')
+    password = db.StringField()
+    roles = db.ListField(db.StringField(), default=[])
+    collection = db.ListField(db.StringField(), default=[])
+    playcrate = db.ListField(db.StringField(), default=[])
+    trophies = db.ListField(db.StringField(), default=[])
+
+# Flask_WTF Forms Setup
+
 
 class GameDataForm(FlaskForm):
     id = StringField()
@@ -95,7 +97,7 @@ class GameDataForm(FlaskForm):
 
 class SearchDatabaseForm(FlaskForm):
     search_box = StringField('Search', validators=[
-                             DataRequired()], render_kw={"placeholder": "Search for Games..."} )
+                             DataRequired()], render_kw={"placeholder": "Search for Games..."})
 
 
 @ app.route("/")
@@ -135,7 +137,7 @@ def add_game():
                 if form.title.data == game['title']:
                     # Title already exists, return to the form with a warning.
                     return render_template('add-game.html', form=form, title_already_exists=True)
-            
+
             # No titles match the new entry so add it to the db and redirect to view the game.
             add_game_data(form)
             return redirect("/games/"+form.title.data)
@@ -143,10 +145,7 @@ def add_game():
 
 def add_game_data(form):
     form = GameDataForm()
-
     if request.method == 'POST':
-
-
         # Check if the developer, publisher and genre submitted are new and not already in the relevant lists in the DB.
         # If they're new then add them to the corresponding lists in the DB and update the possible choices in the form for validation.
         submitted_developers = form.developer.data
@@ -235,7 +234,7 @@ def view_game(game_name):
         # &modestbranding=1&autohide=1&showinfo=0&controls=0
         game_to_view['trailer'] = trailer_url.replace("watch?v=", "embed/")
         game_to_view['trailer'] += "?rel=0"
-    
+
     return render_template('view-game.html', search_form=search_form, game=game_to_view, current_user=current_user)
 
 
@@ -247,7 +246,7 @@ def edit_game(game_title):
         if game["title"] == game_title:
             game_data_in_db = game
     print(game_data_in_db.id)
-    form = GameDataForm(obj=game_data_in_db)  # obj=game_data
+    form = GameDataForm(obj=game_data_in_db)
     update_form_choices(form)
     return render_template("add-game.html", form=form)
 
@@ -256,12 +255,6 @@ def edit_game(game_title):
 def delete_game(game_title):
     Games.objects(title=game_title).delete()
     return redirect('/')
-
-
-@app.route('/my-account/')
-@login_required
-def my_account():
-    return render_template('my-account.html')
 
 
 @app.route('/view-collection/')
@@ -273,7 +266,7 @@ def view_collection():
     else:
         user = []
     search_form = SearchDatabaseForm()
-    return render_template('browse.html',search_form=search_form, games=user_collection_all_games, user=user, browsing="collection")
+    return render_template('browse.html', search_form=search_form, games=user_collection_all_games, user=user, browsing="collection")
 
 
 @app.route('/view-playcrate/')
@@ -378,9 +371,10 @@ def search_db():
         user = current_user
     else:
         user = []
-    return render_template('browse.html', games=search_results, search_form=search_form, user=user , browsing="search" , search_term=form.search_box.data)
+    return render_template('browse.html', games=search_results, search_form=search_form, user=user, browsing="search", search_term=form.search_box.data)
 
-@app.route('/tag-search/<keyword>', methods=['GET','POST'])
+
+@app.route('/tag-search/<keyword>', methods=['GET', 'POST'])
 def search_db_keyword(keyword):
     search_form = SearchDatabaseForm()
     search_results = Games.objects.search_text(keyword).all()
@@ -388,7 +382,7 @@ def search_db_keyword(keyword):
         user = current_user
     else:
         user = []
-    return render_template('browse.html', games=search_results, search_form=search_form, user=user , browsing="search", search_term=keyword)
+    return render_template('browse.html', games=search_results, search_form=search_form, user=user, browsing="search", search_term=keyword)
 
 
 def update_form_choices(form):
@@ -409,5 +403,4 @@ def difference_between_string_lists(list_01, list_02):
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')),
-            debug=True)
+            port=int(os.environ.get('PORT')))
