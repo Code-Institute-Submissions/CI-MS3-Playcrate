@@ -43,6 +43,9 @@ Access main [READEME](https://github.com/Kieran-Murray-Code/CI-MS3-Playcrate/blo
   - **Add A Game Form**
   	- With a user signed in, in the Add Game page, with all the required fields filled and valid data in all fields when submitted the game will get added to the database unless the a game with the same title already exists in the database.
   
+  - **Add New Tags**
+    - When adding a new game or editing an existing one, new tags that are added to the Developer, Publisher and Genre fields get added to the database and are available as options the next time add game form is used.
+  
   - **Edit A Game**
   		- From the the back cover UI on the Browse or View Game pages select Edit, this will bring up the add game form with all the fields pre populated with the data that already exists in the database for that game.
 
